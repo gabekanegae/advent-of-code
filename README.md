@@ -1,2 +1,2 @@
-# advent-of-code-2018
-My solutions for Advent of Code 2018 ⭐
+# Kane's Advent of Code 2018
+My solutions for [Advent of Code 2018](https://adventofcode.com/2018) ⭐

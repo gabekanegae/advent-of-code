@@ -1,4 +1,6 @@
-** 2017 | [2018](https://github.com/KanegaeGabriel/advent-of-code-2018) | [2019](https://github.com/KanegaeGabriel/advent-of-code-2019)**
+<p align="center"><img src="aoc17.png"></p>
+
+**2017 | [2018](https://github.com/KanegaeGabriel/advent-of-code-2018) | [2019](https://github.com/KanegaeGabriel/advent-of-code-2019)**
 
 Here lies my solutions to [Advent of Code 2017](https://adventofcode.com/2017), an Advent calendar full of programming puzzles from December 1st all the way to Christmas.
 

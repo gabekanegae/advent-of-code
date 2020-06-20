@@ -65,8 +65,10 @@ print("Part 1: {}".format(program.mulCount))
 # program.run()
 # print("Part 2: {}".format(program.registers["h"]))
 
+b0 = int(code[0].split()[-1]) * 100 + 100000
+
 nonPrimesAmt = 0
-for b in range(108100, 125100+1, 17):
+for b in range(b0, b0+17000+1, 17):
     if not isPrime(b):
         nonPrimesAmt += 1
 

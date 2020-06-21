@@ -16,6 +16,8 @@ class Program:
 
     def run(self):
         while self.pc < len(self.code):
+            # print(self.pc, "=>", self.code[self.pc])
+            
             cmd = self.code[self.pc].split()
 
             inst = cmd[0]
@@ -25,11 +27,10 @@ class Program:
                 self.registers[x] = 0
             xVal = int(x) if not x.isalpha() else self.registers[x]
 
-            if len(cmd) > 2:
-                y = cmd[2]
-                if y.isalpha() and y not in self.registers:
-                    self.registers[y] = 0
-                yVal = int(y) if not y.isalpha() else self.registers[y]
+            y = cmd[2]
+            if y.isalpha() and y not in self.registers:
+                self.registers[y] = 0
+            yVal = int(y) if not y.isalpha() else self.registers[y]
 
             if inst == "set":
                 self.registers[x] = yVal
@@ -42,7 +43,6 @@ class Program:
                 if xVal != 0:
                     self.pc += yVal - 1
 
-            # print(self.pc, "=>", self.code[self.pc])
             # print(" | ".join(k+": "+"{:<7}".format(str(v)) for k, v in self.registers.items()))
 
             self.pc += 1

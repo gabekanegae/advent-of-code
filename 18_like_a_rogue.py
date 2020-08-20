@@ -4,33 +4,30 @@
 
 import AOCUtils
 
-def getSafeTiles(curRow, n):
-    curRow = list(curRow)
-    traps = set(["^^.", ".^^", "^..", "..^"])
+def getSafeTiles(cur, n):
+    cur = list(cur)
 
     safeTiles = 0
     for _ in range(n):
-        safeTiles += curRow.count(".")
+        safeTiles += cur.count(".")
 
-        newRow = []
-        for i in range(len(curRow)):
-            l = curRow[i-1] if i-1 >= 0 else "."
-            c = curRow[i]
-            r = curRow[i+1] if i+1 < len(curRow) else "."
+        nxt = []
+        for i in range(len(cur)):
+            l = cur[i-1] if i-1 >= 0 else "."
+            r = cur[i+1] if i+1 < len(cur) else "."
 
-            s = "^" if "".join([l, c, r]) in traps else "."
-            newRow.append(s)
+            nxt.append("^" if l != r else ".")
 
-        curRow = newRow
+        cur = nxt
 
-    return safeTiles@
+    return safeTiles
 
 ################################
 
-curRow = AOCUtils.loadInput(18)
+cur = AOCUtils.loadInput(18)
 
-print("Part 1: {}".format(getSafeTiles(curRow, 40)))
+print("Part 1: {}".format(getSafeTiles(cur, 40)))
 
-print("Part 2: {}".format(getSafeTiles(curRow, 400000)))
+print("Part 2: {}".format(getSafeTiles(cur, 400000)))
 
 AOCUtils.printTimeTaken()

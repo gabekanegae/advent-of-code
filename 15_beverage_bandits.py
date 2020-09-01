@@ -42,7 +42,8 @@ class Unit:
         for enemy in enemies:
             for step in moves:
                 enemyAdj = (enemy.pos[0]+step[0], enemy.pos[1]+step[1])
-                if enemyAdj not in occupied: enemyAdjs.add(enemyAdj)
+                if enemyAdj not in occupied:
+                    enemyAdjs.add(enemyAdj)
 
         # BFS through the whole map looking for the positions listed above
         distToEnemyAdjs = []
@@ -67,8 +68,8 @@ class Unit:
         return distToEnemyAdjs[0][2] if distToEnemyAdjs else None
 
     def step(self, board):
-        elvesPos = set([unit.pos for unit in board.elves])
-        goblinsPos = set([unit.pos for unit in board.goblins])
+        elvesPos = set(unit.pos for unit in board.elves)
+        goblinsPos = set(unit.pos for unit in board.goblins)
         occupied = elvesPos | goblinsPos | board.walls
         enemies = board.elves if self.team == "G" else board.goblins
 
@@ -128,17 +129,19 @@ class Board:
                 goblinsDeadTotal += goblinsDead
 
                 if not unit.step(board): # If self has no enemies alive
-                    elvesHP = sum([unit.hp for unit in self.elves if unit.alive])
-                    goblinsHP = sum([unit.hp for unit in self.goblins if unit.alive])
+                    elvesHP = sum(unit.hp for unit in self.elves if unit.alive)
+                    goblinsHP = sum(unit.hp for unit in self.goblins if unit.alive)
 
                     outcome = rounds * max(elvesHP, goblinsHP)
                     return outcome, elvesDeadTotal, goblinsDeadTotal
 
+            # print(self)
+            # input()
             rounds += 1
 
     # def __repr__(self):
-    #     elvesPos = set([unit.pos for unit in self.elves])
-    #     goblinsPos = set([unit.pos for unit in self.goblins])
+    #     elvesPos = set(unit.pos for unit in self.elves)
+    #     goblinsPos = set(unit.pos for unit in self.goblins)
 
     #     s = ""
     #     for x in range(self.x):

@@ -15,11 +15,11 @@ curFreq = 0
 i = 0
 while True:
     curFreq += freqs[i%len(freqs)]
-    if curFreq in history:
-        break
-    else:
+    if curFreq not in history:
         history.add(curFreq)
         i += 1
+    else:
+        break
 
 print("Part 2: {}".format(curFreq))
 

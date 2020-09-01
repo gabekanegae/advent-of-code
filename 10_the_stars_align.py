@@ -46,9 +46,9 @@ while True:
     time += 1
 
 print("Part 1:")
+stars = set(zip(px, py))
 minpx, maxpx = getMinMax(px)
 minpy, maxpy = getMinMax(py)
-stars = set(zip(px, py))
 for j in range(minpy, maxpy+1):
     for i in range(minpx, maxpx+1):
         if (i, j) in stars:

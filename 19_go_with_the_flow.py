@@ -58,7 +58,7 @@ x = (args[17][1] * args[17][1] * 19 * args[20][1]) + (args[21][1] * 22 + args[23
 y = (27 * 28 + 29) * 30 * args[31][1] * 32
 magicValue = x + y
 
-sumFactors = sum([i for i in range(1, magicValue+1) if magicValue % i == 0])
+sumFactors = sum(i for i in range(1, magicValue+1) if magicValue % i == 0)
 print("Part 2: {}".format(sumFactors))
 
 AOCUtils.printTimeTaken()

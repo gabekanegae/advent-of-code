@@ -46,8 +46,11 @@ stack = [tree]
 visited = set()
 while stack:
     cur = stack.pop()
-    total += cur.metaSum
+    
     visited.add(cur)
+    
+    total += cur.metaSum
+
     for child in cur.children:
         if child not in visited:
             stack.append(child)

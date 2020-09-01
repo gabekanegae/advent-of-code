@@ -35,8 +35,7 @@ for i in range(gridSizeX):
         if distances[i][j].count(minDist) <= 1:
             grid[i][j] = distances[i][j].index(minDist)
 
-
-areas = [0 for i in range(len(coords))]
+areas = [0 for _ in range(len(coords))]
 for i in range(gridSizeX):
     for j in range(gridSizeY):
         if grid[i][j]: areas[grid[i][j]] += 1

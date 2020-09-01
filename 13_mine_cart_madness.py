@@ -15,7 +15,7 @@ class Track:
     # def __repr__(self):
     #     track = [t[:] for t in self.track]
     #     for c in self.carts: track[c.y][c.x] = c.facing
-    #     return "\n".join(["".join(t) for t in track])
+    #     return "\n".join("".join(t) for t in track)
 
     def addCart(self, y, x, facing):
         self.carts.append(Cart(y, x, facing))
@@ -63,28 +63,28 @@ class Cart:
             elif nxt == "+":
                 if self.turn == 0: self.facing = "^"
                 elif self.turn == 2: self.facing = "v"
-                self.turn = (self.turn+1)%3
+                self.turn = (self.turn+1) % 3
         elif self.facing == "<":
             if nxt == "/": self.facing = "v"
             elif nxt == "\\": self.facing = "^"
             elif nxt == "+":
                 if self.turn == 0: self.facing = "v"
                 elif self.turn == 2: self.facing = "^"
-                self.turn = (self.turn+1)%3
+                self.turn = (self.turn+1) % 3
         elif self.facing == "v":
             if nxt == "/": self.facing = "<"
             elif nxt == "\\": self.facing = ">"
             elif nxt == "+":
                 if self.turn == 0: self.facing = ">"
                 elif self.turn == 2: self.facing = "<"
-                self.turn = (self.turn+1)%3
+                self.turn = (self.turn+1) % 3
         elif self.facing == "^":
             if nxt == "/": self.facing = ">"
             elif nxt == "\\": self.facing = "<"
             elif nxt == "+":
                 if self.turn == 0: self.facing = "<"
                 elif self.turn == 2: self.facing = ">"
-                self.turn = (self.turn+1)%3
+                self.turn = (self.turn+1) % 3
 
 #####################################
 

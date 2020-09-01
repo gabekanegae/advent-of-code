@@ -33,7 +33,8 @@ class Ground:
         left = (pos[0]-1, pos[1])
         right = (pos[0]+1, pos[1])
 
-        if self.get(down) == ".": # If it can still fall, recursive call for down position
+        # If it can still fall, recursive call for down position
+        if self.get(down) == ".":
             self._simulate(down)
 
         leftWall = None
@@ -63,7 +64,8 @@ class Ground:
             if self.exists(down) and self.get(down) != "|" and self.get(right) == ".":
                 self._simulate(right)
 
-    def countElement(self, element): return sum([y.count(element) for y in self.tiles])
+    def countElement(self, element):
+        return sum(y.count(element) for y in self.tiles)
 
 ######################################
 
@@ -76,7 +78,7 @@ for s in scan:
     s = s.split(", ")
     x = s[0].split("=")[1] # Assume first coordinates are x
     y = s[1].split("=")[1]
-    if s[0][0] == "y": x, y = y, x # If first coordinares are y, swap
+    if s[0][0] == "y": x, y = y, x # If first coordinates are y, swap
 
     x0, x1 = ([int(i) for i in x.split("..")]) if ".." in x else (int(x), int(x))
     if not minX or x0 < minX: minX = x0

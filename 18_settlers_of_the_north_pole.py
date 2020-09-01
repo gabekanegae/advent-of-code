@@ -9,7 +9,7 @@ class Landscape:
         self.land = land
         self.size = (len(land), len(land[0]))
 
-    def __getUpdatedCell(self, pos):
+    def _getUpdatedCell(self, pos):
         gnds, trees, lyards = 0, 0, 0
 
         for i in range(pos[0]-1, pos[0]+2):
@@ -31,15 +31,15 @@ class Landscape:
         for i in range(self.size[0]):
             for j in range(self.size[1]):
                 pos = (i, j)
-                updated = self.__getUpdatedCell(pos)
+                updated = self._getUpdatedCell(pos)
                 if updated: updates[pos] = updated
 
         for pos, new in updates.items():
             self.land[pos[0]][pos[1]] = new
 
     def getResourceValue(self):
-        trees = sum([s.count("|") for s in self.land])
-        lyards = sum([s.count("#") for s in self.land])
+        trees = sum(s.count("|") for s in self.land)
+        lyards = sum(s.count("#") for s in self.land)
         return trees * lyards
 
 ##############################################

@@ -5,7 +5,7 @@
 import AOCUtils
 
 def manhattan(p1, p2):
-    return sum([abs(a-b) for a, b in zip(p1, p2)])
+    return sum(abs(a-b) for a, b in zip(p1, p2))
 
 class UnionFind:
     def __init__(self, size):
@@ -29,7 +29,7 @@ class UnionFind:
 ##############################################
 
 rawPoints = AOCUtils.loadInput(25)
-points = [tuple([int(i) for i in p.split(",")]) for p in rawPoints]
+points = [([int(i) for i in p.split(",")]) for p in rawPoints]
 
 uf = UnionFind(len(points))
 

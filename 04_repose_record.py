@@ -34,11 +34,11 @@ print("Part 1: {}".format(maxID*maxTime))
 
 maxID, maxTime, maxCount = None, None, None
 for k, v in guards.items():
-    for i in range(len(v)):
-        if not maxCount or v[i] > maxCount:
+    for i, count in enumerate(v):
+        if not maxCount or count > maxCount:
             maxID = k
             maxTime = i
-            maxCount = v[i]
+            maxCount = count
 
 print("Part 2: {}".format(maxID*maxTime))
 

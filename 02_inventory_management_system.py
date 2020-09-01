@@ -5,12 +5,9 @@
 import AOCUtils
 
 def getFreq(l):
-    freq = {}
+    freq = dict()
     for e in l:
-        if e not in freq:
-            freq[e] = 1
-        else:
-            freq[e] += 1
+        freq[e] = freq.get(e, 0) + 1
 
     return freq
 
@@ -29,13 +26,13 @@ for box in boxes:
 print("Part 1: {}".format(boxes2 * boxes3))
 
 end = False
-for i in range(len(boxes)):
+for boxi in boxes:
     if end: break
 
-    for j in range(len(boxes)):
-        if sum(ic != jc for ic, jc in zip(boxes[i], boxes[j])) == 1:
+    for boxj in boxes:
+        if sum(ic != jc for ic, jc in zip(boxi, boxj)) == 1:
             same = ""
-            for ic, jc in zip(boxes[i], boxes[j]):
+            for ic, jc in zip(boxi, boxj):
                 if ic == jc:
                     same += ic
 

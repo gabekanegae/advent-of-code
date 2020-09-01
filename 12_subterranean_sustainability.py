@@ -23,6 +23,7 @@ for rule in rawInput[2:]:
 generations = []
 cur = "."*MARGIN + initial + "."*MARGIN
 generations.append(cur)
+
 genLen = len(cur)
 for i in range(GENAMT):
     nextGen = ["." for _ in range(genLen)]

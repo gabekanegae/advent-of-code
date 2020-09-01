@@ -8,7 +8,10 @@ def getTargets(atkArmy, defArmy):
     targeted = set()
     for atkGroup in atkArmy:
         if len(targeted) < len(defArmy):
-            dmgGiven = [(defGroup.calcDmgTaken(atkGroup), defGroup.getEffectivePower(), defGroup.initiative, defGroup) for defGroup in defArmy]
+            dmgGiven = []
+            for defGroup in defArmy:
+                dmg = (defGroup.calcDmgTaken(atkGroup), defGroup.getEffectivePower(), defGroup.initiative, defGroup)
+                dmgGiven.append(dmg)
             dmgGiven.sort(reverse=True)
 
             # Find best target that hasn't been targeted yet
@@ -16,7 +19,8 @@ def getTargets(atkArmy, defArmy):
             while dmgGiven[take][-1] in targeted:
                 take += 1
 
-            if dmgGiven[take][0] > 0: # Only select targets that would deal damage to
+            # Only select targets that would deal damage to
+            if dmgGiven[take][0] > 0:
                 targeted.add(dmgGiven[take][-1])
                 atkGroup.target = dmgGiven[take][-1]
             else:
@@ -28,28 +32,31 @@ def battle(rawImmune, rawInfection, boost=0):
 
     for g in immuneArmy: g.dmgAmt += boost
 
-    immuneArmyUnits = sum([g.units for g in immuneArmy])
-    infectionArmyUnits = sum([g.units for g in infectionArmy])
+    immuneArmyUnits = sum(g.units for g in immuneArmy)
+    infectionArmyUnits = sum(g.units for g in infectionArmy)
+
 
     # Main battle round
     while immuneArmyUnits > 0 and infectionArmyUnits > 0:
         # Remove dead groups
-        immuneArmy = sorted([g for g in immuneArmy if g.alive], key=lambda x: (x.getEffectivePower(), x.initiative), reverse=True)
-        infectionArmy = sorted([g for g in infectionArmy if g.alive], key=lambda x: (x.getEffectivePower(), x.initiative), reverse=True)
+        effAndInit = lambda x: (x.getEffectivePower(), x.initiative)
+        immuneArmy = sorted(g for g in immuneArmy if g.alive, key=effAndInit, reverse=True)
+        infectionArmy = sorted(g for g in infectionArmy if g.alive, key=effAndInit, reverse=True)
 
         getTargets(immuneArmy, infectionArmy)
         getTargets(infectionArmy, immuneArmy)
 
         kills = 0
-        for army in sorted(immuneArmy + infectionArmy, key=lambda x: x.initiative, reverse=True):
+        allArmies = sorted(immuneArmy+infectionArmy, key=lambda x: x.initiative, reverse=True)
+        for army in allArmies:
             if army.alive: # Only alive groups can attack, will be removed in the next round
                 kills += army.attack()
 
         if kills == 0: # No kills in round = tie, would result in endless rounds
             return None, None
 
-        immuneArmyUnits = sum([g.units for g in immuneArmy])
-        infectionArmyUnits = sum([g.units for g in infectionArmy])
+        immuneArmyUnits = sum(g.units for g in immuneArmy)
+        infectionArmyUnits = sum(g.units for g in infectionArmy)
 
     return immuneArmyUnits, infectionArmyUnits
 
@@ -102,7 +109,8 @@ class Group:
             self.target = None
         return unitsLost
 
-    def getEffectivePower(self): return self.units * self.dmgAmt
+    def getEffectivePower(self):
+        return self.units * self.dmgAmt
 
     # def __repr__(self):
     #     return "U:{}, HP:{}, IMM:{}, WKN:{}, DMG:{}({}), EP:{}, INI:{}".format(

@@ -24,13 +24,9 @@ for claim in claims:
     for dx in range(sizeX):
         for dy in range(sizeY):
             pos = (startX+dx, startY+dy)
-            if pos not in fabric:
-                fabric[pos] = 1
-            else:
-                fabric[pos] += 1
-                unique = False
+            fabric[pos] = fabric.get(pos, 0) + 1
 
-overlaps = sum([amt > 1 for amt in fabric.values()])
+overlaps = sum(amt > 1 for amt in fabric.values())
 print("Part 1: {}".format(overlaps))
 
 for claim in claims:

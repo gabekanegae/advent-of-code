@@ -25,7 +25,7 @@ print("Part 1: {}".format(react(polymer)))
 
 minSize, minType = None, None
 for c in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
-    newPolymer = "".join([p for p in polymer if p.upper() != c.upper()])
+    newPolymer = "".join(p for p in polymer if p.upper() != c.upper())
     newSize = react(newPolymer)
     if not minSize or newSize < minSize:
         minSize = newSize

@@ -34,10 +34,7 @@ registers = dict()
 maxEver = 0
 for inst in instructions:
     if inst.meetsCondition(registers):
-        if inst.reg not in registers:
-            registers[inst.reg] = 0
-
-        registers[inst.reg] += inst.mul * inst.val
+        registers[inst.reg] = registers.get(inst.reg, 0) + inst.mul*inst.val
         maxEver = max(maxEver, registers[inst.reg])
 
 print("Part 1: {}".format(max(registers.values())))

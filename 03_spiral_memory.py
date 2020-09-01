@@ -31,7 +31,10 @@ while not (p1 and p2):
         elif edgeCount % 4 == 3: # >
             x += 1
         
-        seen[(x, y)] = 0 if p2 else sum(seen[(x+dx, y+dy)] for dx in [-1, 0, 1] for dy in [-1, 0, 1] if (x+dx, y+dy) in seen)
+        if p2:
+            seen[(x, y)] = 0
+        else:
+            seen[(x, y)] = sum(seen[(x+dx, y+dy)] for dx in [-1, 0, 1] for dy in [-1, 0, 1] if (x+dx, y+dy) in seen)
 
         if not p1 and len(seen) == square:
             p1 = abs(x) + abs(y)

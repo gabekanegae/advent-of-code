@@ -55,7 +55,10 @@ def assemble(floors, floorAmt):
 
         n = len(items)
         for move in [1, -1]:
-            picks = doublePicks + singlePicks
+            if move == 1: # If going up, take two items when possible
+                picks = doublePicks or singlePicks
+            else: # If going down, take one item when possible
+                picks = singlePicks or doublePicks
 
             nxtFloor = curFloor + move
             if not 0 <= nxtFloor < floorAmt: continue

@@ -6,7 +6,6 @@ import AOCUtils
 
 def scramble(password, steps):
     password = list(password)
-    pwdLen = len(password)
 
     for step in steps:
         step = step.split()
@@ -30,7 +29,7 @@ def scramble(password, steps):
                 n = int(step[2])
                 if step[1] == "left": n *= -1
 
-            n %= pwdLen
+            n %= len(password)
             password = password[-n:] + password[:-n] # Rotate right
         elif step[0] == "swap":
             if step[1] == "letter":
@@ -44,7 +43,6 @@ def scramble(password, steps):
 
 def unscramble(password, steps):
     password = list(password)
-    pwdLen = len(password)
 
     for step in reversed(steps):
         step = step.split()
@@ -77,7 +75,7 @@ def unscramble(password, steps):
                 n = int(step[2])
                 if step[1] == "left": n *= -1
 
-                n %= pwdLen
+                n %= len(password)
                 password = password[n:] + password[:n] # Rotate left
         elif step[0] == "swap":
             if step[1] == "letter":

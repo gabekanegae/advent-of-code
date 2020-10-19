@@ -6,26 +6,20 @@ import AOCUtils
 
 class VM:
     def __init__(self, program):
-        self.program = program
+        self.program = program[:]
         self.pc = 0
-        self.registers = dict()
+        self.registers = {"a": 0, "b": 0, "c": 0, "d": 0}
 
     def run(self):
         while self.pc < len(self.program):
-            if self.pc == 15: print(self.registers)
             cmd = self.program[self.pc].split()
 
             inst = cmd[0]
 
             x = cmd[1]
-            if x.isalpha() and x not in self.registers:
-                self.registers[x] = 0
             xVal = int(x) if not x.isalpha() else self.registers[x]
-
             if len(cmd) > 2:
                 y = cmd[2]
-                if y.isalpha() and y not in self.registers:
-                    self.registers[y] = 0
                 yVal = int(y) if not y.isalpha() else self.registers[y]
 
             if inst == "cpy":
@@ -51,7 +45,7 @@ program = AOCUtils.loadInput(12)
 # vm = VM(program)
 # vm.registers["c"] = 1
 # vm.run()
-# print("Part 2: {}".format(vm.registers))
+# print("Part 2: {}".format(vm.registers["a"]))
 
 D = int(program[2].split()[1])
 C = int(program[5].split()[1])

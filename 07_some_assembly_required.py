@@ -19,15 +19,15 @@ def getWire(commands, wires, wire):
             op = cmd[-2]
 
             if op == "AND":
-              out = get(cmd[0]) & get(cmd[2])
+                out = get(cmd[0]) & get(cmd[2])
             elif op == "OR":
-              out = get(cmd[0]) | get(cmd[2])
+                out = get(cmd[0]) | get(cmd[2])
             elif op == "NOT":
-              out = ~get(cmd[1]) & 0xFFFF
+                out = ~get(cmd[1]) & 0xFFFF
             elif op == "LSHIFT":
-              out = get(cmd[0]) << get(cmd[2])
+                out = get(cmd[0]) << get(cmd[2])
             elif op == "RSHIFT":
-              out = get(cmd[0]) >> get(cmd[2])
+                out = get(cmd[0]) >> get(cmd[2])
         else:
             out = get(cmd[0])
 

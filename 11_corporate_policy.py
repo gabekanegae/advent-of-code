@@ -11,10 +11,11 @@ def passwordGenerator(pw="aaaaaaaa"):
     while True:
         # +1
         i = len(pw) - 1
-        while pw[i] == ord("z") - ord("a"):
+        while i >= 0 and pw[i] == ord("z") - ord("a"):
             pw[i] = 0
             i -= 1
-        pw[i] += 1
+        if i != -1:
+            pw[i] += 1
 
         # Must include one increasing straight of at least three letters
         if not any(pw[i+2] == pw[i+1]+1 and pw[i+1] == pw[i]+1 for i in range(len(pw)-2)):

@@ -6,12 +6,10 @@ import AOCUtils
 from itertools import combinations, product
 
 def battle(playerHp, playerDamage, playerArmor, bossHp, bossDamage, bossArmor):
-    while True:
-        bossHp -= max(1, playerDamage - bossArmor)
-        if bossHp <= 0: return True
-        
-        playerHp -= max(1, bossDamage - playerArmor)
-        if playerHp <= 0: return False
+    playerHits = bossHp / max(1, playerDamage - bossArmor)
+    bossHits = playerHp / max(1, bossDamage - playerArmor)
+    
+    return (playerHits <= bossHits)
 
 ######################################
 

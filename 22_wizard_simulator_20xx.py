@@ -3,16 +3,18 @@
 #########################################
 
 import AOCUtils
-from collections import deque
+from heapq import heappush, heappop
 
 def battle(playerHp, playerMana, bossHp, bossDamage, spells, part=1):
-    # Explore all combinations using a BFS
-    start = (playerHp, playerMana, [], bossHp, True, 0)
-    queue = deque([start])
-    while queue:
-        playerHp, playerMana, effects, bossHp, playerTurn, manaSpent = queue.popleft()
+    # Explore all combinations using Dijkstra (i.e. BFS with min-heap instead of queue)
+    heap = []
+    
+    start = (0, playerHp, playerMana, [], bossHp, True)
+    heappush(heap, start)
+    while heap:
+        manaSpent, playerHp, playerMana, effects, bossHp, playerTurn = heappop(heap)
         effects = dict(effects)
-        # print(f"Current: HP={playerHp} | Mana={playerMana} | Boss={bossHp} | ManaSpent={manaSpent} | Spells={effects}")
+        # print(f"Current: ManaSpent={manaSpent} | HP={playerHp} | Mana={playerMana} | Boss={bossHp} | Spells={effects}")
 
         # Boss is dead, end search
         if bossHp <= 0: return manaSpent
@@ -65,9 +67,9 @@ def battle(playerHp, playerMana, bossHp, bossDamage, spells, part=1):
                     nxtPlayerHp = playerHp
                     nxtBossHp = bossHp
 
-                # print(f"        Next: HP={nxtPlayerHp} | Mana={nxtPlayerMana} | Boss={nxtBossHp} | ManaSpent={manaSpent} | Spells={effects}")
-                nxt = (nxtPlayerHp, nxtPlayerMana, nxtEffects, nxtBossHp, not playerTurn, nxtManaSpent)
-                queue.append(nxt)
+                # print(f"        Next: ManaSpent={manaSpent} | HP={nxtPlayerHp} | Mana={nxtPlayerMana} | Boss={nxtBossHp} | Spells={effects}")
+                nxt = (nxtManaSpent, nxtPlayerHp, nxtPlayerMana, nxtEffects, nxtBossHp, not playerTurn)
+                heappush(heap, nxt)
         else:
             # print("    Boss attacks!")
             nxtEffects = list(effects.items())
@@ -77,9 +79,9 @@ def battle(playerHp, playerMana, bossHp, bossDamage, spells, part=1):
             nxtBossHp = bossHp
             nxtPlayerMana = playerMana
 
-            # print(f"        Next: HP={nxtPlayerHp} | Mana={nxtPlayerMana} | Boss={nxtBossHp} | ManaSpent={manaSpent} | Spells={effects}")
-            nxt = (nxtPlayerHp, nxtPlayerMana, nxtEffects, nxtBossHp, not playerTurn, nxtManaSpent)
-            queue.append(nxt)
+            # print(f"        Next: ManaSpent={manaSpent} | HP={nxtPlayerHp} | Mana={nxtPlayerMana} | Boss={nxtBossHp} | Spells={effects}")
+            nxt = (nxtManaSpent, nxtPlayerHp, nxtPlayerMana, nxtEffects, nxtBossHp, not playerTurn)
+            heappush(heap, nxt)
 
 ######################################
 

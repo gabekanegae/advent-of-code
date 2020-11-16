@@ -15,9 +15,7 @@ mod = 33554393
 
 goal = (row+col-1) * (row+col) // 2 - row
 
-n = start
-for _ in range(goal):
-    n = (n * base) % mod
+n = (start * pow(base, goal, mod)) % mod
 
 print("Part 1: {}".format(n))
 

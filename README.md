@@ -1,6 +1,6 @@
 <p align="center"><img src="aoc15.png"></p>
 
-**2015 | [2016](https://github.com/KanegaeGabriel/advent-of-code-2016) | [2017](https://github.com/KanegaeGabriel/advent-of-code-2017) | [2018](https://github.com/KanegaeGabriel/advent-of-code-2018) | [2019](https://github.com/KanegaeGabriel/advent-of-code-2019) | [2020](https://github.com/KanegaeGabriel/advent-of-code-2020)**
+**2015 | [2016](https://github.com/KanegaeGabriel/advent-of-code-2016) | [2017](https://github.com/KanegaeGabriel/advent-of-code-2017) | [2018](https://github.com/KanegaeGabriel/advent-of-code-2018) | [2019](https://github.com/KanegaeGabriel/advent-of-code-2019) | [2020](https://github.com/KanegaeGabriel/advent-of-code-2020) | [2021](https://github.com/KanegaeGabriel/advent-of-code-2021)**
 
 Here lies my solutions to [Advent of Code 2015](https://adventofcode.com/2015), an Advent calendar full of programming puzzles from December 1st all the way to Christmas.
 

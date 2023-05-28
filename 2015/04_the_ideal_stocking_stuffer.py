@@ -7,30 +7,30 @@ import hashlib
 
 #############################################
 
-key = AOCUtils.loadInput(4)
-baseDigest = hashlib.md5(key.encode())
+key = AOCUtils.load_input(4)
+base_digest = hashlib.md5(key.encode())
 
 i = 1
 while True:
-    digest = baseDigest.copy()
+    digest = base_digest.copy()
     digest.update(str(i).encode())
     s = digest.hexdigest()
 
-    if s.startswith("0"*5):
-        print("Part 1: {}".format(i))
+    if s.startswith('0'*5):
+        AOCUtils.print_answer(1, i)
         break
     
     i += 1
 
 while True:
-    digest = baseDigest.copy()
+    digest = base_digest.copy()
     digest.update(str(i).encode())
     s = digest.hexdigest()
 
-    if s.startswith("0"*6):
-        print("Part 2: {}".format(i))
+    if s.startswith('0'*6):
+        AOCUtils.print_answer(2, i)
         break
     
     i += 1
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

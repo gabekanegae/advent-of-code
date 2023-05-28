@@ -8,27 +8,27 @@ from collections import deque
 
 #####################################
 
-passcode = AOCUtils.loadInput(17)
+passcode = AOCUtils.load_input(17)
 
-baseDigest = hashlib.md5(passcode.encode())
+base_digest = hashlib.md5(passcode.encode())
 
-moves = {"U": (0, -1), "D": (0, 1), "L": (-1, 0), "R": (1, 0)}
+moves = {'U': (0, -1), 'D': (0, 1), 'L': (-1, 0), 'R': (1, 0)}
 end = (3, 3)
 
-minPath = None
-maxPathLen = 0
+min_path = None
+max_path_len = 0
 
 queue = deque([((0, 0), [])])
 while queue:
     cur, path = queue.popleft()
 
     if cur == end:
-        minPath = minPath or "".join(path)
-        maxPathLen = max(maxPathLen, len(path))
+        min_path = min_path or ''.join(path)
+        max_path_len = max(max_path_len, len(path))
         continue
 
-    digest = baseDigest.copy()
-    digest.update("".join(path).encode())
+    digest = base_digest.copy()
+    digest.update(''.join(path).encode())
     s = digest.hexdigest()
 
     for i, (p, d) in enumerate(moves.items()):
@@ -37,8 +37,8 @@ while queue:
             if 0 <= nxt[0] <= 3 and 0 <= nxt[1] <= 3:
                 queue.append((nxt, path+[p]))
 
-print("Part 1: {}".format(minPath))
+AOCUtils.print_answer(1, min_path)
 
-print("Part 2: {}".format(maxPathLen))
+AOCUtils.print_answer(2, max_path_len)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

@@ -4,7 +4,7 @@
 
 import AOCUtils
 
-def knotHash(string):
+def knot_hash(string):
     circle = list(range(256))
     string = [ord(c) for c in string] + [17, 31, 73, 47, 23]
     cur = 0
@@ -31,15 +31,15 @@ def knotHash(string):
         for j in range(16):
             dense[-1] ^= circle[16*i + j]
 
-    return "".join(hex(n)[2:].zfill(2) for n in dense)
+    return ''.join(hex(n)[2:].zfill(2) for n in dense)
 
-def inRegion(usedSquares, p):
+def in_region(used_squares, p):
     region = set()
 
     def dfs(p):
         x, y = p
         if not (0 <= x < 128 and 0 <= y < 128): return
-        if (x, y) not in usedSquares: return
+        if (x, y) not in used_squares: return
         if p in region: return
 
         region.add(p)
@@ -52,20 +52,20 @@ def inRegion(usedSquares, p):
 
 ########################################
 
-key = AOCUtils.loadInput(14)
+key = AOCUtils.load_input(14)
 
-grid = [bin(int(knotHash(key+"-"+str(row)), 16))[2:].zfill(128) for row in range(128)]
+grid = [bin(int(knot_hash(key+'-'+str(row)), 16))[2:].zfill(128) for row in range(128)]
 
-usedSquares = [(x, y) for x in range(128) for y in range(128) if grid[x][y] == "1"]
+used_squares = [(x, y) for x in range(128) for y in range(128) if grid[x][y] == '1']
 
-print("Part 1: {}".format(len(usedSquares)))
+AOCUtils.print_answer(1, len(used_squares))
 
-totalRegions = 0
-notSeen = set(usedSquares)
-while notSeen:
-    notSeen -= inRegion(usedSquares, notSeen.pop())
-    totalRegions += 1
+total_regions = 0
+not_seen = set(used_squares)
+while not_seen:
+    not_seen -= in_region(used_squares, not_seen.pop())
+    total_regions += 1
 
-print("Part 2: {}".format(totalRegions))
+AOCUtils.print_answer(2, total_regions)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

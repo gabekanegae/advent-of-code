@@ -14,42 +14,42 @@ def check(memory, x, y):
 
 ################################
 
-rawProgram = AOCUtils.loadInput(19)
-memory = [int(i) for i in rawProgram.split(",")]
+raw_program = AOCUtils.load_input(19)
+memory = [int(i) for i in raw_program.split(',')]
 
 total = 0
-x0 = 0
+x_0 = 0
 for y in range(50):
     zeros, ones = 0, 0
-    for x in range(x0, 50):
+    for x in range(x_0, 50):
         if check(memory, x, y) == 1:
             # Assumes that it can start the next line
             # at the pos of first ocurrence of 1 in this one
-            if ones == 0: x0 = x
+            if ones == 0: x_0 = x
             ones += 1
         else:
             # Assumes that there won't be 1s after...
-            if ones > 0: # "10"
+            if ones > 0: # '10'
                 total += ones
                 break
-            else: # "00000"
+            else: # '00000'
                 zeros += 1
                 if zeros > 5: break
 
-print("Part 1: {}".format(total))
+AOCUtils.print_answer(1, total)
 
 result = None
-x0 = 0
+x_0 = 0
 for y in range(100, 10000): # Skip first 100 lines
     if result: break
-    for x in range(x0, 10000):
+    for x in range(x_0, 10000):
         # Go along bottom edge of beam (bottom-left square)
         if check(memory, x, y) == 1:
             if check(memory, x+99, y-99) == 1: # Check top-right square
                 result = 10000*x + (y-99) # Result is top-left square
-            x0 = x
+            x_0 = x
             break
 
-print("Part 2: {}".format(result))
+AOCUtils.print_answer(2, result)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

@@ -6,14 +6,14 @@ import AOCUtils
 from collections import deque
 
 class Program:
-    def __init__(self, code, pid, inBuffer=None):
+    def __init__(self, code, pid, in_buffer=None):
         self.pc = 0
         self.code = code
-        self.registers = {"p": pid}
+        self.registers = {'p': pid}
 
-        self.inBuffer = inBuffer
-        self.outBuffer = deque()
-        self.outCount = 0
+        self.in_buffer = in_buffer
+        self.out_buffer = deque()
+        self.out_count = 0
 
         self.blocked = False
 
@@ -26,56 +26,56 @@ class Program:
             x = cmd[1]
             if x.isalpha() and x not in self.registers:
                 self.registers[x] = 0
-            xVal = int(x) if not x.isalpha() else self.registers[x]
+            x_val = int(x) if not x.isalpha() else self.registers[x]
 
             if len(cmd) > 2:
                 y = cmd[2]
                 if y.isalpha() and y not in self.registers:
                     self.registers[y] = 0
-                yVal = int(y) if not y.isalpha() else self.registers[y]
+                y_val = int(y) if not y.isalpha() else self.registers[y]
 
-            if inst == "snd":
-                self.outBuffer.append(xVal)
-                self.outCount += 1
-            elif inst == "set":
-                self.registers[x] = yVal
-            elif inst == "add":
-                self.registers[x] += yVal
-            elif inst == "mul":
-                self.registers[x] *= yVal
-            elif inst == "mod":
-                self.registers[x] %= yVal
-            elif inst == "rcv":
-                if self.inBuffer:
-                    self.registers[x] = self.inBuffer.popleft()
+            if inst == 'snd':
+                self.out_buffer.append(x_val)
+                self.out_count += 1
+            elif inst == 'set':
+                self.registers[x] = y_val
+            elif inst == 'add':
+                self.registers[x] += y_val
+            elif inst == 'mul':
+                self.registers[x] *= y_val
+            elif inst == 'mod':
+                self.registers[x] %= y_val
+            elif inst == 'rcv':
+                if self.in_buffer:
+                    self.registers[x] = self.in_buffer.popleft()
                 else:
                     self.blocked = True
                     break
-            elif inst == "jgz":
-                if xVal > 0:
-                    self.pc += yVal - 1
+            elif inst == 'jgz':
+                if x_val > 0:
+                    self.pc += y_val - 1
 
             self.pc += 1
 
 ########################
 
-code = AOCUtils.loadInput(18)
+code = AOCUtils.load_input(18)
 
 p0 = Program(code, 0)
 p0.run()
 
-print("Part 1: {}".format(p0.outBuffer[-1]))
+AOCUtils.print_answer(1, p0.out_buffer[-1])
 
 p0 = Program(code, 0)
 p1 = Program(code, 1)
 
-p0.inBuffer = p1.outBuffer
-p1.inBuffer = p0.outBuffer
+p0.in_buffer = p1.out_buffer
+p1.in_buffer = p0.out_buffer
 
-while not (p0.blocked and not p0.outBuffer and p1.blocked and not p1.outBuffer):
+while not (p0.blocked and not p0.out_buffer and p1.blocked and not p1.out_buffer):
     p0.run()
     p1.run()
 
-print("Part 2: {}".format(p1.outCount))
+AOCUtils.print_answer(2, p1.out_count)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

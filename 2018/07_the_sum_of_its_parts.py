@@ -7,15 +7,15 @@ import AOCUtils
 
 #######################################
 
-rawReqs = AOCUtils.loadInput(7)
+raw_reqs = AOCUtils.load_input(7)
 
 reqs = dict()
-for c in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+for c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
     reqs[c] = set()
-for r in rawReqs:
+for r in raw_reqs:
     reqs[r[36]].add(r[5])
 
-done = ""
+done = ''
 while len(done) < 26:
     for k, v in reqs.items():
         if k in done: continue
@@ -24,10 +24,10 @@ while len(done) < 26:
             done += k
             break
 
-print("Part 1: {}".format(done))
+AOCUtils.print_answer(1, done)
 
 time = 0
-workers = [{"remaining": 0, "letter": "-"} for _ in range(5)]
+workers = [{'remaining': 0, 'letter': '-'} for _ in range(5)]
 queue = deque()
 doing, done = set(), set()
 
@@ -41,30 +41,30 @@ while len(done) < 26:
             queue.append(k)
 
     while len(queue) > 0:
-        idleWorker = None
+        idle_worker = None
         for i in range(5):
-            if workers[i]["letter"] == "-":
-                idleWorker = i
+            if workers[i]['letter'] == '-':
+                idle_worker = i
                 break
-        if idleWorker == None:
+        if idle_worker == None:
             break
 
         c = queue.popleft()
         doing.add(c)
-        workers[idleWorker]["letter"] = c
-        workers[idleWorker]["remaining"] = ord(c)-4
+        workers[idle_worker]['letter'] = c
+        workers[idle_worker]['remaining'] = ord(c)-4
 
     for i in range(5):
-        if workers[i]["letter"] != "-":
-            workers[i]["remaining"] -= 1
-            if workers[i]["remaining"] == 0:
-                c = workers[i]["letter"]
+        if workers[i]['letter'] != '-':
+            workers[i]['remaining'] -= 1
+            if workers[i]['remaining'] == 0:
+                c = workers[i]['letter']
                 done.add(c)
                 doing.remove(c)
-                workers[i]["letter"] = "-"
+                workers[i]['letter'] = '-'
 
     time += 1
 
-print("Part 2: {}".format(time))
+AOCUtils.print_answer(2, time)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

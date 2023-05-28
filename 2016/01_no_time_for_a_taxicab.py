@@ -6,8 +6,8 @@ import AOCUtils
 
 ########################################
 
-steps = AOCUtils.loadInput(1)
-steps = [s.strip() for s in steps.split(",")]
+steps = AOCUtils.load_input(1)
+steps = [s.strip() for s in steps.split(',')]
 
 directions = [(-1, 0), (0, 1), (1, 0), (0, -1)] # NESW, clockwise
 
@@ -18,7 +18,7 @@ hq = None
 for step in steps:
     d, n = step[0], int(step[1:])
 
-    facing += 1 if d == "R" else -1
+    facing += 1 if d == 'R' else -1
     direction = directions[facing%4]
 
     for _ in range(n):
@@ -30,9 +30,9 @@ for step in steps:
                 hq = pos
 
 distance = abs(pos[0]) + abs(pos[1])
-print("Part 1: {}".format(distance))
+AOCUtils.print_answer(1, distance)
 
 distance = abs(hq[0]) + abs(hq[1])
-print("Part 2: {}".format(distance))
+AOCUtils.print_answer(2, distance)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

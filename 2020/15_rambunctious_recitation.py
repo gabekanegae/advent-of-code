@@ -25,12 +25,12 @@ def memoryGame(start, n):
 
 ###########################################
 
-start = AOCUtils.loadInput(15)
+start = AOCUtils.load_input(15)
 
-start = [int(i) for i in start.split(",")]
+start = [int(i) for i in start.split(',')]
 
-print("Part 1: {}".format(memoryGame(start, 2020)))
+AOCUtils.print_answer(1, memoryGame(start, 2020))
 
-print("Part 2: {}".format(memoryGame(start, 30000000)))
+AOCUtils.print_answer(2, memoryGame(start, 30000000))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

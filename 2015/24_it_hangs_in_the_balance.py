@@ -5,13 +5,13 @@
 import AOCUtils
 from itertools import combinations
 
-def getQuantumEntanglement(packages, totalGroups):
-    groupWeight = sum(packages) // totalGroups
+def get_quantum_entanglement(packages, totalGroups):
+    group_weight = sum(packages) // totalGroups
 
     def divide(packages, groups):
         for i in range((len(packages) // groups) + 1):
             for group1 in combinations(packages, i):
-                if sum(group1) != groupWeight: continue
+                if sum(group1) != group_weight: continue
 
                 qe = 1
                 for w in group1:
@@ -32,10 +32,10 @@ def getQuantumEntanglement(packages, totalGroups):
 
 ###########################################
 
-packages = AOCUtils.loadInput(24)
+packages = AOCUtils.load_input(24)
 
-print("Part 1: {}".format(getQuantumEntanglement(packages, 3)))
+AOCUtils.print_answer(1, get_quantum_entanglement(packages, 3))
 
-print("Part 2: {}".format(getQuantumEntanglement(packages, 4)))
+AOCUtils.print_answer(2, get_quantum_entanglement(packages, 4))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

@@ -7,15 +7,15 @@ from intcodeVM import VM
 
 ###################################################
 
-rawProgram = AOCUtils.loadInput(5)
-memory = [int(i) for i in rawProgram.split(",")]
+raw_program = AOCUtils.load_input(5)
+memory = [int(i) for i in raw_program.split(',')]
 
 vm = VM(memory)
 vm.run(1)
-print("Part 1: {}".format(vm.output[-1]))
+AOCUtils.print_answer(1, vm.output[-1])
 
 vm = VM(memory)
 vm.run(5)
-print("Part 2: {}".format(vm.output[-1]))
+AOCUtils.print_answer(2, vm.output[-1])
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

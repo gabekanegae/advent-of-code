@@ -6,30 +6,30 @@ import AOCUtils
 
 ##########################################################
 
-origJumps = AOCUtils.loadInput(5)
+original_jumps = AOCUtils.load_input(5)
 
-jumps = origJumps[:]
+jumps = original_jumps[:]
 cur = 0
-totalJumps = 0
+total_jumps = 0
 while 0 <= cur < len(jumps):
-    newCur = cur + jumps[cur]
+    nxt = cur + jumps[cur]
     jumps[cur] += 1
 
-    cur = newCur
-    totalJumps += 1
+    cur = nxt
+    total_jumps += 1
 
-print("Part 1: {}".format(totalJumps))
+AOCUtils.print_answer(1, total_jumps)
 
-jumps = origJumps[:]
+jumps = original_jumps[:]
 cur = 0
-totalJumps = 0
+total_jumps = 0
 while 0 <= cur < len(jumps):
-    newCur = cur + jumps[cur]
+    nxt = cur + jumps[cur]
     jumps[cur] += 1 if jumps[cur] < 3 else -1
 
-    cur = newCur
-    totalJumps += 1
+    cur = nxt
+    total_jumps += 1
 
-print("Part 2: {}".format(totalJumps))
+AOCUtils.print_answer(2, total_jumps)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

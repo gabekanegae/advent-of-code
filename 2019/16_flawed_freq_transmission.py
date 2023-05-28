@@ -14,19 +14,19 @@ def getMultiplier(pos, i):
 
 #################################################
 
-signal = [int(i) for i in str(AOCUtils.loadInput(16))]
+signal = [int(i) for i in str(AOCUtils.load_input(16))]
 size = len(signal)
 
 for _ in range(100):
     for i in range(size):
-        newSignal = sum(signal[j] * getMultiplier(i, j) for j in range(size))
-        signal[i] = abs(newSignal) % 10
+        new_signal = sum(signal[j] * getMultiplier(i, j) for j in range(size))
+        signal[i] = abs(new_signal) % 10
 
-firstEight = "".join(str(i) for i in signal[:8])
-print("Part 1: {}".format(firstEight))
+first_eight = ''.join(str(i) for i in signal[:8])
+AOCUtils.print_answer(1, first_eight)
 
-signal = [int(i) for i in str(AOCUtils.loadInput(16))] * 10000
-offset = int("".join(str(i) for i in signal[:7]))
+signal = [int(i) for i in str(AOCUtils.load_input(16))] * 10000
+offset = int(''.join(str(i) for i in signal[:7]))
 signal = signal[offset:]
 size = len(signal)
 
@@ -37,7 +37,7 @@ for _ in range(100):
         total = (total + signal[i-1]) % 10
         signal[i-1] = total
 
-message = "".join(str(i) for i in signal[:8])
-print("Part 2: {}".format(message))
+message = ''.join(str(i) for i in signal[:8])
+AOCUtils.print_answer(2, message)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

@@ -38,7 +38,7 @@ cave = [list(map(int, str(r).zfill(cave_size))) for r in AOCUtils.load_input(15)
 start = (0, 0)
 end = (cave_size-1, cave_size-1)
 
-print(f'Part 1: {dijkstra(cave, cave_size, start, end)}')
+AOCUtils.print_answer(1, dijkstra(cave, cave_size, start, end))
 
 multiplier = 5
 
@@ -58,6 +58,6 @@ for tile_x in range(multiplier):
                 new_j = tile_y * cave_size + j
                 new_cave[new_i][new_j] = new_risk_level
 
-print(f'Part 2: {dijkstra(new_cave, new_cave_size, new_start, new_end)}')
+AOCUtils.print_answer(2, dijkstra(new_cave, new_cave_size, new_start, new_end))
 
 AOCUtils.print_time_taken()

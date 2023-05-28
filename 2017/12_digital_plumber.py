@@ -4,7 +4,7 @@
 
 import AOCUtils
 
-def inGroup(n):
+def in_group(n):
     group = set()
 
     def dfs(n):
@@ -21,18 +21,18 @@ def inGroup(n):
 
 ###################################
 
-rawGraph = [s.split() for s in AOCUtils.loadInput(12)]
+raw_graph = [s.split() for s in AOCUtils.load_input(12)]
 
-graph = {int(s[0]): [int(i) for i in "".join(s[2:]).split(",")] for s in rawGraph}
+graph = {int(s[0]): [int(i) for i in ''.join(s[2:]).split(',')] for s in raw_graph}
 
-print("Part 1: {}".format(len(inGroup(0))))
+AOCUtils.print_answer(1, len(in_group(0)))
 
-totalGroups = 0
-notSeen = set(graph.keys())
-while notSeen:
-    notSeen -= inGroup(notSeen.pop())
-    totalGroups += 1
+total_groups = 0
+not_seen = set(graph.keys())
+while not_seen:
+    not_seen -= in_group(not_seen.pop())
+    total_groups += 1
 
-print("Part 2: {}".format(totalGroups))
+AOCUtils.print_answer(2, total_groups)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

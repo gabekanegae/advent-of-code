@@ -45,8 +45,8 @@ for block in ' '.join(instructions).split('inp w')[1:]:
     values = [block[11], block[14], block[44]]
     relevant_values.append(list(map(int, values)))
 
-print(f'Part 1: {find_valid_model_number(relevant_values, max)}')
+AOCUtils.print_answer(1, find_valid_model_number(relevant_values, max))
 
-print(f'Part 2: {find_valid_model_number(relevant_values, min)}')
+AOCUtils.print_answer(2, find_valid_model_number(relevant_values, min))
 
 AOCUtils.print_time_taken()

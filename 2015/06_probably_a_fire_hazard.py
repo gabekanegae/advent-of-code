@@ -4,7 +4,7 @@
 
 import AOCUtils
 
-def lightGrid(insts, funcs):
+def light_grid(insts, funcs):
     grid = [[0 for _ in range(1000)] for _ in range(1000)]
 
     for opt, s, e in insts:
@@ -17,29 +17,29 @@ def lightGrid(insts, funcs):
 
 #########################################
 
-rawInsts = AOCUtils.loadInput(6)
+rawInsts = AOCUtils.load_input(6)
 
 insts = []
 for inst in rawInsts:
     inst = inst.split()
 
     opt = inst[-4]
-    s = tuple(map(int, inst[-3].split(",")))
-    e = tuple(map(int, inst[-1].split(",")))
+    s = tuple(map(int, inst[-3].split(',')))
+    e = tuple(map(int, inst[-1].split(',')))
     insts.append((opt, s, e))
 
-funcs1 = {"on": lambda x: 1,
-          "off": lambda x: 0,
-          "toggle": lambda x: int(not x)
+funcs_1 = {'on': lambda x: 1,
+          'off': lambda x: 0,
+          'toggle': lambda x: int(not x)
           }
 
-print("Part 1: {}".format(lightGrid(insts, funcs1)))
+AOCUtils.print_answer(1, light_grid(insts, funcs_1))
 
-funcs2 = {"on": lambda x: x + 1,
-          "off": lambda x: max(0, x - 1),
-          "toggle": lambda x: x + 2
+funcs_2 = {'on': lambda x: x + 1,
+          'off': lambda x: max(0, x - 1),
+          'toggle': lambda x: x + 2
           }
 
-print("Part 2: {}".format(lightGrid(insts, funcs2)))
+AOCUtils.print_answer(2, light_grid(insts, funcs_2))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

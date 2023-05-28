@@ -37,8 +37,8 @@ template = formula[0]
 raw_rules = [r.split(' -> ') for r in formula[2:]]
 rules = {k: v for k, v in raw_rules}
 
-print(f'Part 1: {polymerize(template, rules, 10)}')
+AOCUtils.print_answer(1, polymerize(template, rules, 10))
 
-print(f'Part 2: {polymerize(template, rules, 40)}')
+AOCUtils.print_answer(2, polymerize(template, rules, 40))
 
 AOCUtils.print_time_taken()

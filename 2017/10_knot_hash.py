@@ -11,7 +11,7 @@ class KnotHash:
         self.cur = 0
         self.skip = 0
 
-    def _knot(self):
+    def knot(self):
         for length in self.lengths:
             a = (self.cur) % len(self.circle)
             b = (self.cur+length) % len(self.circle)
@@ -32,7 +32,7 @@ class KnotHash:
         self.lengths += [17, 31, 73, 47, 23]
 
         for _ in range(64):
-            self._knot()
+            self.knot()
 
         dense = []
         for i in range(16):
@@ -40,16 +40,16 @@ class KnotHash:
             for j in range(16):
                 dense[-1] ^= self.circle[16*i + j]
 
-        return "".join(hex(n)[2:].zfill(2) for n in dense)
+        return ''.join(hex(n)[2:].zfill(2) for n in dense)
 
 #############################
 
-rawInput = AOCUtils.loadInput(10)
+raw = AOCUtils.load_input(10)
 
-s = [int(i) for i in rawInput.split(",")]
-print("Part 1: {}".format(KnotHash(s)._knot()))
+s = [int(i) for i in raw.split(',')]
+AOCUtils.print_answer(1, KnotHash(s).knot())
 
-s = [ord(c) for c in rawInput]
-print("Part 2: {}".format(KnotHash(s).hash()))
+s = [ord(c) for c in raw]
+AOCUtils.print_answer(2, KnotHash(s).hash())
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

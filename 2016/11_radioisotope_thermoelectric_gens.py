@@ -5,13 +5,13 @@
 import AOCUtils
 from collections import deque
 
-def assemble(floors, floorAmt):
+def assemble(floors, floor_amount):
     items = dict()
     for i, floor in enumerate(floors):
         for item in floor:
             mat, obj = item.split()
-            mat = mat.split("-")[0]
-            obj = "MG".index(obj[0].upper())
+            mat = mat.split('-')[0]
+            obj = 'MG'.index(obj[0].upper())
 
             if mat not in items:
                 items[mat] = [None, None]
@@ -22,15 +22,15 @@ def assemble(floors, floorAmt):
     start = (0, tuple(sorted(tuple(items[mat]) for mat in items)))
     queue = deque([(start, 0)])
     while queue:
-        curState, dist = queue.popleft()
+        cur_state, dist = queue.popleft()
 
-        if curState in visited: continue
-        visited.add(curState)
+        if cur_state in visited: continue
+        visited.add(cur_state)
 
-        curFloor, curItems = curState
+        cur_floor, curItems = cur_state
 
         # All items are at the last floor
-        if all(item == (floorAmt-1, floorAmt-1) for item in curItems):
+        if all(item == (floor_amount-1, floor_amount-1) for item in curItems):
             return dist
 
         ms = [mat[0] for mat in curItems]
@@ -49,53 +49,53 @@ def assemble(floors, floorAmt):
                     break
         if fried: continue
     
-        singlePicks = [i for i, f in enumerate(ms + gs) if f == curFloor]
-        doublePicks = list(set(tuple(sorted((i, j))) for i in singlePicks for j in singlePicks if i != j))
-        singlePicks = [(i,) for i in singlePicks]
+        single_picks = [i for i, f in enumerate(ms + gs) if f == cur_floor]
+        double_picks = list(set(tuple(sorted((i, j))) for i in single_picks for j in single_picks if i != j))
+        single_picks = [(i,) for i in single_picks]
 
         n = len(items)
         for move in [1, -1]:
             if move == 1: # If going up, take two items when possible
-                picks = doublePicks or singlePicks
+                picks = double_picks or single_picks
             else: # If going down, take one item when possible
-                picks = singlePicks or doublePicks
+                picks = single_picks or double_picks
 
-            nxtFloor = curFloor + move
-            if not 0 <= nxtFloor < floorAmt: continue
+            nxt_floor = cur_floor + move
+            if not 0 <= nxt_floor < floor_amount: continue
 
             for pick in picks:
                 nxtItems = [list(mat) for mat in curItems]
                 for i in pick: nxtItems[i%n][i//n] += move
                 
-                nxtState = (nxtFloor, tuple(sorted(tuple(i) for i in nxtItems)))
+                nxtState = (nxt_floor, tuple(sorted(tuple(i) for i in nxtItems)))
                 queue.append((nxtState, dist+1))
 
     return None
 
 ##########################################################
 
-rawFloors = AOCUtils.loadInput(11)
+raw_floors = AOCUtils.load_input(11)
 
-floors1 = []
-for rawFloor in rawFloors:
-    if "nothing relevant" in rawFloor:
+floors_1 = []
+for raw_floor in raw_floors:
+    if 'nothing relevant' in raw_floor:
         floor = []
     else:
-        floor = " ".join(rawFloor[:-1].split()[4:])
-        floor = [f.split("and") for f in floor.split(",")]
+        floor = ' '.join(raw_floor[:-1].split()[4:])
+        floor = [f.split('and') for f in floor.split(',')]
         floor = [item.strip() for f in floor for item in f if item.strip()]
-        floor = [" ".join(f.split()[1:]) for f in floor]
+        floor = [' '.join(f.split()[1:]) for f in floor]
 
-    floors1.append(floor)
+    floors_1.append(floor)
 
-print("Part 1: {}".format(assemble(floors1, 4)))
+AOCUtils.print_answer(1, assemble(floors_1, 4))
 
-floors2 = [f[:] for f in floors1]
-floors2[0] += ["elerium generator",
-               "elerium-compatible microchip",
-               "dilithium generator",
-               "dilithium-compatible microchip"]
+floors_2 = [f[:] for f in floors_1]
+floors_2[0] += ['elerium generator',
+               'elerium-compatible microchip',
+               'dilithium generator',
+               'dilithium-compatible microchip']
 
-print("Part 2: {}".format(assemble(floors2, 4)))
+AOCUtils.print_answer(2, assemble(floors_2, 4))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

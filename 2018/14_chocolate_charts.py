@@ -6,27 +6,27 @@ import AOCUtils
 
 ####################################
 
-recipeAmt = AOCUtils.loadInput(14)
+recipe_amount = AOCUtils.load_input(14)
 
-recipes = "37"
-elf1, elf2 = 0, 1
-while len(recipes) < recipeAmt+10:
-    recipes += str(int(recipes[elf1]) + int(recipes[elf2]))
-    elf1 = (elf1 + 1 + int(recipes[elf1])) % len(recipes)
-    elf2 = (elf2 + 1 + int(recipes[elf2])) % len(recipes)
+recipes = '37'
+elf_1, elf_2 = 0, 1
+while len(recipes) < recipe_amount+10:
+    recipes += str(int(recipes[elf_1]) + int(recipes[elf_2]))
+    elf_1 = (elf_1 + 1 + int(recipes[elf_1])) % len(recipes)
+    elf_2 = (elf_2 + 1 + int(recipes[elf_2])) % len(recipes)
 
-last10 = [str(i) for i in recipes[recipeAmt:recipeAmt+10]]
-print("Part 1: {}".format("".join(last10)))
+last10 = [str(i) for i in recipes[recipe_amount:recipe_amount+10]]
+AOCUtils.print_answer(1, ''.join(last10))
 
-sequence = str(recipeAmt)
+sequence = str(recipe_amount)
 
-recipes = "37"
-elf1, elf2 = 0, 1
+recipes = '37'
+elf_1, elf_2 = 0, 1
 while sequence not in recipes[-(len(sequence)+1):]:
-    recipes += str(int(recipes[elf1]) + int(recipes[elf2]))
-    elf1 = (elf1 + 1 + int(recipes[elf1])) % len(recipes)
-    elf2 = (elf2 + 1 + int(recipes[elf2])) % len(recipes)
+    recipes += str(int(recipes[elf_1]) + int(recipes[elf_2]))
+    elf_1 = (elf_1 + 1 + int(recipes[elf_1])) % len(recipes)
+    elf_2 = (elf_2 + 1 + int(recipes[elf_2])) % len(recipes)
 
-print("Part 2: {}".format(recipes.index(sequence)))
+AOCUtils.print_answer(2, recipes.index(sequence))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

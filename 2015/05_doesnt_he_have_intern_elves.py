@@ -4,14 +4,14 @@
 
 import AOCUtils
 
-def isNice1(s):
-    if sum(c in "aeiou" for c in s) < 3: return False
+def is_nice_1(s):
+    if sum(c in 'aeiou' for c in s) < 3: return False
     if not any(s[i-1] == s[i] for i in range(1, len(s))): return False
-    if any(c in s for c in ["ab", "cd", "pq", "xy"]): return False
+    if any(c in s for c in ['ab', 'cd', 'pq', 'xy']): return False
 
     return True
 
-def isNice2(s):
+def is_nice_2(s):
     # Group indexes of repeated substrings
     substrs = dict()
     for i in range(len(s)-1):
@@ -28,12 +28,12 @@ def isNice2(s):
 
 #########################################################
 
-strings = AOCUtils.loadInput(5)
+strings = AOCUtils.load_input(5)
 
-count = sum(isNice1(s) for s in strings)
-print("Part 1: {}".format(count))
+count = sum(is_nice_1(s) for s in strings)
+AOCUtils.print_answer(1, count)
 
-count = sum(isNice2(s) for s in strings)
-print("Part 1: {}".format(count))
+count = sum(is_nice_2(s) for s in strings)
+AOCUtils.print_answer(2, count)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

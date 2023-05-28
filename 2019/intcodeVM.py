@@ -5,8 +5,8 @@ class VM:
         self.memory = memory[:]
         self.pc = pc
         self.base = base
-        self.inputPtr = 0
-        self.inputBuffer = []
+        self.input_ptr = 0
+        self.input_buffer = []
         self.output = []
         self.halted = False
 
@@ -14,7 +14,7 @@ class VM:
     def copy(self):
         return VM(self.memory, self.pc, self.base)
 
-    def __parseMode(self, data, mode, op):
+    def _parse_mode(self, data, mode, op):
         if op == OP_READ:
             if mode == 0: return self[data]
             elif mode == 1: return data
@@ -24,11 +24,11 @@ class VM:
             elif mode == 1: return data
             elif mode == 2: return self.base+data
 
-    def __getInput(self):
-        # Read from inputBuffer, increment inputPtr
-        if self.inputPtr < len(self.inputBuffer):
-            self.inputPtr += 1
-            return self.inputBuffer[self.inputPtr-1]
+    def _get_input(self):
+        # Read from input_buffer, increment input_ptr
+        if self.input_ptr < len(self.input_buffer):
+            self.input_ptr += 1
+            return self.input_buffer[self.input_ptr-1]
 
     def __getitem__(self, pos):
         if pos < 0: raise Exception("Can't acess negative memory address ({}).".format(pos))
@@ -44,40 +44,40 @@ class VM:
             self.memory += [0 for _ in range(pos+1-len(self.memory))]
         self.memory[pos] = data
 
-    def run(self, inputValue=None):
-        # Load input into inputBuffer
+    def run(self, input_value=None):
+        # Load input into input_buffer
         try:
-            if type(inputValue) is list:
-                self.inputBuffer += [int(i) for i in inputValue]
-            elif type(inputValue) is str:
-                self.inputBuffer += [ord(c) for c in inputValue]
-            elif inputValue is not None:
-                self.inputBuffer.append(int(inputValue))
+            if type(input_value) is list:
+                self.input_buffer += [int(i) for i in input_value]
+            elif type(input_value) is str:
+                self.input_buffer += [ord(c) for c in input_value]
+            elif input_value is not None:
+                self.input_buffer.append(int(input_value))
         except:
             raise TypeError("Couldn't parse input given.")
 
         # Run VM
         while self.pc < len(self.memory):
-            paramAndOpcode = "{:05}".format(self[self.pc])
-            opcode = int(paramAndOpcode[-2:])
-            modeC, modeB, modeA = [int(i) for i in paramAndOpcode[:3]]
+            param_and_opcode = "{:05}".format(self[self.pc])
+            opcode = int(param_and_opcode[-2:])
+            mode_c, mode_b, mode_a = [int(i) for i in param_and_opcode[:3]]
 
             # Parse parameters according to modes and operation types
             a, b, c = None, None, None
             if opcode in [4, 9]: # out, arb
-                a = self.__parseMode(self[self.pc+1], modeA, OP_READ)
+                a = self._parse_mode(self[self.pc+1], mode_a, OP_READ)
                 npc = self.pc+2
             elif opcode in [3]: # in
-                a = self.__parseMode(self[self.pc+1], modeA, OP_WRITE)
+                a = self._parse_mode(self[self.pc+1], mode_a, OP_WRITE)
                 npc = self.pc+2
             elif opcode in [5, 6]: # jit, jif
-                a = self.__parseMode(self[self.pc+1], modeA, OP_READ)
-                b = self.__parseMode(self[self.pc+2], modeB, OP_READ)
+                a = self._parse_mode(self[self.pc+1], mode_a, OP_READ)
+                b = self._parse_mode(self[self.pc+2], mode_b, OP_READ)
                 npc = self.pc+3
             elif opcode in [1, 2, 7, 8]: # add, mul, lt, eq
-                a = self.__parseMode(self[self.pc+1], modeA, OP_READ)
-                b = self.__parseMode(self[self.pc+2], modeB, OP_READ)
-                c = self.__parseMode(self[self.pc+3], modeC, OP_WRITE)
+                a = self._parse_mode(self[self.pc+1], mode_a, OP_READ)
+                b = self._parse_mode(self[self.pc+2], mode_b, OP_READ)
+                c = self._parse_mode(self[self.pc+3], mode_c, OP_WRITE)
                 npc = self.pc+4
 
             # Execute operation
@@ -86,7 +86,7 @@ class VM:
             elif opcode == 2: # mul
                 self[c] = a * b
             elif opcode == 3: # in
-                i = self.__getInput()
+                i = self._get_input()
                 
                 # If no input is buffered, pause execution until some is given
                 if i is not None:

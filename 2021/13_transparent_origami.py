@@ -24,17 +24,12 @@ class Paper:
         
         self.dots -= folded_dots
         
-    def __str__(self):
+    def get_image(self):
         max_x = max(x for x, _ in self.dots)
         max_y = max(y for _, y in self.dots)
 
-        s = []
-        for y in range(max_y+1):
-            for x in range(max_x+1):
-                s.append('##' if (x, y) in self.dots else '  ')
-            s.append('\n')
-
-        return ''.join(s)
+        image = [[(x, y) in self.dots for x in range(max_x+1)] for y in range(max_y+1)]
+        return image
 
 #######################################
 
@@ -57,9 +52,8 @@ for i, (fold_direction, fold_pos) in enumerate(folds):
     paper.fold(fold_direction, fold_pos)
 
     if i == 0:
-        print(f'Part 1: {len(dots)}')
+        AOCUtils.print_answer(1, len(dots))
 
-print('Part 2:')
-print(paper)
+AOCUtils.print_answer(2, paper.get_image())
 
 AOCUtils.print_time_taken()

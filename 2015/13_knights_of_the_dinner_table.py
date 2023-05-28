@@ -5,22 +5,22 @@
 import AOCUtils
 from itertools import permutations
 
-def getMaxHappiness(relationships, attendees):
-    maxHappiness = 0
+def get_max_happiness(relationships, attendees):
+    max_happiness = 0
     for table in permutations(attendees):
-        totalHappiness = 0
+        total_happiness = 0
         for i in range(len(table)):
             a, b = table[i-1], table[i]
-            totalHappiness += relationships[(a, b)]
-            totalHappiness += relationships[(b, a)]
+            total_happiness += relationships[(a, b)]
+            total_happiness += relationships[(b, a)]
 
-        maxHappiness = max(maxHappiness, totalHappiness)
+        max_happiness = max(max_happiness, total_happiness)
 
-    return maxHappiness
+    return max_happiness
 
 ###############################################
 
-rawRelationships = AOCUtils.loadInput(13)
+rawRelationships = AOCUtils.load_input(13)
 
 relationships = dict()
 for relationship in rawRelationships:
@@ -30,21 +30,21 @@ for relationship in rawRelationships:
     b = relationship[-1][:-1]
 
     happiness = int(relationship[3])
-    if relationship[2] == "lose":
+    if relationship[2] == 'lose':
         happiness *= -1
 
     relationships[(a, b)] = happiness
 
 attendees = set(a for a, _ in relationships)
 
-print("Part 1: {}".format(getMaxHappiness(relationships, attendees)))
+AOCUtils.print_answer(1, get_max_happiness(relationships, attendees))
 
-myself = "Myself"
+myself = 'Myself'
 for attendee in attendees:
     relationships[(attendee, myself)] = 0
     relationships[(myself, attendee)] = 0
 attendees.add(myself)
 
-print("Part 2: {}".format(getMaxHappiness(relationships, attendees)))
+AOCUtils.print_answer(2, get_max_happiness(relationships, attendees))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

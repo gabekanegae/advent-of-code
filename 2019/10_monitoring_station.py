@@ -21,32 +21,32 @@ def countInLOS(station, asteroids, size):
 
 ######################################
 
-rawAsteroids = AOCUtils.loadInput(10)
-size = (len(rawAsteroids), len(rawAsteroids[0]))
+raw_asteroids = AOCUtils.load_input(10)
+size = (len(raw_asteroids), len(raw_asteroids[0]))
 
 asteroids = set()
 for x in range(size[0]):
     for y in range(size[1]):
-        if rawAsteroids[x][y] == "#":
+        if raw_asteroids[x][y] == '#':
             asteroids.add((x, y))
 
 # Count asteroids in line of sight for all possible station positions
-stationCounts = []
+station_counts = []
 for station in asteroids:
-    inLOS = countInLOS(station, asteroids, size)
-    stationCounts.append((len(inLOS), station, inLOS))
+    in_los = countInLOS(station, asteroids, size)
+    station_counts.append((len(in_los), station, in_los))
 
 # Sort by most asteroids in line of sight and get first
-stationCounts.sort(reverse=True)
-amtInLOS, station, inLOS = stationCounts[0]
+station_counts.sort(reverse=True)
+amount_in_los, station, in_los = station_counts[0]
 
-print("Part 1: {}".format(amtInLOS))
+AOCUtils.print_answer(1, amount_in_los)
 
 n = 200
 
 # Sort by atan2 of swapped coordinates
 # (starts pointing up and rotates cw, instead of pointing right and rotating ccw)
-destroyed = [(math.atan2(dy, dx), (dx, dy)) for dx, dy in inLOS]
+destroyed = [(math.atan2(dy, dx), (dx, dy)) for dx, dy in in_los]
 destroyed.sort(reverse=True)
 
 # Assumes nth asteroid can be destroyed in a single full rotation
@@ -56,6 +56,6 @@ x, y = station[0]+dx, station[1]+dy
 while (x, y) not in asteroids:
     x, y = x+dx, y+dy
 
-print("Part 2: {}".format(y*100 + x))
+AOCUtils.print_answer(2, y*100 + x)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

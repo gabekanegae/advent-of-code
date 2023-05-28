@@ -4,10 +4,10 @@
 
 import AOCUtils
 
-mov9 = [
+moves_9 = [
     (-1, -1), (-1, 0), (-1, 1),
-     (0, -1),  (0, 0),  (0, 1),
-     (1, -1),  (1, 0),  (1, 1)
+    ( 0, -1), ( 0, 0), ( 0, 1),
+    ( 1, -1), ( 1, 0), ( 1, 1)
     ]
 
 class Image:
@@ -51,7 +51,7 @@ class Image:
         for x in range(min_x-1, max_x+1+1):
             for y in range(min_y-1, max_y+1+1):
                 bits = []
-                for dx, dy in mov9:
+                for dx, dy in moves_9:
                     # If flipped, flip bits
                     bit = ((x+dx, y+dy) in self.pixels) ^ self.flipped
                     bits.append(int(bit))
@@ -95,13 +95,13 @@ for _ in range(2):
     image.enhance(enhancement)
     # print(image)
 
-print(f'Part 1: {image.lit_pixels_count}')
+AOCUtils.print_answer(1, image.lit_pixels_count)
 
 image = Image(raw_image)
 for _ in range(50):
     image.enhance(enhancement)
     # print(image)
 
-print(f'Part 2: {image.lit_pixels_count}')
+AOCUtils.print_answer(2, image.lit_pixels_count)
 
 AOCUtils.print_time_taken()

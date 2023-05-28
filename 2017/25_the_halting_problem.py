@@ -6,43 +6,43 @@ import AOCUtils
 
 #######################################
 
-rawInput = [s.strip()[:-1] if s else "" for s in AOCUtils.loadInput(25)]
+code = [s.strip()[:-1] if s else '' for s in AOCUtils.load_input(25)]
 
-startState = rawInput[0][-1]
-steps = int(rawInput[1].split()[-2])
+start_state = code[0][-1]
+steps = int(code[1].split()[-2])
 
-rawStates = [s.split()[-1] for s in rawInput[2:] if s]
+raw_states = [s.split()[-1] for s in code[2:] if s]
 
 states = dict()
-for i in range(0, len(rawStates), 9):
-    cur = rawStates[i]
+for i in range(0, len(raw_states), 9):
+    cur = raw_states[i]
 
     state = dict()
     for j in range(i, i+2*4, 4):
-        value = int(rawStates[j+1])
-        write = int(rawStates[j+2])
-        move = 1 if rawStates[j+3] == "right" else -1
-        nxt = rawStates[j+4]
+        value = int(raw_states[j+1])
+        write = int(raw_states[j+2])
+        move = 1 if raw_states[j+3] == 'right' else -1
+        nxt = raw_states[j+4]
 
-        state[value] = {"write": write, "move": move, "nxt": nxt}
+        state[value] = {'write': write, 'move': move, 'nxt': nxt}
 
     states[cur] = state
 
-curState = startState
-curPos = 0
+cur_state = start_state
+cur_pos = 0
 
 tape = dict()
 for step in range(steps):
-    if curPos not in tape:
-        tape[curPos] = 0
+    if cur_pos not in tape:
+        tape[cur_pos] = 0
 
-    action = states[curState][tape[curPos]]
+    action = states[cur_state][tape[cur_pos]]
 
-    tape[curPos] = action["write"]
-    curPos += action["move"]
-    curState = action["nxt"]
+    tape[cur_pos] = action['write']
+    cur_pos += action['move']
+    cur_state = action['nxt']
 
 checksum = sum(tape.values())
-print("Part 1: {}".format(checksum))
+AOCUtils.print_answer(1, checksum)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

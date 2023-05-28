@@ -21,7 +21,7 @@ def stealPresents(delta):
         else:
             right.popleft()
 
-        # "Rotate right"
+        # 'Rotate right'
         right.append(left.popleft())
         left.append(right.popleft())
 
@@ -29,7 +29,7 @@ def stealPresents(delta):
 
 ############################################
 
-elfAmt = AOCUtils.loadInput(19)
+elfAmt = AOCUtils.load_input(19)
 
 # class Node:
 #     def __init__(self, n):
@@ -48,12 +48,12 @@ elfAmt = AOCUtils.loadInput(19)
 #     p.next = p.next.next
 #     p = p.next
 
-# print("Part 1: {}".format(p.n))
+# AOCUtils.print_answer(1, p.n))
 
 # First elf to steal from is +1 from the start
-print("Part 1: {}".format(stealPresents(1)))
+AOCUtils.print_answer(1, stealPresents(1))
 
 # First elf to steal from is +(elfAmt//2) from the start
-print("Part 2: {}".format(stealPresents(elfAmt // 2)))
+AOCUtils.print_answer(2, stealPresents(elfAmt // 2))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

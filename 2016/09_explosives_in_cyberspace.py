@@ -4,31 +4,31 @@
 
 import AOCUtils
 
-def parseMarker(file):
-    marker = file[1:].split(")")[0]
-    markerLen = len(marker) + 2
-    chrAmt, repeatAmt = map(int, marker.split("x"))
+def parse_marker(file):
+    marker = file[1:].split(')')[0]
+    marker_len = len(marker) + 2
+    chr_amount, repeat_amount = map(int, marker.split('x'))
 
-    return markerLen, chrAmt, repeatAmt
+    return marker_len, chr_amount, repeat_amount
 
-def decompressFile(file, firstLevelOnly=False):
+def decompress_file(file, first_level_only=False):
     totalLen = 0
 
     i = 0
     while i < len(file):
-        if file[i] == "(":
-            markerLen, chrAmt, repeatAmt = parseMarker(file[i:])
+        if file[i] == '(':
+            marker_len, chr_amount, repeat_amount = parse_marker(file[i:])
 
-            i += markerLen
+            i += marker_len
 
-            if firstLevelOnly:
-                totalLen += chrAmt * repeatAmt
+            if first_level_only:
+                totalLen += chr_amount * repeat_amount
             else:
-                totalLen += decompressFile(file[i:i+chrAmt]) * repeatAmt
+                totalLen += decompress_file(file[i:i+chr_amount]) * repeat_amount
 
-            i += chrAmt
+            i += chr_amount
         else:
-            dataLen = len(file[i:].split("(")[0])
+            dataLen = len(file[i:].split('(')[0])
 
             i += dataLen
             totalLen += dataLen
@@ -37,10 +37,10 @@ def decompressFile(file, firstLevelOnly=False):
 
 ###########################################
 
-file = AOCUtils.loadInput(9)
+file = AOCUtils.load_input(9)
 
-print("Part 1: {}".format(decompressFile(file, True)))
+AOCUtils.print_answer(1, decompress_file(file, True))
 
-print("Part 2: {}".format(decompressFile(file)))
+AOCUtils.print_answer(2, decompress_file(file))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

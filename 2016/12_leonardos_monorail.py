@@ -8,7 +8,7 @@ class VM:
     def __init__(self, program):
         self.program = program[:]
         self.pc = 0
-        self.registers = {"a": 0, "b": 0, "c": 0, "d": 0}
+        self.registers = {'a': 0, 'b': 0, 'c': 0, 'd': 0}
 
     def run(self):
         while self.pc < len(self.program):
@@ -22,13 +22,13 @@ class VM:
                 y = cmd[2]
                 yVal = int(y) if not y.isalpha() else self.registers[y]
 
-            if inst == "cpy":
+            if inst == 'cpy':
                 self.registers[y] = xVal
-            elif inst == "inc":
+            elif inst == 'inc':
                 self.registers[x] += 1
-            elif inst == "dec":
+            elif inst == 'dec':
                 self.registers[x] -= 1
-            elif inst == "jnz":
+            elif inst == 'jnz':
                 if xVal != 0:
                     self.pc += yVal - 1
 
@@ -36,16 +36,16 @@ class VM:
 
 #######################################
 
-program = AOCUtils.loadInput(12)
+program = AOCUtils.load_input(12)
 
 # vm = VM(program)
 # vm.run()
-# print("Part 1: {}".format(vm.registers["a"]))
+# AOCUtils.print_answer(1, vm.registers['a']))
 
 # vm = VM(program)
-# vm.registers["c"] = 1
+# vm.registers['c'] = 1
 # vm.run()
-# print("Part 2: {}".format(vm.registers["a"]))
+# AOCUtils.print_answer(2, vm.registers['a']))
 
 D = int(program[2].split()[1])
 C = int(program[5].split()[1])
@@ -59,7 +59,7 @@ for _ in range(d):
     a += b
     b = c
 a += X * Y
-print("Part 1: {}".format(a))
+AOCUtils.print_answer(1, a)
 
 a, b, c, d = 1, 1, C, D
 d += c
@@ -68,9 +68,9 @@ for _ in range(d):
     a += b
     b = c
 a += X * Y
-print("Part 2: {}".format(a))
+AOCUtils.print_answer(2, a)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()
 
 # Part 1: (2+d)th fibonacci number + (x+y)
 # Part 2: (2+c+d)th fibonacci number + (x+y)

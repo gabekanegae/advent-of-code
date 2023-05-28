@@ -14,9 +14,9 @@ def replaceNth(s, old, new, n):
 
 ########################################
 
-rawInput = AOCUtils.loadInput(19)
+rawInput = AOCUtils.load_input(19)
 
-replacements = [r.split(" => ") for r in rawInput[:-2]]
+replacements = [r.split(' => ') for r in rawInput[:-2]]
 molecule = rawInput[-1]
 
 newMolecules = set()
@@ -25,7 +25,7 @@ for old, new in replacements:
         newMolecule = replaceNth(molecule, old, new, i+1)
         newMolecules.add(newMolecule)
 
-print("Part 1: {}".format(len(newMolecules)))
+AOCUtils.print_answer(1, len(newMolecules))
 
 '''
 X != Rn, Ar, Y
@@ -39,11 +39,11 @@ When removed, each Rn/Ar removes 1 extra atom
 '''
 
 atoms = sum(atom.isupper() for atom in molecule)
-rn = molecule.count("Rn")
-ar = molecule.count("Ar")
-y = molecule.count("Y")
+rn = molecule.count('Rn')
+ar = molecule.count('Ar')
+y = molecule.count('Y')
 
 p2 = atoms - 2*y - (rn+ar) - 1
-print("Part 1: {}".format(p2))
+AOCUtils.print_answer(2, p2)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

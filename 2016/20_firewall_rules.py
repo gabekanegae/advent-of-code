@@ -6,27 +6,27 @@ import AOCUtils
 
 ##################################
 
-rawRules = AOCUtils.loadInput(20)
+raw_rules = AOCUtils.load_input(20)
 
-rules = [tuple(map(int, rawRule.split("-"))) for rawRule in rawRules]
+rules = [tuple(map(int, r.split('-'))) for r in raw_rules]
 
-p1done = False
+p1_done = False
 total = 0
 
 ip = 0
 while ip < 2**32:
-    for ruleStart, ruleEnd in rules:
-        if ruleStart <= ip <= ruleEnd:
-            ip = ruleEnd
+    for rule_start, rule_end in rules:
+        if rule_start <= ip <= rule_end:
+            ip = rule_end
             break
     else:
         total += 1
-        if not p1done:
-            print("Part 1: {}".format(ip))
-            p1done = True
+        if not p1_done:
+            AOCUtils.print_answer(1, ip)
+            p1_done = True
 
     ip += 1
 
-print("Part 2: {}".format(total))
+AOCUtils.print_answer(2, total)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

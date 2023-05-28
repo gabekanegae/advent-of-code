@@ -6,30 +6,30 @@ import AOCUtils
 
 class Image:
     def __init__(self, s):
-        self.s = s.split("/")
+        self.s = s.split('/')
 
     def update(self, rules):
         size = len(self.s)
-        subSize = 2 if size % 2 == 0 else 3
+        sub_size = 2 if size % 2 == 0 else 3
 
         # Split s into subsquares
         squares = []
-        for x in range(0, size, subSize):
+        for x in range(0, size, sub_size):
             sq = []
-            for y in range(0, size, subSize):
+            for y in range(0, size, sub_size):
                 row = []
-                for i in range(subSize):
+                for i in range(sub_size):
                     c = []
-                    for j in range(subSize):
+                    for j in range(sub_size):
                         c.append(self.s[x+i][y+j])
                     row.append(c)
                 sq.append(row)
             squares.append(sq)
 
         # Apply rules to subsquares
-        sqAmt = len(squares)
-        for i in range(sqAmt):
-            for j in range(sqAmt):
+        square_amount = len(squares)
+        for i in range(square_amount):
+            for j in range(square_amount):
                 size = len(squares[i][j])
 
                 # Generate all 4 rotations
@@ -49,41 +49,41 @@ class Image:
                 # Apply rule if any transformation match
                 transformations = rots + flips
                 for t in transformations:
-                    t = "/".join("".join(r) for r in t)
+                    t = '/'.join(''.join(r) for r in t)
                     if t in rules:
-                        squares[i][j] = rules[t].split("/")
+                        squares[i][j] = rules[t].split('/')
                         break
 
         # Join subsquares into s
-        if sqAmt == 1:
+        if square_amount == 1:
             self.s = squares[0][0]
         else:
             size = len(squares[0][0])
             self.s = []
-            for x in range(sqAmt):
+            for x in range(square_amount):
                 for z in range(size):
                     sq = []
-                    for y in range(sqAmt):
+                    for y in range(square_amount):
                         sq.append(squares[x][y][z])
-                    self.s.append("".join(sq))
+                    self.s.append(''.join(sq))
 
 ###############################
 
-rawRules = [s.split(" => ") for s in AOCUtils.loadInput(21)]
-rules = {a: b for a, b in rawRules}
+raw_rules = [s.split(' => ') for s in AOCUtils.load_input(21)]
+rules = {a: b for a, b in raw_rules}
 
-start = ".#./..#/###"
+start = '.#./..#/###'
 
 image = Image(start)
 for i in range(5):
     image.update(rules)
 
-print("Part 1: {}".format(sum(r.count("#") for r in image.s)))
+AOCUtils.print_answer(1, sum(r.count('#') for r in image.s))
 
 image = Image(start)
 for _ in range(18):
     image.update(rules)
 
-print("Part 2: {}".format(sum(r.count("#") for r in image.s)))
+AOCUtils.print_answer(2, sum(r.count('#') for r in image.s))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

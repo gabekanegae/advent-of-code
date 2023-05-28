@@ -6,9 +6,9 @@ import AOCUtils
 
 #########################################################
 
-directions = AOCUtils.loadInput(3)
+directions = AOCUtils.load_input(3)
 
-moves = {"^": (0, -1), "v": (0, 1), ">": (1, 0), "<": (-1, 0)}
+moves = {'^': (0, -1), 'v': (0, 1), '>': (1, 0), '<': (-1, 0)}
 
 cur = (0, 0)
 houses = set([cur])
@@ -17,7 +17,7 @@ for d in directions:
     cur = (cur[0]+move[0], cur[1]+move[1])
     houses.add(cur)
 
-print("Part 1: {}".format(len(houses)))
+AOCUtils.print_answer(1, len(houses))
 
 # Santa movements
 cur = (0, 0)
@@ -34,6 +34,6 @@ for d in directions[1::2]:
     cur = (cur[0]+move[0], cur[1]+move[1])
     houses.add(cur)
 
-print("Part 2: {}".format(len(houses)))
+AOCUtils.print_answer(2, len(houses))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

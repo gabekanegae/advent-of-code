@@ -4,11 +4,11 @@
 
 import AOCUtils
 
-def splitNets(ipv7):
+def split_nets(ipv7):
     supernets, hypernets = [], []
-    for s in ipv7.split("["):
-        if "]" in s:
-            a, b = s.split("]")
+    for s in ipv7.split('['):
+        if ']' in s:
+            a, b = s.split(']')
             hypernets.append(a)
             supernets.append(b)
         else:
@@ -16,18 +16,18 @@ def splitNets(ipv7):
 
     return supernets, hypernets
 
-def supportsTLS(ipv7):
-    def hasABBA(s):
+def supports_TLS(ipv7):
+    def has_ABBA(s):
         for i in range(len(s)-3):
             if s[i] != s[i+1] and s[i] == s[i+3] and s[i+1] == s[i+2]:
                 return True
         return False
 
-    supernets, hypernets = splitNets(ipv7)
-    return any(hasABBA(s) for s in supernets) and not any(hasABBA(h) for h in hypernets)
+    supernets, hypernets = split_nets(ipv7)
+    return any(has_ABBA(s) for s in supernets) and not any(has_ABBA(h) for h in hypernets)
 
-def supportsSSL(ipv7):
-    def getABA(s):
+def supports_SSL(ipv7):
+    def get_ABA(s):
         abas = []
         for i in range(len(s)-2):
             if s[i] != s[i+1] and s[i] == s[i+2]:
@@ -35,15 +35,15 @@ def supportsSSL(ipv7):
         
         return abas
 
-    supernets, hypernets = splitNets(ipv7)
+    supernets, hypernets = split_nets(ipv7)
 
     subSupernets = []
     for supernet in supernets:
-        subSupernets += getABA(supernet)
+        subSupernets += get_ABA(supernet)
 
     subHypernets = []
     for hypernet in hypernets:
-        subHypernets += getABA(hypernet)
+        subHypernets += get_ABA(hypernet)
 
     for s in subSupernets:
         for h in subHypernets:
@@ -54,12 +54,12 @@ def supportsSSL(ipv7):
 
 ##############################################
 
-ipv7s = AOCUtils.loadInput(7)
+ipv7s = AOCUtils.load_input(7)
 
-tlsCount = sum(supportsTLS(ipv7) for ipv7 in ipv7s)
-print("Part 1: {}".format(tlsCount))
+tls_count = sum(supports_TLS(ipv7) for ipv7 in ipv7s)
+AOCUtils.print_answer(1, tls_count)
 
-tlsCount = sum(supportsSSL(ipv7) for ipv7 in ipv7s)
-print("Part 2: {}".format(tlsCount))
+tls_count = sum(supports_SSL(ipv7) for ipv7 in ipv7s)
+AOCUtils.print_answer(2, tls_count)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

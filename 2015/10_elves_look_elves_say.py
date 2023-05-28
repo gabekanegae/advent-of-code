@@ -4,7 +4,7 @@
 
 import AOCUtils
 
-def lookAndSay(s):
+def look_and_say(s):
     out = []
 
     last = s[0]
@@ -26,18 +26,18 @@ def lookAndSay(s):
 
 #########################################
 
-sequence = str(AOCUtils.loadInput(10))
+sequence = str(AOCUtils.load_input(10))
 
 for _ in range(40):
-    sequence = lookAndSay(sequence)
+    sequence = look_and_say(sequence)
 
-print("Part 1: {}".format(len(sequence)))
+AOCUtils.print_answer(1, len(sequence))
 
-sequence = str(AOCUtils.loadInput(10))
+sequence = str(AOCUtils.load_input(10))
 
 for _ in range(50):
-    sequence = lookAndSay(sequence)
+    sequence = look_and_say(sequence)
 
-print("Part 2: {}".format(len(sequence)))
+AOCUtils.print_answer(2, len(sequence))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

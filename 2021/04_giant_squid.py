@@ -53,8 +53,8 @@ for raw_board in '\n'.join(bingo[2:]).split('\n\n'):
 
 win_order = list(get_win_order(boards, numbers_drawn))
 
-print(f'Part 1: {win_order[0]}')
+AOCUtils.print_answer(1, win_order[0])
 
-print(f'Part 2: {win_order[-1]}')
+AOCUtils.print_answer(2, win_order[-1])
 
 AOCUtils.print_time_taken()

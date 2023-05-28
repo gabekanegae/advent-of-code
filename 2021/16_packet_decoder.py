@@ -32,7 +32,7 @@ class StringStream:
 
         return self.stream[s:e]
 
-    def peekAfter(self, n):
+    def peek_after(self, n):
         s = self.i + n
 
         return self.stream[s:]
@@ -70,7 +70,7 @@ class Packet:
                 length_read = 0
                 self.subpackets = []
                 while length_read < self.length_of_subpackets:
-                    subpacket = Packet(packet_stream.peekAfter(length_read))
+                    subpacket = Packet(packet_stream.peek_after(length_read))
                     length_read += subpacket.packet_length
 
                     self.subpackets.append(subpacket)
@@ -80,7 +80,7 @@ class Packet:
                 self.value_of_subpackets = int(packet_stream.read(11), 2)
 
                 for _ in range(self.value_of_subpackets):
-                    subpacket = Packet(packet_stream.peekAfter(0))
+                    subpacket = Packet(packet_stream.peek_after(0))
                     packet_stream.skip(subpacket.packet_length)
 
                     self.subpackets.append(subpacket)
@@ -114,8 +114,8 @@ packet = Packet(packet_bin)
 
 # print(packet)
 
-print(f'Part 1: {packet.version_sum}')
+AOCUtils.print_answer(1, packet.version_sum)
 
-print(f'Part 2: {packet.value}')
+AOCUtils.print_answer(2, packet.value)
 
 AOCUtils.print_time_taken()

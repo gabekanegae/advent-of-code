@@ -5,29 +5,29 @@
 import AOCUtils
 from collections import deque
 
-def getTile(fav, p):
+def get_tile(fav, p):
     x, y = p
 
     n = x*x + 3*x + 2*x*y + y + y*y
     n += fav
 
-    setBits = 0
+    set_bits = 0
     while n:
-        setBits += n % 2
+        set_bits += n % 2
         n //= 2
 
-    return "#" if setBits % 2 == 1 else "."
+    return '#' if set_bits % 2 == 1 else '.'
 
 ####################################################
 
-fav = AOCUtils.loadInput(13)
+fav = AOCUtils.load_input(13)
 
 goal = (31, 39)
 
 visited = set()
 queue = deque([((1, 1), 0)])
 while queue:
-    cur, curDist = queue.popleft()
+    cur, cur_dist = queue.popleft()
 
     if cur in visited: continue
     visited.add(cur)
@@ -38,28 +38,28 @@ while queue:
     for delta in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
         nxt = (cur[0] + delta[0], cur[1] + delta[1])
 
-        if nxt[0] >= 0 and nxt[1] >= 0 and getTile(fav, nxt) == ".":
-            queue.append((nxt, curDist+1))
+        if nxt[0] >= 0 and nxt[1] >= 0 and get_tile(fav, nxt) == '.':
+            queue.append((nxt, cur_dist+1))
 
-print("Part 1: {}".format(curDist))
+AOCUtils.print_answer(1, cur_dist)
 
 visited = set()
 queue = deque([((1, 1), 0)])
 while queue:
-    cur, curDist = queue.popleft()
+    cur, cur_dist = queue.popleft()
 
     if cur in visited: continue
     visited.add(cur)
 
-    if curDist == 50:
+    if cur_dist == 50:
         continue
 
     for delta in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
         nxt = (cur[0] + delta[0], cur[1] + delta[1])
 
-        if nxt[0] >= 0 and nxt[1] >= 0 and getTile(fav, nxt) == ".":
-            queue.append((nxt, curDist+1))
+        if nxt[0] >= 0 and nxt[1] >= 0 and get_tile(fav, nxt) == '.':
+            queue.append((nxt, cur_dist+1))
 
-print("Part 2: {}".format(len(visited)))
+AOCUtils.print_answer(2, len(visited))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

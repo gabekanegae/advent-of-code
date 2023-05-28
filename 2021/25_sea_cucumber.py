@@ -73,6 +73,6 @@ while True:
     if not sea_cucumber_map.move():
         break
 
-print(f'Part 1: {steps}')
+AOCUtils.print_answer(1, steps)
 
 AOCUtils.print_time_taken()

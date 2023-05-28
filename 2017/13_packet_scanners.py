@@ -4,45 +4,45 @@
 
 import AOCUtils
 
-# def crossFirewall(rawScanners, delay=0):
-#     scanners = {int(s[0]): {"range": int(s[1]), "pos": 1, "step": 1} for s in rawScanners}
+# def cross_firewall(raw_scanners, delay=0):
+#     scanners = {int(s[0]): {'range': int(s[1]), 'pos': 1, 'step': 1} for s in raw_scanners}
 #
 #     severity = []
 #
-#     maxDepth = max(scanners.keys())
-#     for depth in range(-delay, maxDepth+1):
+#     max_depth = max(scanners.keys())
+#     for depth in range(-delay, max_depth+1):
 #
-#         if depth in scanners and scanners[depth]["pos"] == 1:
-#             severity.append(depth * scanners[depth]["range"])
+#         if depth in scanners and scanners[depth]['pos'] == 1:
+#             severity.append(depth * scanners[depth]['range'])
 #
 #         for s in scanners:
 #             scanner = scanners[s]
-#             scanner["pos"] += scanner["step"]
-#             if scanner["pos"] in [1, scanner["range"]]:
-#                 scanner["step"] *= -1
+#             scanner['pos'] += scanner['step']
+#             if scanner['pos'] in [1, scanner['range']]:
+#                 scanner['step'] *= -1
 #
 #
 #     return severity
 
 ###################################
 
-rawScanners = [s.split(":") for s in AOCUtils.loadInput(13)]
+raw_scanners = [s.split(':') for s in AOCUtils.load_input(13)]
 
-# print("Part 1: {}".format(sum(crossFirewall(rawScanners))))
+# AOCUtils.print_answer(1, sum(cross_firewall(raw_scanners)))
 
-scanners = {int(s[0]): {"range": int(s[1]), "pos": 1, "step": 1} for s in rawScanners}
+scanners = {int(s[0]): {'range': int(s[1]), 'pos': 1, 'step': 1} for s in raw_scanners}
 
 severity = 0
 for depth in scanners:
-    if depth % ((scanners[depth]["range"]-1) * 2) == 0:
-        severity += depth * scanners[depth]["range"]
+    if depth % ((scanners[depth]['range']-1) * 2) == 0:
+        severity += depth * scanners[depth]['range']
 
-print("Part 1: {}".format(severity))
+AOCUtils.print_answer(1, severity)
 
 delay = 1
-while any((depth + delay) % ((scanners[depth]["range"]-1) * 2) == 0 for depth in scanners):
+while any((depth + delay) % ((scanners[depth]['range']-1) * 2) == 0 for depth in scanners):
     delay += 1
 
-print("Part 2: {}".format(delay))
+AOCUtils.print_answer(2, delay)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

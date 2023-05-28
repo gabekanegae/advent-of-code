@@ -8,14 +8,14 @@ from itertools import permutations
 
 ########################################
 
-rawDistances = AOCUtils.loadInput(9)
+raw_distances = AOCUtils.load_input(9)
 
 locations = set()
 distances = dict()
-for rawDist in rawDistances:
-    rawDist = rawDist.split()
-    a, b = rawDist[0], rawDist[2]
-    dist = int(rawDist[4])
+for raw_dist in raw_distances:
+    raw_dist = raw_dist.split()
+    a, b = raw_dist[0], raw_dist[2]
+    dist = int(raw_dist[4])
 
     distances[(a, b)] = dist
     distances[(b, a)] = dist
@@ -23,18 +23,18 @@ for rawDist in rawDistances:
     locations.add(a)
     locations.add(b)
 
-minDist, maxDist = None, None
+min_dist, max_dist = None, None
 for order in permutations(locations):
     dist = 0
 
     for i in range(1, len(order)):
         dist += distances[(order[i-1], order[i])]
 
-    minDist = min(minDist, dist) if minDist else dist
-    maxDist = max(maxDist, dist) if maxDist else dist
+    min_dist = min(min_dist, dist) if min_dist else dist
+    max_dist = max(max_dist, dist) if max_dist else dist
 
-print("Part 1: {}".format(minDist))
+AOCUtils.print_answer(1, min_dist)
 
-print("Part 2: {}".format(maxDist))
+AOCUtils.print_answer(2, max_dist)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

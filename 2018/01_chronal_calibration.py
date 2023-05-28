@@ -6,21 +6,21 @@ import AOCUtils
 
 ######################################
 
-freqs = AOCUtils.loadInput(1)
+freqs = AOCUtils.load_input(1)
 
-print("Part 1: {}".format(sum(freqs)))
+AOCUtils.print_answer(1, sum(freqs))
 
 history = set()
-curFreq = 0
+freq = 0
 i = 0
 while True:
-    curFreq += freqs[i%len(freqs)]
-    if curFreq not in history:
-        history.add(curFreq)
+    freq += freqs[i%len(freqs)]
+    if freq not in history:
+        history.add(freq)
         i += 1
     else:
         break
 
-print("Part 2: {}".format(curFreq))
+AOCUtils.print_answer(2, freq)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

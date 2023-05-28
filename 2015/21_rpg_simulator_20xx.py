@@ -5,57 +5,57 @@
 import AOCUtils
 from itertools import combinations, product
 
-def battle(playerHp, playerDamage, playerArmor, bossHp, bossDamage, bossArmor):
-    playerHits = bossHp / max(1, playerDamage - bossArmor)
-    bossHits = playerHp / max(1, bossDamage - playerArmor)
+def battle(player_hp, player_damage, player_armor, boss_hp, boss_damage, boss_armor):
+    player_hits = boss_hp / max(1, player_damage - boss_armor)
+    boss_hits = player_hp / max(1, boss_damage - player_armor)
     
-    return (playerHits <= bossHits)
+    return (player_hits <= boss_hits)
 
 ######################################
 
-rawInput = AOCUtils.loadInput(21)
+boss_stats = AOCUtils.load_input(21)
 
-bossHp, bossDamage, bossArmor = [int(s.split()[-1]) for s in rawInput]
-playerHp = 100
+boss_hp, boss_damage, boss_armor = [int(s.split()[-1]) for s in boss_stats]
+player_hp = 100
 
 # Cost, Damage, Armor
 weapons = [(8, 4, 0), (10, 5, 0), (25, 6, 0), (40, 7, 0), (74, 8, 0)]
 armor = [(13, 0, 1), (31, 0, 2), (53, 0, 3), (75, 0, 4), (102, 0, 5)]
 rings = [(25, 1, 0), (50, 2, 0), (100, 3, 0), (20, 0, 1), (40, 0, 2), (80, 0, 3)]
 
-weaponPicks = []
+weapon_picks = []
 for i in range(1, 1+1):
-    weaponPicks += combinations(weapons, i)
+    weapon_picks += combinations(weapons, i)
 
-armorPicks = []
+armor_picks = []
 for i in range(0, 1+1):
-    armorPicks += combinations(armor, i)
+    armor_picks += combinations(armor, i)
 
-ringPicks = []
+ring_picks = []
 for i in range(0, 2+1):
-    ringPicks += combinations(rings, i)
+    ring_picks += combinations(rings, i)
 
 setups = []
-for picks in product(weaponPicks, armorPicks, ringPicks):
-    goldSpent, playerDamage, playerArmor = 0, 0, 0
+for picks in product(weapon_picks, armor_picks, ring_picks):
+    gold_spent, player_damage, player_armor = 0, 0, 0
     for pick in picks:
         for equip in pick:
-            goldSpent += equip[0]
-            playerDamage += equip[1]
-            playerArmor += equip[2]
+            gold_spent += equip[0]
+            player_damage += equip[1]
+            player_armor += equip[2]
 
-    setups.append((goldSpent, playerDamage, playerArmor))
+    setups.append((gold_spent, player_damage, player_armor))
 
 setups.sort()
 
-for goldSpent, playerDamage, playerArmor in setups:
-    if battle(playerHp, playerDamage, playerArmor, bossHp, bossDamage, bossArmor):
-        print("Part 1: {}".format(goldSpent))
+for gold_spent, player_damage, player_armor in setups:
+    if battle(player_hp, player_damage, player_armor, boss_hp, boss_damage, boss_armor):
+        AOCUtils.print_answer(1, gold_spent)
         break
 
-for goldSpent, playerDamage, playerArmor in reversed(setups):
-    if not battle(playerHp, playerDamage, playerArmor, bossHp, bossDamage, bossArmor):
-        print("Part 2: {}".format(goldSpent))
+for gold_spent, player_damage, player_armor in reversed(setups):
+    if not battle(player_hp, player_damage, player_armor, boss_hp, boss_damage, boss_armor):
+        AOCUtils.print_answer(2, gold_spent)
         break
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

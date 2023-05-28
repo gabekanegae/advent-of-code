@@ -6,31 +6,31 @@ import AOCUtils
 
 ############################
 
-rawAunts = AOCUtils.loadInput(16)
+raw_aunts = AOCUtils.load_input(16)
 
 aunts = dict()
-for rawAunt in rawAunts:
-    rawAunt = rawAunt.split()
+for raw_aunt in raw_aunts:
+    raw_aunt = raw_aunt.split()
 
-    auntID = int(rawAunt[1][:-1])
+    aunt_id = int(raw_aunt[1][:-1])
     aunt = dict()
-    for i in range(2, len(rawAunt), 2):
-        thing = rawAunt[i].rstrip(":")
-        amount = int(rawAunt[i+1].rstrip(","))
+    for i in range(2, len(raw_aunt), 2):
+        thing = raw_aunt[i].rstrip(':')
+        amount = int(raw_aunt[i+1].rstrip(','))
         aunt[thing] = amount
 
-    aunts[auntID] = aunt
+    aunts[aunt_id] = aunt
 
-tape = {"children": 3,
-        "cats": 7,
-        "samoyeds": 2,
-        "pomeranians": 3,
-        "akitas": 0,
-        "vizslas": 0,
-        "goldfish": 5,
-        "trees": 3,
-        "cars": 2,
-        "perfumes": 1
+tape = {'children': 3,
+        'cats': 7,
+        'samoyeds': 2,
+        'pomeranians': 3,
+        'akitas': 0,
+        'vizslas': 0,
+        'goldfish': 5,
+        'trees': 3,
+        'cars': 2,
+        'perfumes': 1
         }
 
 for aunt, things in aunts.items():
@@ -38,21 +38,21 @@ for aunt, things in aunts.items():
         if amount != tape[thing]:
             break
     else:
-        print("Part 1: {}".format(aunt))
+        AOCUtils.print_answer(1, aunt)
         break
 
 for aunt, things in aunts.items():
     for thing, amount in things.items():
-        if thing in ["cats", "trees"]:
+        if thing in ['cats', 'trees']:
             if amount <= tape[thing]:
                 break
-        elif thing in ["pomeranians", "goldfish"]:
+        elif thing in ['pomeranians', 'goldfish']:
             if amount >= tape[thing]:
                 break
         elif amount != tape[thing]:
             break
     else:
-        print("Part 2: {}".format(aunt))
+        AOCUtils.print_answer(2, aunt)
         break
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

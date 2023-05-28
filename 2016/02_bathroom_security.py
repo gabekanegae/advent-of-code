@@ -4,9 +4,9 @@
 
 import AOCUtils
 
-moves = {"U": (-1, 0), "D": (1, 0), "L": (0, -1), "R": (0, 1)}
+moves = {'U': (-1, 0), 'D': (1, 0), 'L': (0, -1), 'R': (0, 1)}
 
-def keypadWalk(keypad, instructions):
+def keypad_walk(keypad, instructions):
     size = (len(keypad), len(keypad[0]))
     pos = (size[0]//2, size[1]//2)
     
@@ -15,31 +15,29 @@ def keypadWalk(keypad, instructions):
         for move in instruction:
             delta = moves[move]
             nxt = (pos[0]+delta[0], pos[1]+delta[1])
-            if 0 <= nxt[0] < size[0] and 0 <= nxt[1] < size[1] and keypad[nxt[0]][nxt[1]] != " ":
+            if 0 <= nxt[0] < size[0] and 0 <= nxt[1] < size[1] and keypad[nxt[0]][nxt[1]] != ' ':
                 pos = nxt
 
         code.append(keypad[pos[0]][pos[1]])
 
-    return "".join(code)
+    return ''.join(code)
 
 ####################################
 
-instructions = AOCUtils.loadInput(2)
+instructions = AOCUtils.load_input(2)
 
-keypad1 = ["123",
-           "456",
-           "789"]
+keypad1 = ['123',
+           '456',
+           '789']
 
-p1 = keypadWalk(keypad1, instructions)
-print("Part 1: {}".format(p1))
+AOCUtils.print_answer(1, keypad_walk(keypad1, instructions))
 
-keypad2 = ["  1  ",
-           " 234 ",
-           "56789",
-           " ABC ",
-           "  D  "]
+keypad2 = ['  1  ',
+           ' 234 ',
+           '56789',
+           ' ABC ',
+           '  D  ']
 
-p2 = keypadWalk(keypad2, instructions)
-print("Part 2: {}".format(p2))
+AOCUtils.print_answer(2, keypad_walk(keypad2, instructions))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

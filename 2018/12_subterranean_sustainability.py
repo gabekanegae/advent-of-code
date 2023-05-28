@@ -7,42 +7,42 @@ import AOCUtils
 MARGIN = 100
 GENAMT = 200
 
-def getSumPots(gen):
-    return sum(i-MARGIN for i in range(len(gen)) if gen[i] == "#")
+def get_sum_pots(gen):
+    return sum(i-MARGIN for i in range(len(gen)) if gen[i] == '#')
 
 ###############################################
 
-rawInput = AOCUtils.loadInput(12)
+pots_and_rules = AOCUtils.load_input(12)
 
-initial = rawInput[0].split()[2]
+initial = pots_and_rules[0].split()[2]
 rules = dict()
-for rule in rawInput[2:]:
+for rule in pots_and_rules[2:]:
     r = rule.split()
     rules[r[0]] = r[2]
 
 generations = []
-cur = "."*MARGIN + initial + "."*MARGIN
+cur = '.'*MARGIN + initial + '.'*MARGIN
 generations.append(cur)
 
 genLen = len(cur)
 for i in range(GENAMT):
-    nextGen = ["." for _ in range(genLen)]
+    nxt = ['.' for _ in range(genLen)]
     for i in range(2, genLen-2):
-        nextGen[i] = rules[cur[i-2:i+3]]
-    generations.append(nextGen)
-    cur = "".join(nextGen)
+        nxt[i] = rules[cur[i-2:i+3]]
+    generations.append(nxt)
+    cur = ''.join(nxt)
 
-sumPots = [getSumPots(generations[i]) for i in range(GENAMT)]
+sum_pots = [get_sum_pots(generations[i]) for i in range(GENAMT)]
 
-print("Part 1: {}".format(sumPots[20]))
+AOCUtils.print_answer(1, sum_pots[20])
 
-delta = sumPots[1] - sumPots[0]
+delta = sum_pots[1] - sum_pots[0]
 for i in range(2, GENAMT-1):
-    newDelta = sumPots[i] - sumPots[i-1]
-    if delta == newDelta:
-        print("Part 2: {}".format(sumPots[i] + delta*(50000000000-i)))
+    new_delta = sum_pots[i] - sum_pots[i-1]
+    if delta == new_delta:
+        AOCUtils.print_answer(2, sum_pots[i] + delta*(50000000000-i))
         break
     else:
-        delta = newDelta
+        delta = new_delta
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

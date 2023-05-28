@@ -9,7 +9,7 @@ class Landscape:
         self.land = land
         self.size = (len(land), len(land[0]))
 
-    def _getUpdatedCell(self, pos):
+    def _get_updated_cell(self, pos):
         gnds, trees, lyards = 0, 0, 0
 
         for i in range(pos[0]-1, pos[0]+2):
@@ -17,13 +17,13 @@ class Landscape:
                 if (i, j) == pos: continue
                 if not 0 <= i < self.size[0] or not 0 <= j < self.size[1]: continue
                 
-                if self.land[i][j] == ".": gnds += 1
-                elif self.land[i][j] == "|": trees += 1
-                elif self.land[i][j] == "#": lyards += 1
+                if self.land[i][j] == '.': gnds += 1
+                elif self.land[i][j] == '|': trees += 1
+                elif self.land[i][j] == '#': lyards += 1
 
-        if self.land[pos[0]][pos[1]] == "." and trees >= 3: return "|"
-        if self.land[pos[0]][pos[1]] == "|" and lyards >= 3: return "#"
-        if self.land[pos[0]][pos[1]] == "#" and (lyards == 0 or trees == 0): return "."
+        if self.land[pos[0]][pos[1]] == '.' and trees >= 3: return '|'
+        if self.land[pos[0]][pos[1]] == '|' and lyards >= 3: return '#'
+        if self.land[pos[0]][pos[1]] == '#' and (lyards == 0 or trees == 0): return '.'
         return None
 
     def update(self):
@@ -31,20 +31,20 @@ class Landscape:
         for i in range(self.size[0]):
             for j in range(self.size[1]):
                 pos = (i, j)
-                updated = self._getUpdatedCell(pos)
+                updated = self._get_updated_cell(pos)
                 if updated: updates[pos] = updated
 
         for pos, new in updates.items():
             self.land[pos[0]][pos[1]] = new
 
-    def getResourceValue(self):
-        trees = sum(s.count("|") for s in self.land)
-        lyards = sum(s.count("#") for s in self.land)
+    def get_resource_value(self):
+        trees = sum(s.count('|') for s in self.land)
+        lyards = sum(s.count('#') for s in self.land)
         return trees * lyards
 
 ##############################################
 
-land = [list(s) for s in AOCUtils.loadInput(18)]
+land = [list(s) for s in AOCUtils.load_input(18)]
 landscape = Landscape(land)
 
 minute = 0
@@ -52,25 +52,25 @@ while minute < 10:
     minute += 1
     landscape.update()
 
-print("Part 1: {}".format(landscape.getResourceValue()))
+AOCUtils.print_answer(1, landscape.get_resource_value())
 
 # Find period
-lastSeenAt = dict()
-testPeriod = None
+last_seen_at = dict()
+test_period = None
 while True:
-    value = landscape.getResourceValue()
+    value = landscape.get_resource_value()
 
-    if not testPeriod:
-        if value in lastSeenAt:
-            testPeriod = minute - lastSeenAt[value]
+    if not test_period:
+        if value in last_seen_at:
+            test_period = minute - last_seen_at[value]
         else:
-            lastSeenAt[value] = minute
+            last_seen_at[value] = minute
     else:
-        if value in lastSeenAt and minute - lastSeenAt[value] == testPeriod:
-            period = testPeriod
+        if value in last_seen_at and minute - last_seen_at[value] == test_period:
+            period = test_period
             break
         else:
-            testPeriod = None
+            test_period = None
 
     minute += 1
     landscape.update()
@@ -78,10 +78,10 @@ while True:
 # Record repeated values
 values = []
 for i in range(period):
-    values.append(landscape.getResourceValue())
+    values.append(landscape.get_resource_value())
     landscape.update()
 
-finalValue = values[(1000000000-minute) % period]
-print("Part 2: {}".format(finalValue))
+final_value = values[(1000000000-minute) % period]
+AOCUtils.print_answer(2, final_value)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

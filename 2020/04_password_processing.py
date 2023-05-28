@@ -4,53 +4,52 @@
 
 import AOCUtils
 
-decChars = set("0123456789")
-hexChars = set("0123456789abcdef")
+dec_chars = set('0123456789')
+hex_chars = set('0123456789abcdef')
 
-checks1 = [
-    lambda pp: all(field in pp for field in ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"])
+checks_1 = [
+    lambda pp: all(field in pp for field in ['byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid'])
 ]
 
-checks2 = [
-    lambda pp: set(pp["byr"]) <= decChars and 1920 <= int(pp["byr"]) <= 2002,
-    lambda pp: set(pp["iyr"]) <= decChars and 2010 <= int(pp["iyr"]) <= 2020,
-    lambda pp: set(pp["eyr"]) <= decChars and 2020 <= int(pp["eyr"]) <= 2030,
-    lambda pp: set(pp["hgt"][:-2]) <= decChars and \
-               ((pp["hgt"][-2:] == "cm" and 150 <= int(pp["hgt"][:-2]) <= 193) or \
-                (pp["hgt"][-2:] == "in" and 59 <= int(pp["hgt"][:-2]) <= 76)),
-    lambda pp: len(pp["hcl"]) == 7 and pp["hcl"][0] == "#" and set(pp["hcl"][1:]) <= hexChars,
-    lambda pp: pp["ecl"] in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"],
-    lambda pp: len(pp["pid"]) == 9 and set(pp["pid"]) <= decChars
+checks_2 = [
+    lambda pp: set(pp['byr']) <= dec_chars and 1920 <= int(pp['byr']) <= 2002,
+    lambda pp: set(pp['iyr']) <= dec_chars and 2010 <= int(pp['iyr']) <= 2020,
+    lambda pp: set(pp['eyr']) <= dec_chars and 2020 <= int(pp['eyr']) <= 2030,
+    lambda pp: set(pp['hgt'][:-2]) <= dec_chars and \
+               ((pp['hgt'][-2:] == 'cm' and 150 <= int(pp['hgt'][:-2]) <= 193) or \
+                (pp['hgt'][-2:] == 'in' and 59 <= int(pp['hgt'][:-2]) <= 76)),
+    lambda pp: len(pp['hcl']) == 7 and pp['hcl'][0] == '#' and set(pp['hcl'][1:]) <= hex_chars,
+    lambda pp: pp['ecl'] in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'],
+    lambda pp: len(pp['pid']) == 9 and set(pp['pid']) <= dec_chars
 ]
 
-def isValid1(passport):
-    return all(check(passport) for check in checks1)
+def is_valid_1(passport):
+    return all(check(passport) for check in checks_1)
 
-def isValid2(passport):
-    return isValid1(passport) and all(check(passport) for check in checks2)
+def is_valid_2(passport):
+    return is_valid_1(passport) and all(check(passport) for check in checks_2)
 
 ######################################
 
-rawInput = AOCUtils.loadInput(4)
+raw = AOCUtils.load_input(4)
 
-for i in range(len(rawInput)):
-    if rawInput[i] == "": rawInput[i] = "\n"
-
-rawPassports = " ".join(rawInput).split(" \n ")
+for i in range(len(raw)):
+    if raw[i] == '': raw[i] = '\n'
+raw_passports = ' '.join(raw).split(' \n ')
 
 passports = []
-for rawPassport in rawPassports:
+for raw_passport in raw_passports:
     passport = dict()
-    for kvp in rawPassport.split():
-        k, v = kvp.split(":")
+    for kvp in raw_passport.split():
+        k, v = kvp.split(':')
         passport[k] = v
 
     passports.append(passport)
 
-p1 = sum(isValid1(passport) for passport in passports)
-print("Part 1: {}".format(p1))
+p1 = sum(is_valid_1(passport) for passport in passports)
+AOCUtils.print_answer(1, p1)
 
-p2 = sum(isValid2(passport) for passport in passports)
-print("Part 2: {}".format(p2))
+p2 = sum(is_valid_2(passport) for passport in passports)
+AOCUtils.print_answer(2, p2)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

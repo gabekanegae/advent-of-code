@@ -68,12 +68,12 @@ for _ in range(100):
 
     total_flashes += octopus_grid.current_flashes
 
-print(f'Part 1: {total_flashes}')
+AOCUtils.print_answer(1, total_flashes)
 
 while not octopus_grid.all_flashing:
     octopus_grid.update()
     step += 1
 
-print(f'Part 2: {step}')
+AOCUtils.print_answer(2, step)
 
 AOCUtils.print_time_taken()

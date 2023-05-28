@@ -10,7 +10,7 @@ class Bot:
         self.pos = pos
         self.r = r
 
-    def distanceTo(self, other):
+    def distance_to(self, other):
         return sum(abs(a-b) for a, b in zip(self.pos, other.pos))
 
 class Box:
@@ -19,16 +19,16 @@ class Box:
 
     def isInRangeOf(self, bot):
         dist = 0
-        for boxLow, b, boxHigh in zip(self.low, bot.pos, self.high):
-            boxHigh -= 1
-            dist += abs(b - boxLow) + abs(b - boxHigh) - (boxHigh - boxLow)
+        for box_low, b, box_high in zip(self.low, bot.pos, self.high):
+            box_high -= 1
+            dist += abs(b - box_low) + abs(b - box_high) - (box_high - box_low)
 
         return dist // 2 <= bot.r
 
-    def botsInRange(self, bots):
+    def bots_in_range(self, bots):
         return sum(self.isInRangeOf(b) for b in bots)
     
-    def originDistance(self):
+    def origin_distance(self):
         return sum(abs(c) for c in self.low)
 
     def __lt__(self, other):
@@ -36,43 +36,43 @@ class Box:
 
 ########################################################
 
-rawInput = [s[5:].split(">, r=") for s in AOCUtils.loadInput(23)]
+rawInput = [s[5:].split('>, r=') for s in AOCUtils.load_input(23)]
 
-positions = [([int(i) for i in s[0].split(",")]) for s in rawInput]
+positions = [([int(i) for i in s[0].split(',')]) for s in rawInput]
 radii = [int(i[1]) for i in rawInput]
 
 bots = [Bot(p, r) for p, r in zip(positions, radii)]
 
 # Sort by largest radius, take first
 bots.sort(key=lambda x: x.r, reverse=True)
-strongestBot = bots[0]
+strongest_bot = bots[0]
 
-botsInRange = sum(strongestBot.distanceTo(bot) < strongestBot.r for bot in bots)
-print("Part 1: {}".format(botsInRange))
+bots_in_range = sum(strongest_bot.distance_to(bot) < strongest_bot.r for bot in bots)
+AOCUtils.print_answer(1, bots_in_range)
 
 # Create a bounding box big enough for all bots and its ranges
-maxCoord = max(max(abs(i)+b.r for i in b.pos) for b in bots)
-boundingBox = Box((-maxCoord, -maxCoord, -maxCoord), (maxCoord, maxCoord, maxCoord))
-boundingBoxSize = 2*maxCoord
+max_coord = max(max(abs(i)+b.r for i in b.pos) for b in bots)
+bounding_box = Box((-max_coord, -max_coord, -max_coord), (max_coord, max_coord, max_coord))
+bounding_box_size = 2*max_coord
 
 # Create heap ordered by: most bots in range, biggest size, least distance to origin
-heap = [(-len(bots), -boundingBoxSize, boundingBox.originDistance(), boundingBox)]
+heap = [(-len(bots), -bounding_box_size, bounding_box.origin_distance(), bounding_box)]
 while len(heap) > 0:
-    _, size, originDistance, box = heappop(heap)
+    _, size, origin_distance, box = heappop(heap)
 
     if abs(size) == 1: # Box is 1x1x1 = single point
-        print("Part 2: {}".format(originDistance))
+        AOCUtils.print_answer(2, origin_distance)
         break
 
     # Break in 8 octants
     octSize = abs(size//2)
     for octant in [(0,0,0), (0,0,1), (0,1,0), (0,1,1), (1,0,0), (1,0,1), (1,1,0), (1,1,1)]:
-        octLow = ([boxLow + octSize*octCoord for boxLow, octCoord in zip(box.low, octant)])
-        octHigh = (octLow[0]+octSize, octLow[1]+octSize, octLow[2]+octSize)
-        boxOct = Box(octLow, octHigh)
+        oct_low = ([box_low + octSize*oct_coord for box_low, oct_coord in zip(box.low, octant)])
+        oct_high = (oct_low[0]+octSize, oct_low[1]+octSize, oct_low[2]+octSize)
+        box_oct = Box(oct_low, oct_high)
 
         # Calculate bots in octant range and add to heap
-        botsInRange = boxOct.botsInRange(bots)
-        heappush(heap, (-botsInRange, -octSize, boxOct.originDistance(), boxOct))
+        bots_in_range = box_oct.bots_in_range(bots)
+        heappush(heap, (-bots_in_range, -octSize, box_oct.origin_distance(), box_oct))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

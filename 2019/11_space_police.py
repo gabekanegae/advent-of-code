@@ -5,7 +5,7 @@
 import AOCUtils
 from intcodeVM import VM
 
-def paintingRobot(memory, start):
+def painting_robot(memory, start):
     directions = [(-1, 0), (0, -1), (1, 0), (0, 1)]
     pos = (0, 0)
     facing = 0
@@ -31,30 +31,28 @@ def paintingRobot(memory, start):
 
 ################################
 
-rawProgram = AOCUtils.loadInput(11)
-memory = [int(i) for i in rawProgram.split(",")]
+raw_program = AOCUtils.load_input(11)
+memory = [int(i) for i in raw_program.split(',')]
 
-painted = paintingRobot(memory, 0)
-print("Part 1: {}".format(len(painted)))
+painted = painting_robot(memory, 0)
+AOCUtils.print_answer(1, len(painted))
 
-painted = paintingRobot(memory, 1)
-whitePanels = [k for k, v in painted.items() if v == 1]
+painted = painting_robot(memory, 1)
+white_panels = [k for k, v in painted.items() if v == 1]
 
-minPoint = list(whitePanels[0])
-maxPoint = list(whitePanels[0])
-for p in whitePanels[1:]:
-    if p[0] < minPoint[0]: minPoint[0] = p[0]
-    elif p[0] > maxPoint[0]: maxPoint[0] = p[0]
-    if p[1] < minPoint[0]: minPoint[1] = p[1]
-    elif p[1] > maxPoint[1]: maxPoint[1] = p[1]
+min_point = list(white_panels[0])
+max_point = list(white_panels[0])
+for p in white_panels[1:]:
+    if p[0] < min_point[0]: min_point[0] = p[0]
+    elif p[0] > max_point[0]: max_point[0] = p[0]
+    if p[1] < min_point[0]: min_point[1] = p[1]
+    elif p[1] > max_point[1]: max_point[1] = p[1]
 
-print("Part 2:")
-for x in range(minPoint[0], maxPoint[0]+1):
-    for y in range(minPoint[1], maxPoint[1]+1):
-        if (x, y) in whitePanels:
-            print("##", end="")
-        else:
-            print("  ", end="")
-    print()
+white_panels_image = []
+for x in range(min_point[0], max_point[0]+1):
+    l = [(x, y) in white_panels for y in range(min_point[1], max_point[1]+1)]
+    white_panels_image.append(l)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_answer(2, white_panels_image)
+
+AOCUtils.print_time_taken()

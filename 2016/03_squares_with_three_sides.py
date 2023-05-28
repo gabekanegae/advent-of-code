@@ -4,7 +4,7 @@
 
 import AOCUtils
 
-def isTriangle(t):
+def is_triangle(t):
     a, b, c = t
 
     if b + c <= a: return False
@@ -15,11 +15,11 @@ def isTriangle(t):
 
 ###########################################
 
-triangles = AOCUtils.loadInput(3)
+triangles = AOCUtils.load_input(3)
 triangles = [[int(s.strip()) for s in t.split()] for t in triangles]
 
-triangleAmt = sum(isTriangle(triangle) for triangle in triangles)
-print("Part 1: {}".format(triangleAmt))
+triangle_count = sum(is_triangle(triangle) for triangle in triangles)
+AOCUtils.print_answer(1, triangle_count)
 
 colTriangles = []
 for i in range(0, len(triangles), 3):
@@ -27,7 +27,7 @@ for i in range(0, len(triangles), 3):
         triangle = [triangles[i][j], triangles[i+1][j], triangles[i+2][j]]
         colTriangles.append(triangle)
 
-triangleAmt = sum(isTriangle(triangle) for triangle in colTriangles)
-print("Part 2: {}".format(triangleAmt))
+triangle_count = sum(is_triangle(triangle) for triangle in colTriangles)
+AOCUtils.print_answer(2, triangle_count)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

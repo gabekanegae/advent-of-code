@@ -6,64 +6,64 @@ import AOCUtils
 from collections import deque
 
 class Maze:
-    def __init__(self, rawMaze):
-        self.maze = [s[:] for s in rawMaze]
+    def __init__(self, raw):
+        self.maze = [s[:] for s in raw]
         self.start, self.end = None, None
-        self.size = (len(rawMaze), len(rawMaze[0]))
+        self.size = (len(raw), len(raw[0]))
 
-        rawInner, rawOuter = dict(), dict()
+        raw_inner, raw_outer = dict(), dict()
         for y in range(self.size[0]):
             for x in range(self.size[1]):
-                portalName, portalPos = self._parsePortal((y, x))
-                if not portalName or not portalPos: continue
+                portal_name, portal_pos = self._parse_portal((y, x))
+                if not portal_name or not portal_pos: continue
 
-                if portalName == "AA":
-                    self.start = portalPos
-                elif portalName == "ZZ":
-                    self.end = portalPos
+                if portal_name == 'AA':
+                    self.start = portal_pos
+                elif portal_name == 'ZZ':
+                    self.end = portal_pos
                 else:
                     if 1 < y < self.size[0]-2 and 1 < x < self.size[1]-2:
-                        rawInner[portalName] = portalPos
+                        raw_inner[portal_name] = portal_pos
                     else:
-                        rawOuter[portalName] = portalPos
+                        raw_outer[portal_name] = portal_pos
 
-        self.outerPortals = {v: rawInner[k] for k, v in rawOuter.items()}
-        self.innerPortals = {v: rawOuter[k] for k, v in rawInner.items()}
+        self.outer_portals = {v: raw_inner[k] for k, v in raw_outer.items()}
+        self.inner_portals = {v: raw_outer[k] for k, v in raw_inner.items()}
 
-    def _isPortal(self, pos):
-        return 0 <= pos[0] <= self.size[0] and 0 <= pos[1] <= self.size[1] and "A" <= self.maze[pos[0]][pos[1]] <= "Z"
-    def _isWalkable(self, pos):
-        return 0 <= pos[0] <= self.size[0] and 0 <= pos[1] <= self.size[1] and self.maze[pos[0]][pos[1]] == "."
+    def _is_portal(self, pos):
+        return 0 <= pos[0] <= self.size[0] and 0 <= pos[1] <= self.size[1] and 'A' <= self.maze[pos[0]][pos[1]] <= 'Z'
+    def _is_walkable(self, pos):
+        return 0 <= pos[0] <= self.size[0] and 0 <= pos[1] <= self.size[1] and self.maze[pos[0]][pos[1]] == '.'
 
-    def _parsePortal(self, pos):
-        if not self._isPortal(pos): return None, None
+    def _parse_portal(self, pos):
+        if not self._is_portal(pos): return None, None
         
         y, x = pos
         name, pos = None, None
-        if self._isPortal((y+1, x)): # Vertical (top-to-bottom)
+        if self._is_portal((y+1, x)): # Vertical (top-to-bottom)
             name = self.maze[y][x] + self.maze[y+1][x]
 
             # Find portal entrance
-            if self._isWalkable((y-1, x)): # Up
+            if self._is_walkable((y-1, x)): # Up
                 pos = (y-1, x)
-            elif self._isWalkable((y+2, x)): # Down
+            elif self._is_walkable((y+2, x)): # Down
                 pos = (y+2, x)
 
-            self.maze[y][x], self.maze[y+1][x] = " ", " " # Erase portal
-        elif self._isPortal((y, x+1)): # Horizontal (left-to-right)
+            self.maze[y][x], self.maze[y+1][x] = ' ', ' ' # Erase portal
+        elif self._is_portal((y, x+1)): # Horizontal (left-to-right)
             name = self.maze[y][x] + self.maze[y][x+1]
 
             # Find portal entrance
-            if self._isWalkable((y, x-1)): # Left
+            if self._is_walkable((y, x-1)): # Left
                 pos = (y, x-1)
-            elif self._isWalkable((y, x+2)): # Right
+            elif self._is_walkable((y, x+2)): # Right
                 pos = (y, x+2)
 
-            self.maze[y][x], self.maze[y][x+1] = " ", " " # Erase portal
+            self.maze[y][x], self.maze[y][x+1] = ' ', ' ' # Erase portal
 
         return name, pos
 
-    def getMinDistance(self):
+    def get_min_distance(self):
         queue = deque([(self.start, 0)])
         visited = set()
         while queue:
@@ -75,19 +75,19 @@ class Maze:
             if cur == self.end: break
 
             # Inner and outer portals have the same behavior
-            if cur in self.innerPortals:
-                queue.append((self.innerPortals[cur], dist+1))
-            elif cur in self.outerPortals:
-                queue.append((self.outerPortals[cur], dist+1))
+            if cur in self.inner_portals:
+                queue.append((self.inner_portals[cur], dist+1))
+            elif cur in self.outer_portals:
+                queue.append((self.outer_portals[cur], dist+1))
             
             for m in [(0, -1), (0, 1), (-1, 0), (1, 0)]:
                 step = (cur[0]+m[0], cur[1]+m[1])
-                if self._isWalkable(step):
+                if self._is_walkable(step):
                     queue.append((step, dist+1))
 
         return dist
 
-    def getMinDistanceLayers(self):
+    def get_min_distance_layers(self):
         queue = deque([(self.start, 0, 0)])
         visited = set()
         while queue:
@@ -101,25 +101,25 @@ class Maze:
 
             # Outer portals decrease level and can only be accessed at level > 0
             # Inner portals increase level, can be accessed at any level
-            if level > 0 and cur in self.outerPortals:
-                queue.append((self.outerPortals[cur], level-1, dist+1))
-            elif cur in self.innerPortals:
-                queue.append((self.innerPortals[cur], level+1, dist+1))
+            if level > 0 and cur in self.outer_portals:
+                queue.append((self.outer_portals[cur], level-1, dist+1))
+            elif cur in self.inner_portals:
+                queue.append((self.inner_portals[cur], level+1, dist+1))
 
             for m in [(0, -1), (0, 1), (-1, 0), (1, 0)]:
                 step = (cur[0]+m[0], cur[1]+m[1])
-                if self._isWalkable(step):
+                if self._is_walkable(step):
                     queue.append((step, level, dist+1))
 
         return dist
 
 ###########################
 
-rawMaze = [list(s) for s in AOCUtils.loadInput(20)]
-maze = Maze(rawMaze)
+raw_maze = [list(s) for s in AOCUtils.load_input(20)]
+maze = Maze(raw_maze)
 
-print("Part 1: {}".format(maze.getMinDistance()))
+AOCUtils.print_answer(1, maze.get_min_distance())
 
-print("Part 2: {}".format(maze.getMinDistanceLayers()))
+AOCUtils.print_answer(2, maze.get_min_distance_layers())
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

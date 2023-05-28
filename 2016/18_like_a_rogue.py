@@ -7,27 +7,27 @@ import AOCUtils
 def getSafeTiles(cur, n):
     cur = list(cur)
 
-    safeTiles = 0
+    safe_tiles = 0
     for _ in range(n):
-        safeTiles += cur.count(".")
+        safe_tiles += cur.count('.')
 
         nxt = []
         for i in range(len(cur)):
-            l = cur[i-1] if i-1 >= 0 else "."
-            r = cur[i+1] if i+1 < len(cur) else "."
+            l = cur[i-1] if i-1 >= 0 else '.'
+            r = cur[i+1] if i+1 < len(cur) else '.'
 
-            nxt.append("^" if l != r else ".")
+            nxt.append('^' if l != r else '.')
 
         cur = nxt
 
-    return safeTiles
+    return safe_tiles
 
 ################################
 
-cur = AOCUtils.loadInput(18)
+cur = AOCUtils.load_input(18)
 
-print("Part 1: {}".format(getSafeTiles(cur, 40)))
+AOCUtils.print_answer(1, getSafeTiles(cur, 40))
 
-print("Part 2: {}".format(getSafeTiles(cur, 400000)))
+AOCUtils.print_answer(2, getSafeTiles(cur, 400000))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

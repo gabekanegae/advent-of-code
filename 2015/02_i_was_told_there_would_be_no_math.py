@@ -6,26 +6,26 @@ import AOCUtils
 
 ####################################################
 
-presents = AOCUtils.loadInput(2)
+presents = AOCUtils.load_input(2)
 
-presents = [tuple(map(int, present.split("x"))) for present in presents]
+presents = [tuple(map(int, present.split('x'))) for present in presents]
 
-totalPaper = 0
+total_paper = 0
 for present in presents:
     l, w, h = present
 
     paper = 2*l*w + 2*w*h + 2*h*l + min(l*w, w*h, h*l)
-    totalPaper += paper
+    total_paper += paper
 
-print("Part 1: {}".format(totalPaper))
+AOCUtils.print_answer(1, total_paper)
 
-totalRibbon = 0
+total_ribbon = 0
 for present in presents:
     l, w, h = present
 
     ribbon = 2 * min(l+w, w+h, h+l) + l*w*h
-    totalRibbon += ribbon
+    total_ribbon += ribbon
 
-print("Part 2: {}".format(totalRibbon))
+AOCUtils.print_answer(2, total_ribbon)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

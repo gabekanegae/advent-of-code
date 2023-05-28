@@ -6,7 +6,7 @@ import AOCUtils
 
 ######################################
 
-banks = AOCUtils.loadInput(6)
+banks = AOCUtils.load_input(6)
 
 seen = {tuple(banks): 0}
 
@@ -28,7 +28,7 @@ while True:
         break
     seen[new] = len(seen)
 
-print("Part 1: {}".format(len(seen)))
-print("Part 2: {}".format(len(seen) - seen[new]))
+AOCUtils.print_answer(1, len(seen))
+AOCUtils.print_answer(2, len(seen) - seen[new])
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

@@ -4,23 +4,23 @@
 
 import AOCUtils
 
-def reqFuel(m):
+def required_fuel(m):
     return (m // 3) - 2
 
 #####################################################
 
-masses = AOCUtils.loadInput(1)
+masses = AOCUtils.load_input(1)
 
-fuelSum = sum(reqFuel(m) for m in masses)
-print("Part 1: {}".format(fuelSum))
+fuel_sum = sum(required_fuel(m) for m in masses)
+AOCUtils.print_answer(1, fuel_sum)
 
-fuelSum = 0
+fuel_sum = 0
 for m in masses:
-    fuel = reqFuel(m)
+    fuel = required_fuel(m)
     while fuel >= 0:
-        fuelSum += fuel
-        fuel = reqFuel(fuel)
+        fuel_sum += fuel
+        fuel = required_fuel(fuel)
 
-print("Part 2: {}".format(fuelSum))
+AOCUtils.print_answer(2, fuel_sum)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

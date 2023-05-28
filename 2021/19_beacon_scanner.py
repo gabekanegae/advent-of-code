@@ -164,9 +164,9 @@ for scanner_id, raw_scanner in enumerate(raw_scanners):
 reconstruct_map(scanners)
 
 unique_beacons = set().union(*(scanner.beacons for scanner in scanners))
-print(f'Part 1: {len(unique_beacons)}')
+AOCUtils.print_answer(1, len(unique_beacons))
 
 max_distance = max(sum(distance_vectors(a.pos, b.pos)) for a, b in combinations(scanners, 2))
-print(f'Part 2: {max_distance}')
+AOCUtils.print_answer(2, max_distance)
 
 AOCUtils.print_time_taken()

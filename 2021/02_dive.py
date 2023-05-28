@@ -20,8 +20,7 @@ for step in course:
     elif direction == 'up':
         depth -= delta
 
-p1 = pos * depth
-print(f'Part 1: {p1}')
+AOCUtils.print_answer(1, pos * depth)
 
 pos, depth, aim = 0, 0, 0
 for step in course:
@@ -36,7 +35,6 @@ for step in course:
     elif direction == 'up':
         aim -= delta
 
-p2 = pos * depth
-print(f'Part 2: {p2}')
+AOCUtils.print_answer(2, pos * depth)
 
 AOCUtils.print_time_taken()

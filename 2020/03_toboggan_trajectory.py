@@ -4,33 +4,33 @@
 
 import AOCUtils
 
-def countTrees(forest, deltaW, deltaH):
+def count_trees(forest, delta_w, delta_h):
     h, w = len(forest), len(forest[0])
 
     trees = 0
 
-    curH, curW = 0, 0
-    for curH in range(0, h, deltaH):
-        trees += int(forest[curH][curW] == "#")
+    cur_h, cur_w = 0, 0
+    for cur_h in range(0, h, delta_h):
+        trees += int(forest[cur_h][cur_w] == '#')
 
-        curW = (curW + deltaW) % w
+        cur_w = (cur_w + delta_w) % w
 
     return trees
 
 ######################################
 
-forest = AOCUtils.loadInput(3)
+forest = AOCUtils.load_input(3)
 
-p1 = countTrees(forest, 3, 1)
+p1 = count_trees(forest, 3, 1)
 
-print("Part 1: {}".format(p1))
+AOCUtils.print_answer(1, p1)
 
-p2 = countTrees(forest, 1, 1)
-p2 *= countTrees(forest, 3, 1)
-p2 *= countTrees(forest, 5, 1)
-p2 *= countTrees(forest, 7, 1)
-p2 *= countTrees(forest, 1, 2)
+p2 = count_trees(forest, 1, 1)
+p2 *= count_trees(forest, 3, 1)
+p2 *= count_trees(forest, 5, 1)
+p2 *= count_trees(forest, 7, 1)
+p2 *= count_trees(forest, 1, 2)
 
-print("Part 2: {}".format(p2))
+AOCUtils.print_answer(2, p2)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

@@ -54,9 +54,9 @@ for raw_entry in raw_entries:
 decoded_entries = list(map(decode, entries))
 
 p1 = sum(''.join(decoded_entries).count(i) for i in '1478')
-print(f'Part 1: {p1}')
+AOCUtils.print_answer(1, p1)
 
 p2 = sum(int(decoded_entry) for decoded_entry in decoded_entries)
-print(f'Part 2: {p2}')
+AOCUtils.print_answer(2, p2)
 
 AOCUtils.print_time_taken()

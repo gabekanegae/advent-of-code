@@ -4,13 +4,13 @@
 
 import AOCUtils
 
-def diffPolarity(a, b):
+def diff_polarity(a, b):
     return ord(a) == ord(b)+32 or ord(a)+32 == ord(b)
 
 def react(polymer):
     stack = []
     for p in polymer:
-        if len(stack) == 0 or not diffPolarity(p, stack[-1]):
+        if len(stack) == 0 or not diff_polarity(p, stack[-1]):
             stack.append(p)
         else:
             stack.pop()
@@ -19,18 +19,18 @@ def react(polymer):
 
 #######################################
 
-polymer = AOCUtils.loadInput(5)
+base_polymer = AOCUtils.load_input(5)
 
-print("Part 1: {}".format(react(polymer)))
+AOCUtils.print_answer(1, react(base_polymer))
 
-minSize, minType = None, None
-for c in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
-    newPolymer = "".join(p for p in polymer if p.upper() != c.upper())
-    newSize = react(newPolymer)
-    if not minSize or newSize < minSize:
-        minSize = newSize
-        minType = c
+min_size, min_type = None, None
+for c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
+    polymer = ''.join(p for p in base_polymer if p.upper() != c.upper())
+    size = react(polymer)
+    if not min_size or size < min_size:
+        min_size = size
+        min_type = c
 
-print("Part 2: {}".format(minSize))
+AOCUtils.print_answer(2, min_size)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

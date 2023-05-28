@@ -4,34 +4,34 @@
 
 import AOCUtils
 
-maxHouses = 1000000
+max_houses = 1000000
 
 ######################################################
 
-presents = AOCUtils.loadInput(20)
+presents = AOCUtils.load_input(20)
 
 houses = dict()
 for elf in range(1, presents):
-    limit = maxHouses
+    limit = max_houses
     for house in range(elf, limit, elf):
         if house not in houses:
             houses[house] = 0
         houses[house] += 10 * elf
 
     if houses[elf] >= presents:
-        print("Part 1: {}".format(elf))
+        AOCUtils.print_answer(1, elf)
         break
 
 houses = dict()
 for elf in range(1, presents):
-    limit = min(50 * elf, maxHouses)
+    limit = min(50 * elf, max_houses)
     for house in range(elf, limit, elf):
         if house not in houses:
             houses[house] = 0
         houses[house] += 11 * elf
 
     if houses[elf] >= presents:
-        print("Part 2: {}".format(elf))
+        AOCUtils.print_answer(2, elf)
         break
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

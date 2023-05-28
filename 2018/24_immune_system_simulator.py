@@ -4,141 +4,140 @@
 
 import AOCUtils
 
-def getTargets(atkArmy, defArmy):
+def get_targets(atk_army, def_army):
     targeted = set()
-    for atkGroup in atkArmy:
-        if len(targeted) < len(defArmy):
-            dmgGiven = []
-            for defGroup in defArmy:
-                dmg = (defGroup.calcDmgTaken(atkGroup), defGroup.getEffectivePower(), defGroup.initiative, defGroup)
-                dmgGiven.append(dmg)
-            dmgGiven.sort(reverse=True)
+    for atk_group in atk_army:
+        if len(targeted) < len(def_army):
+            damage_given = []
+            for def_group in def_army:
+                dmg = (def_group.get_damage_taken(atk_group), def_group.get_effective_power(), def_group.initiative, def_group)
+                damage_given.append(dmg)
+            damage_given.sort(reverse=True)
 
             # Find best target that hasn't been targeted yet
             take = 0
-            while dmgGiven[take][-1] in targeted:
+            while damage_given[take][-1] in targeted:
                 take += 1
 
             # Only select targets that would deal damage to
-            if dmgGiven[take][0] > 0:
-                targeted.add(dmgGiven[take][-1])
-                atkGroup.target = dmgGiven[take][-1]
+            if damage_given[take][0] > 0:
+                targeted.add(damage_given[take][-1])
+                atk_group.target = damage_given[take][-1]
             else:
-                atkGroup.target = None
+                atk_group.target = None
 
-def battle(rawImmune, rawInfection, boost=0):
-    immuneArmy = [Group(rawGroup) for rawGroup in rawImmune]
-    infectionArmy = [Group(rawGroup) for rawGroup in rawInfection]
+def battle(raw_immune, raw_infection, boost=0):
+    immune_army = [Group(raw_group) for raw_group in raw_immune]
+    infection_army = [Group(raw_group) for raw_group in raw_infection]
 
-    for g in immuneArmy: g.dmgAmt += boost
+    for g in immune_army: g.damage_amount += boost
 
-    immuneArmyUnits = sum(g.units for g in immuneArmy)
-    infectionArmyUnits = sum(g.units for g in infectionArmy)
-
+    immune_army_units = sum(g.units for g in immune_army)
+    infection_army_units = sum(g.units for g in infection_army)
 
     # Main battle round
-    while immuneArmyUnits > 0 and infectionArmyUnits > 0:
+    while immune_army_units > 0 and infection_army_units > 0:
         # Remove dead groups
-        effAndInit = lambda x: (x.getEffectivePower(), x.initiative)
-        immuneArmy = sorted(g for g in immuneArmy if g.alive, key=effAndInit, reverse=True)
-        infectionArmy = sorted(g for g in infectionArmy if g.alive, key=effAndInit, reverse=True)
+        eff_and_init = lambda x: (x.get_effective_power(), x.initiative)
+        immune_army = sorted([g for g in immune_army if g.alive], key=eff_and_init, reverse=True)
+        infection_army = sorted([g for g in infection_army if g.alive], key=eff_and_init, reverse=True)
 
-        getTargets(immuneArmy, infectionArmy)
-        getTargets(infectionArmy, immuneArmy)
+        get_targets(immune_army, infection_army)
+        get_targets(infection_army, immune_army)
 
         kills = 0
-        allArmies = sorted(immuneArmy+infectionArmy, key=lambda x: x.initiative, reverse=True)
-        for army in allArmies:
+        all_armies = sorted(immune_army+infection_army, key=lambda x: x.initiative, reverse=True)
+        for army in all_armies:
             if army.alive: # Only alive groups can attack, will be removed in the next round
                 kills += army.attack()
 
         if kills == 0: # No kills in round = tie, would result in endless rounds
             return None, None
 
-        immuneArmyUnits = sum(g.units for g in immuneArmy)
-        infectionArmyUnits = sum(g.units for g in infectionArmy)
+        immune_army_units = sum(g.units for g in immune_army)
+        infection_army_units = sum(g.units for g in infection_army)
 
-    return immuneArmyUnits, infectionArmyUnits
+    return immune_army_units, infection_army_units
 
 class Group:
     def __init__(self, raw):
-        rawSplit = raw.split()
+        raw_split = raw.split()
 
-        self.units = int(rawSplit[0])
-        self.hp = int(rawSplit[4])
+        self.units = int(raw_split[0])
+        self.hp = int(raw_split[4])
 
         self.immunities = []
         self.weaknesses = []
-        if rawSplit[7].startswith("("):
-            weaksAndImmunes = raw.split("(")[1].split(")")[0].split("; ")
-            for wai in weaksAndImmunes:
-                if wai.startswith("weak"): self.weaknesses = wai[8:].split(", ")
-                elif wai.startswith("immune"): self.immunities = wai[10:].split(", ")
+        if raw_split[7].startswith('('):
+            weaks_and_immunes = raw.split('(')[1].split(')')[0].split('; ')
+            for wai in weaks_and_immunes:
+                if wai.startswith('weak'): self.weaknesses = wai[8:].split(', ')
+                elif wai.startswith('immune'): self.immunities = wai[10:].split(', ')
 
-        self.dmgAmt = int(rawSplit[-6])
-        self.dmgType = rawSplit[-5]
-        self.initiative = int(rawSplit[-1])
+        self.damage_amount = int(raw_split[-6])
+        self.damage_type = raw_split[-5]
+        self.initiative = int(raw_split[-1])
 
         self.alive = True
         self.target = None
 
-    def calcDmgTaken(self, attacker):
-        dmgAmtMult = 1
-        if attacker.dmgType in self.immunities: dmgAmtMult = 0
-        if attacker.dmgType in self.weaknesses: dmgAmtMult = 2
+    def get_damage_taken(self, attacker):
+        damage_amount_mult = 1
+        if attacker.damage_type in self.immunities: damage_amount_mult = 0
+        if attacker.damage_type in self.weaknesses: damage_amount_mult = 2
         
-        return attacker.getEffectivePower() * dmgAmtMult
+        return attacker.get_effective_power() * damage_amount_mult
 
-    def receiveAttack(self, attacker):
-        dmgAmt = self.calcDmgTaken(attacker)
+    def receive_attack(self, attacker):
+        damage_amount = self.get_damage_taken(attacker)
 
-        unitsLost = dmgAmt // self.hp
-        if unitsLost > self.units: unitsLost = self.units
+        units_lost = damage_amount // self.hp
+        if units_lost > self.units: units_lost = self.units
         
-        self.units -= unitsLost
+        self.units -= units_lost
 
         if self.units <= 0:
             self.alive = False
 
-        return unitsLost
+        return units_lost
 
     def attack(self):
-        unitsLost = 0
+        units_lost = 0
         if self.target:
-            unitsLost = self.target.receiveAttack(self)
+            units_lost = self.target.receive_attack(self)
             self.target = None
-        return unitsLost
+        return units_lost
 
-    def getEffectivePower(self):
-        return self.units * self.dmgAmt
+    def get_effective_power(self):
+        return self.units * self.damage_amount
 
     # def __repr__(self):
-    #     return "U:{}, HP:{}, IMM:{}, WKN:{}, DMG:{}({}), EP:{}, INI:{}".format(
+    #     return 'U:{}, HP:{}, IMM:{}, WKN:{}, DMG:{}({}), EP:{}, INI:{}'.format(
     #             self.units, self.hp, self.immunities, self.weaknesses,
-    #             self.dmgAmt, self.dmgType, self.getEffectivePower(), self.initiative)
+    #             self.damage_amount, self.damage_type, self.get_effective_power(), self.initiative)
 
 ################################################
 
-rawInput = [s for s in AOCUtils.loadInput(24) if s]
+reindeer_condition = [s for s in AOCUtils.load_input(24) if s]
 
-immuneStart, infectionStart = 0, rawInput.index("Infection:")
-rawImmune = rawInput[immuneStart+1:infectionStart]
-rawInfection = rawInput[infectionStart+1:]
+immune_start, infection_start = 0, reindeer_condition.index('Infection:')
+raw_immune = reindeer_condition[immune_start+1:infection_start]
+raw_infection = reindeer_condition[infection_start+1:]
 
-immuneArmyUnits, infectionArmyUnits = battle(rawImmune, rawInfection)
-print("Part 1: {}".format(max(immuneArmyUnits, infectionArmyUnits)))
+immune_army_units, infection_army_units = battle(raw_immune, raw_infection)
+AOCUtils.print_answer(1, max(immune_army_units, infection_army_units))
 
-boostLo, boostHi = 0, 1000 # Binary Search
-while boostLo != boostHi:
-    boost = (boostLo + boostHi) // 2
-    immuneArmyUnits, infectionArmyUnits = battle(rawImmune, rawInfection, boost)
+boost_lo, boost_hi = 0, 1000 # Binary Search
+while boost_lo != boost_hi:
+    boost = (boost_lo + boost_hi) // 2
+    immune_army_units, infection_army_units = battle(raw_immune, raw_infection, boost)
     
-    if immuneArmyUnits is None or immuneArmyUnits == 0: # Tie or loss
-        boostLo = boost + 1
+    if immune_army_units is None or immune_army_units == 0: # Tie or loss
+        boost_lo = boost + 1
     else:
-        boostHi = boost
+        boost_hi = boost
 
-immuneArmyUnits, infectionArmyUnits = battle(rawImmune, rawInfection, boost)
-print("Part 2: {}".format(immuneArmyUnits))
+immune_army_units, infection_army_units = battle(raw_immune, raw_infection, boost)
+AOCUtils.print_answer(2, immune_army_units)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

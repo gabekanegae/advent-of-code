@@ -62,12 +62,12 @@ cave_size_x = len(cave)
 low_points = get_low_points(cave)
 
 risk_levels = sum(1 + cave[i][j] for i, j in low_points)
-print(f'Part 1: {risk_levels}')
+AOCUtils.print_answer(1, risk_levels)
 
 basin_sizes = [get_basin_size(cave, low_point) for low_point in low_points]
 basin_sizes.sort(reverse=True)
 
 p2 = basin_sizes[0] * basin_sizes[1] * basin_sizes[2]
-print(f'Part 2: {p2}')
+AOCUtils.print_answer(2, p2)
 
 AOCUtils.print_time_taken()

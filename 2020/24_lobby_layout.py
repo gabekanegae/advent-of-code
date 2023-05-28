@@ -4,7 +4,7 @@
 
 import AOCUtils
 
-def splitTokens(s, tokens):
+def split_tokens(s, tokens):
     tokens = set(tokens)
     
     i = 0
@@ -20,48 +20,48 @@ def splitTokens(s, tokens):
     return out
 
 # Y axis rotated 30 deg (L/R is W/E)
-directions = {"nw": (1, -1), "w": (0, -1), "ne": (1, 0),
-              "sw": (-1, 0), "e": (0, 1),  "se": (-1, 1)}
+directions = {'nw': (1, -1), 'w': (0, -1), 'ne': (1, 0),
+              'sw': (-1, 0), 'e': (0, 1),  'se': (-1, 1)}
 
 ################################
 
-paths = AOCUtils.loadInput(24)
+paths = AOCUtils.load_input(24)
 
-blackTiles = set()
+black_tiles = set()
 for path in paths:
     cur = (0, 0)
-    for direction in splitTokens(path, directions.keys()):
+    for direction in split_tokens(path, directions.keys()):
         delta = directions[direction]
         cur = (cur[0]+delta[0], cur[1]+delta[1])
 
-    if cur not in blackTiles:
-        blackTiles.add(cur)
+    if cur not in black_tiles:
+        black_tiles.add(cur)
     else:
-        blackTiles.remove(cur)
+        black_tiles.remove(cur)
 
-print("Part 1: {}".format(len(blackTiles)))
+AOCUtils.print_answer(1, len(black_tiles))
 
 for _ in range(100):
-    toBeUpdated = set(blackTiles)
-    for tile in blackTiles:
+    to_be_updated = set(black_tiles)
+    for tile in black_tiles:
         for delta in directions.values():
             neighbor = (tile[0]+delta[0], tile[1]+delta[1])
-            toBeUpdated.add(neighbor)
+            to_be_updated.add(neighbor)
 
-    newBlackTiles = set(blackTiles)
-    for tile in toBeUpdated:
-        blackNeighbors = 0
+    new_black_tiles = set(black_tiles)
+    for tile in to_be_updated:
+        black_neighbors = 0
         for delta in directions.values():
             neighbor = (tile[0]+delta[0], tile[1]+delta[1])
-            blackNeighbors += int(neighbor in blackTiles)
+            black_neighbors += int(neighbor in black_tiles)
 
-        if tile in blackTiles and (blackNeighbors == 0 or blackNeighbors > 2):
-            newBlackTiles.remove(tile)
-        elif tile not in blackTiles and blackNeighbors == 2:
-            newBlackTiles.add(tile)
+        if tile in black_tiles and (black_neighbors == 0 or black_neighbors > 2):
+            new_black_tiles.remove(tile)
+        elif tile not in black_tiles and black_neighbors == 2:
+            new_black_tiles.add(tile)
 
-    blackTiles = newBlackTiles
+    black_tiles = new_black_tiles
 
-print("Part 2: {}".format(len(blackTiles)))
+AOCUtils.print_answer(2, len(black_tiles))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

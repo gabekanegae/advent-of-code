@@ -99,9 +99,9 @@ snailfish_numbers = list(map(flatten_snalfish_number, raw_snailfish_numbers))
 final_sum = reduce(add_snailfish, snailfish_numbers)
 
 final_magnitude = magnitude(final_sum)
-print(f'Part 1: \'{final_magnitude}\'')
+AOCUtils.print_answer(1, final_magnitude)
 
 max_magnitude = max(magnitude(add_snailfish(a, b)) for a, b in permutations(snailfish_numbers, 2))
-print(f'Part 2: \'{max_magnitude}\'')
+AOCUtils.print_answer(2, max_magnitude)
 
 AOCUtils.print_time_taken()

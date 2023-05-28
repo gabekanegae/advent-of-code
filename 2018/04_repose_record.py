@@ -6,40 +6,40 @@ import AOCUtils
 
 ################################
 
-log = sorted(AOCUtils.loadInput(4))
+log = sorted(AOCUtils.load_input(4))
 
 guards = dict()
 for entry in log:
-    if "begins shift" in entry:
-        guardID = int(entry.split("#")[1].split()[0])
-    elif "falls asleep" in entry:
-        sleepStart = int(entry.split(":")[1].split("]")[0])
-    elif "wakes up" in entry:
-        sleepEnd = int(entry.split(":")[1].split("]")[0])
+    if 'begins shift' in entry:
+        guard_id = int(entry.split('#')[1].split()[0])
+    elif 'falls asleep' in entry:
+        sleepStart = int(entry.split(':')[1].split(']')[0])
+    elif 'wakes up' in entry:
+        sleepEnd = int(entry.split(':')[1].split(']')[0])
         
-        if guardID not in guards:
-            guards[guardID] = [0 for _ in range(60)]
+        if guard_id not in guards:
+            guards[guard_id] = [0 for _ in range(60)]
 
         for t in range(sleepStart, sleepEnd):
-            guards[guardID][t] += 1
+            guards[guard_id][t] += 1
 
-maxID, maxTotal = None, None
+max_id, maxTotal = None, None
 for k, v in guards.items():
     total = sum(v)
     if not maxTotal or total > maxTotal:
-        maxTotal, maxID = total, k
+        maxTotal, max_id = total, k
 
-maxTime = guards[maxID].index(max(guards[maxID]))
-print("Part 1: {}".format(maxID*maxTime))
+max_time = guards[max_id].index(max(guards[max_id]))
+AOCUtils.print_answer(1, max_id*max_time)
 
-maxID, maxTime, maxCount = None, None, None
+max_id, max_time, max_count = None, None, None
 for k, v in guards.items():
     for i, count in enumerate(v):
-        if not maxCount or count > maxCount:
-            maxID = k
-            maxTime = i
-            maxCount = count
+        if not max_count or count > max_count:
+            max_id = k
+            max_time = i
+            max_count = count
 
-print("Part 2: {}".format(maxID*maxTime))
+AOCUtils.print_answer(2, max_id*max_time)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

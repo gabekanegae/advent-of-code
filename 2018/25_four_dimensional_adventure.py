@@ -10,7 +10,7 @@ def manhattan(p1, p2):
 class UnionFind:
     def __init__(self, size):
         self.constellation = [i for i in range(size)]
-        self.totalConstellations = size
+        self.total_constellations = size
 
     def find(self, i):
         if self.constellation[i] == i:
@@ -24,20 +24,20 @@ class UnionFind:
         if i == j: return
 
         self.constellation[i] = j
-        self.totalConstellations -= 1
+        self.total_constellations -= 1
 
 ##############################################
 
-rawPoints = AOCUtils.loadInput(25)
-points = [([int(i) for i in p.split(",")]) for p in rawPoints]
+raw_points = AOCUtils.load_input(25)
+points = [([int(i) for i in p.split(',')]) for p in raw_points]
 
-uf = UnionFind(len(points))
+union_find = UnionFind(len(points))
 
 for i, p in enumerate(points):
     for j, q in enumerate(points):
         if manhattan(p, q) <= 3:
-            uf.union(i, j)
+            union_find.union(i, j)
 
-print("Part 1: {}".format(uf.totalConstellations))
+AOCUtils.print_answer(1, union_find.total_constellations)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

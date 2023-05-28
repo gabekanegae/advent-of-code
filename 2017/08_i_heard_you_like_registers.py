@@ -9,36 +9,36 @@ class Instruction:
         inst = inst.split()
 
         self.reg = inst[0]
-        self.mul = {"inc": 1, "dec": -1}[inst[1]]
+        self.mul = {'inc': 1, 'dec': -1}[inst[1]]
         self.val = int(inst[2])
-        self.condReg = inst[4]
+        self.cond_reg = inst[4]
         self.cond = inst[5]
-        self.condVal = int(inst[6])
+        self.cond_val = int(inst[6])
 
-    def meetsCondition(self, regs):
-        conditions = {">": lambda x, y: x > y,
-                      "<": lambda x, y: x < y,
-                      ">=": lambda x, y: x >= y,
-                      "<=": lambda x, y: x <= y,
-                      "==": lambda x, y: x == y,
-                      "!=": lambda x, y: x != y}
+    def meets_condition(self, regs):
+        conditions = {'>': lambda x, y: x > y,
+                      '<': lambda x, y: x < y,
+                      '>=': lambda x, y: x >= y,
+                      '<=': lambda x, y: x <= y,
+                      '==': lambda x, y: x == y,
+                      '!=': lambda x, y: x != y}
 
-        return conditions[self.cond](regs.get(self.condReg, 0), self.condVal)
+        return conditions[self.cond](regs.get(self.cond_reg, 0), self.cond_val)
 
 #############################################
 
-instructions = [Instruction(inst) for inst in AOCUtils.loadInput(8)]
+instructions = [Instruction(inst) for inst in AOCUtils.load_input(8)]
 
 registers = dict()
 
-maxEver = 0
+max_ever = 0
 for inst in instructions:
-    if inst.meetsCondition(registers):
+    if inst.meets_condition(registers):
         registers[inst.reg] = registers.get(inst.reg, 0) + inst.mul*inst.val
-        maxEver = max(maxEver, registers[inst.reg])
+        max_ever = max(max_ever, registers[inst.reg])
 
-print("Part 1: {}".format(max(registers.values())))
+AOCUtils.print_answer(1, max(registers.values()))
 
-print("Part 2: {}".format(maxEver))
+AOCUtils.print_answer(2, max_ever)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

@@ -5,40 +5,40 @@
 import AOCUtils
 
 class Node:
-    def __init__(self, childAmt, metaAmt):
-        self.childAmt = childAmt
-        self.metaAmt = metaAmt
+    def __init__(self, child_amount, meta_amount):
+        self.child_amount = child_amount
+        self.meta_amount = meta_amount
         self.children = []
 
-    def addChild(self, c):
+    def add_child(self, c):
         self.children.append(c)
 
-    def addMeta(self, meta):
+    def add_meta(self, meta):
         self.meta = meta
-        self.metaSum = sum(meta)
-        if self.childAmt == 0:
-            self.value = self.metaSum
+        self.meta_sum = sum(meta)
+        if self.child_amount == 0:
+            self.value = self.meta_sum
         else:
             self.value = 0
             for i in self.meta:
-                if i-1 < self.childAmt:
+                if i-1 < self.child_amount:
                     self.value += self.children[i-1].value
 
-def generateTree(data):
+def generate_tree(data):
     node = Node(data[0], data[1])
     data = data[2:]
 
-    for _ in range(node.childAmt):
-        child, data = generateTree(data)
-        node.addChild(child)
+    for _ in range(node.child_amount):
+        child, data = generate_tree(data)
+        node.add_child(child)
 
-    node.addMeta(data[:node.metaAmt])
-    return node, data[node.metaAmt:]
+    node.add_meta(data[:node.meta_amount])
+    return node, data[node.meta_amount:]
 
 ##################################
 
-rawData = AOCUtils.loadInput(8)
-tree, _ = generateTree(rawData)
+rawData = AOCUtils.load_input(8)
+tree, _ = generate_tree(rawData)
 
 total = 0
 
@@ -49,14 +49,14 @@ while stack:
     
     visited.add(cur)
     
-    total += cur.metaSum
+    total += cur.meta_sum
 
     for child in cur.children:
         if child not in visited:
             stack.append(child)
 
-print("Part 1: {}".format(total))
+AOCUtils.print_answer(1, total)
 
-print("Part 2: {}".format(tree.value))
+AOCUtils.print_answer(2, tree.value)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

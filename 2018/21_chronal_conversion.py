@@ -4,8 +4,8 @@
 
 import AOCUtils
 
-def emulateCode(args):
-    haltValues = []
+def emulate_code(args):
+    halt_values = []
     seen = set()
                                                               # 0-4 (self-test)
     regs = [0 for _ in range(6)]                              # 5 (seti)
@@ -19,27 +19,27 @@ def emulateCode(args):
             regs[args[11][2]] *= args[11][1]                  # 11 (muli)
             regs[args[12][2]] &= args[12][1]                  # 12 (bani)
 
-            magicValue = regs[args[28][0]]
+            magic_value = regs[args[28][0]]
             if (256 > regs[args[13][1]]):                     # 13 (gtir)
-                if magicValue in seen:                        # 14,16,28,29 (would halt)
-                    return haltValues
+                if magic_value in seen:                        # 14,16,28,29 (would halt)
+                    return halt_values
                 else:
-                    haltValues.append(magicValue)
-                    seen.add(magicValue)
+                    halt_values.append(magic_value)
+                    seen.add(magic_value)
                 break                                         # 30 (would not halt)
 
             regs[args[13][1]] //= 256                         # 18-25 (loop)
 
 ######################################
 
-program = AOCUtils.loadInput(21)[1:]
-args = [[int(i) for i in instr.split()[1:]] for instr in program]
+program = AOCUtils.load_input(21)[1:]
+args = [[int(i) for i in inst.split()[1:]] for inst in program]
 
-haltValues = emulateCode(args)
-print("Part 1: {}".format(haltValues[0]))
-print("Part 2: {}".format(haltValues[-1]))
+halt_values = emulate_code(args)
+AOCUtils.print_answer(1, halt_values[0])
+AOCUtils.print_answer(2, halt_values[-1])
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()
 
 '''
 #ip 4

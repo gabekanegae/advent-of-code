@@ -6,17 +6,17 @@ import AOCUtils
 
 #################################
 
-directions = AOCUtils.loadInput(1)
+directions = AOCUtils.load_input(1)
 
-directions = [1 if c == "(" else -1 for c in directions]
+directions = [1 if c == '(' else -1 for c in directions]
 
-print("Part 1: {}".format(sum(directions)))
+AOCUtils.print_answer(1, sum(directions))
 
 cur = 0
 for i, c in enumerate(directions):
     cur += c
     if cur == -1:
-        print("Part 2: {}".format(i+1))
+        AOCUtils.print_answer(2, i+1)
         break
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

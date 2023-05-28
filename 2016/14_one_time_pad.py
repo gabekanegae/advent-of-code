@@ -5,15 +5,15 @@
 import AOCUtils
 import hashlib
 
-def getOTP(salt, part=1):
-    possibleKeys = {k: [] for k in "0123456789abcdef"}
-    otpKeys = set()
+def get_OTP(salt, part=1):
+    possible_keys = {k: [] for k in '0123456789abcdef'}
+    otp_keys = set()
 
-    baseDigest = hashlib.md5(salt.encode())
+    base_digest = hashlib.md5(salt.encode())
 
     i = 0
-    while len(otpKeys) < 64:
-        digest = baseDigest.copy()
+    while len(otp_keys) < 64:
+        digest = base_digest.copy()
         digest.update(str(i).encode())
         s = digest.hexdigest()
 
@@ -23,26 +23,26 @@ def getOTP(salt, part=1):
 
         for c in range(len(s)-3-1):
             if len(set(s[c:c+3])) == 1:
-                possibleKeys[s[c]].append(i)
+                possible_keys[s[c]].append(i)
                 break
 
         for c in range(len(s)-5-1):
             if len(set(s[c:c+5])) == 1:
-                for keyi in possibleKeys[s[c]]:
+                for keyi in possible_keys[s[c]]:
                     if keyi+1 <= i <= keyi+1000:
-                        otpKeys.add(keyi)
+                        otp_keys.add(keyi)
                 break
 
         i += 1
 
-    return sorted(otpKeys)[63]
+    return sorted(otp_keys)[63]
 
 ################################
 
-salt = AOCUtils.loadInput(14)
+salt = AOCUtils.load_input(14)
 
-print("Part 1: {}".format(getOTP(salt, part=1)))
+AOCUtils.print_answer(1, get_OTP(salt, part=1))
 
-print("Part 2: {}".format(getOTP(salt, part=2)))
+AOCUtils.print_answer(2, get_OTP(salt, part=2))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

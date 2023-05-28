@@ -43,7 +43,7 @@ lines = AOCUtils.load_input(10)
 lines_and_syntax_scores = [(line, get_syntax_error_score(line)) for line in lines]
 
 p1 = sum(score for _, score in lines_and_syntax_scores)
-print(f'Part 1: {p1}')
+AOCUtils.print_answer(1, p1)
 
 incomplete_lines = [line for line, score in lines_and_syntax_scores if score == 0]
 
@@ -51,6 +51,6 @@ autocomplete_scores = list(map(get_autocomplete_score, incomplete_lines))
 autocomplete_scores.sort()
 
 p2 = autocomplete_scores[len(autocomplete_scores)//2]
-print(f'Part 2: {p2}')
+AOCUtils.print_answer(2, p2)
 
 AOCUtils.print_time_taken()

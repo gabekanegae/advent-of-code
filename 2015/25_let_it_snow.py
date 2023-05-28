@@ -6,8 +6,8 @@ import AOCUtils
 
 ###############################
 
-rawInput = AOCUtils.loadInput(25).split()
-row, col = int(rawInput[-3][:-1]), int(rawInput[-1][:-1])
+console = AOCUtils.load_input(25).split()
+row, col = int(console[-3][:-1]), int(console[-1][:-1])
 
 start = 20151125
 base = 252533
@@ -17,9 +17,9 @@ goal = (row+col-1) * (row+col) // 2 - row
 
 n = (start * pow(base, goal, mod)) % mod
 
-print("Part 1: {}".format(n))
+AOCUtils.print_answer(1, n)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()
 
 '''
 (2947, 3029)

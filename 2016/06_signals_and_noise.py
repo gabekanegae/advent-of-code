@@ -6,7 +6,7 @@ import AOCUtils
 
 ####################################
 
-messages = AOCUtils.loadInput(6)
+messages = AOCUtils.load_input(6)
 n = len(messages[0])
 
 counts = [dict() for _ in range(n)]
@@ -16,10 +16,10 @@ for message in messages:
             counts[i][c] = 0
         counts[i][c] += 1
 
-corrected = "".join([max((ct, c) for c, ct in count.items())[1] for count in counts])
-print("Part 1: {}".format(corrected))
+corrected = ''.join([max((ct, c) for c, ct in count.items())[1] for count in counts])
+AOCUtils.print_answer(1, corrected)
 
-corrected = "".join([max((-ct, c) for c, ct in count.items())[1] for count in counts])
-print("Part 2: {}".format(corrected))
+corrected = ''.join([max((-ct, c) for c, ct in count.items())[1] for count in counts])
+AOCUtils.print_answer(2, corrected)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

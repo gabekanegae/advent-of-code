@@ -6,26 +6,26 @@ import AOCUtils
 
 ##################################
 
-boardingPasses = AOCUtils.loadInput(5)
+boarding_passes = AOCUtils.load_input(5)
 
-seatIDs = []
-for boardingPass in boardingPasses:
-    lo, hi = 0, (2 ** len(boardingPass)) - 1
-    for c in boardingPass:
+seat_ids = []
+for boarding_pass in boarding_passes:
+    lo, hi = 0, (2 ** len(boarding_pass)) - 1
+    for c in boarding_pass:
         mid = (lo + hi) // 2
-        if c in "FL":
+        if c in 'FL':
             hi = mid
-        elif c in "BR":
+        elif c in 'BR':
             lo = mid
 
-    seatID = hi
-    seatIDs.append(seatID)
+    seat_id = hi
+    seat_ids.append(seat_id)
 
-print("Part 1: {}".format(max(seatIDs)))
+AOCUtils.print_answer(1, max(seat_ids))
 
-allSeats = set(range(min(seatIDs), max(seatIDs) + 1))
-missingSeats = allSeats - set(seatIDs) # Assume len(missingSeats) == 1
+all_seats = set(range(min(seat_ids), max(seat_ids) + 1))
+missing_seats = all_seats - set(seat_ids) # Assume len(missing_seats) == 1
 
-print("Part 2: {}".format(missingSeats.pop()))
+AOCUtils.print_answer(2, missing_seats.pop())
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

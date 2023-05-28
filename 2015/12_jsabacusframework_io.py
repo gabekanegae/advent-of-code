@@ -5,30 +5,30 @@
 import AOCUtils
 import json
 
-def getSum1(obj):
+def get_sum_1(obj):
     if type(obj) is list:
-        return sum(map(getSum1, obj))
+        return sum(map(get_sum_1, obj))
     elif type(obj) is dict:
-        return sum(map(getSum1, obj.values()))
+        return sum(map(get_sum_1, obj.values()))
     
     return obj if type(obj) is int else 0
 
-def getSum2(obj):
+def get_sum_2(obj):
     if type(obj) is list:
-        return sum(map(getSum2, obj))
+        return sum(map(get_sum_2, obj))
     elif type(obj) is dict:
-        return sum(map(getSum2, obj.values())) if "red" in obj.values() else 0
+        return sum(map(get_sum_2, obj.values())) if 'red' in obj.values() else 0
     
     return obj if type(obj) is int else 0
 
 ########################################
 
-document = AOCUtils.loadInput(12)
+document = AOCUtils.load_input(12)
 
-jsonObject = json.loads(document)
+json_object = json.loads(document)
 
-print("Part 1: {}".format(getSum1(jsonObject)))
+AOCUtils.print_answer(1, get_sum_1(json_object))
 
-print("Part 2: {}".format(getSum2(jsonObject)))
+AOCUtils.print_answer(2, get_sum_2(json_object))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

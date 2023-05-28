@@ -48,7 +48,7 @@ gamma_rate = ''.join(get_most_common_bit(report, i) for i in range(length))
 epsilon_rate = ''.join(get_least_common_bit(report, i) for i in range(length))
 
 power_consumption = int(gamma_rate, 2) * int(epsilon_rate, 2)
-print(f'Part 1: {power_consumption}')
+AOCUtils.print_answer(1, power_consumption)
 
 report.sort()
 
@@ -56,6 +56,6 @@ oxygen_rating = get_rating(report, get_most_common_bit, tiebreak='1')
 co2_rating = get_rating(report, get_least_common_bit, tiebreak='0')
 
 life_support_rating = int(oxygen_rating, 2) * int(co2_rating, 2)
-print(f'Part 2: {life_support_rating}')
+AOCUtils.print_answer(2, life_support_rating)
 
 AOCUtils.print_time_taken()

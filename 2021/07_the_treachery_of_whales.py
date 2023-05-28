@@ -29,8 +29,8 @@ def get_fuel_cost_expensive(crabs):
 raw_crabs = AOCUtils.load_input(7)
 crabs = list(map(int, raw_crabs.split(',')))
 
-print(f'Part 1: {get_fuel_cost_cheap(crabs)}')
+AOCUtils.print_answer(1, get_fuel_cost_cheap(crabs))
 
-print(f'Part 2: {get_fuel_cost_expensive(crabs)}')
+AOCUtils.print_answer(2, get_fuel_cost_expensive(crabs))
 
 AOCUtils.print_time_taken()

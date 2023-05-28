@@ -4,7 +4,7 @@
 
 import AOCUtils
 
-def distToOrigin(p):
+def distance_to_origin(p):
     x, y = p
     if (x >= 0) == (y >= 0):
         return abs(x + y)
@@ -13,11 +13,11 @@ def distToOrigin(p):
 
 ##########################
 
-path = AOCUtils.loadInput(11).split(",")
+path = AOCUtils.load_input(11).split(',')
 
 # X axis rotated 30 deg (L/R is SW/NE)
-directions = {"nw": (-1, 1), "n": (0, 1), "ne": (1, 0),
-              "sw": (-1, 0), "s": (0, -1), "se": (1, -1)}
+directions = {'nw': (-1, 1), 'n': (0, 1), 'ne': (1, 0),
+              'sw': (-1, 0), 's': (0, -1), 'se': (1, -1)}
 
 steps = [(0, 0)]
 for p in path:
@@ -25,7 +25,7 @@ for p in path:
     dx, dy = directions[p]
     steps.append((x+dx, y+dy))
 
-print("Part 1: {}".format(distToOrigin(steps[-1])))
-print("Part 2: {}".format(max(distToOrigin(step) for step in steps)))
+AOCUtils.print_answer(1, distance_to_origin(steps[-1]))
+AOCUtils.print_answer(2, max(distance_to_origin(step) for step in steps))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

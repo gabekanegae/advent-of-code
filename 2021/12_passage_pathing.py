@@ -68,8 +68,8 @@ for raw_cave_edge in raw_cave_edges:
     cave_edges[a].append(b)
     cave_edges[b].append(a)
 
-print(f'Part 1: {get_path_count_1(cave_edges)}')
+AOCUtils.print_answer(1, get_path_count_1(cave_edges))
 
-print(f'Part 2: {get_path_count_2(cave_edges)}')
+AOCUtils.print_answer(2, get_path_count_2(cave_edges))
 
 AOCUtils.print_time_taken()

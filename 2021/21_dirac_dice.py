@@ -54,8 +54,8 @@ raw_start_pos = AOCUtils.load_input(21)
 
 start_pos = tuple(int(line.split()[-1]) for line in raw_start_pos)
 
-print(f'Part 1: {play_practice_game(start_pos[0], start_pos[1])}')
+AOCUtils.print_answer(1, play_practice_game(start_pos[0], start_pos[1]))
 
-print(f'Part 2: {max(get_wins(start_pos[0], 0, start_pos[1], 0))}')
+AOCUtils.print_answer(2, max(get_wins(start_pos[0], 0, start_pos[1], 0)))
 
 AOCUtils.print_time_taken()

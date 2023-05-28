@@ -20,12 +20,12 @@ class Cave:
         self.geoIndex = [[None for _ in range(self.size[1])] for _ in range(self.size[0])]
         for y in range(self.size[0]):
             for x in range(self.size[1]):
-                self.geoIndex[y][x] = self._getGeo((x, y))
+                self.geoIndex[y][x] = self._get_geo_index((x, y))
 
-    def _getErosion(self, pos):
+    def _get_erosion(self, pos):
         return (self.geoIndex[pos[1]][pos[0]] + self.depth) % 20183
 
-    def _getGeo(self, pos):
+    def _get_geo_index(self, pos):
         if pos == (0, 0) or pos == (self.target[1], self.target[0]):
             return 0
         elif pos[0] == 0:
@@ -33,16 +33,16 @@ class Cave:
         elif pos[1] == 0:
             return pos[0] * 48271
         else:
-            return self._getErosion((pos[0]-1, pos[1])) * self._getErosion((pos[0], pos[1]-1))
+            return self._get_erosion((pos[0]-1, pos[1])) * self._get_erosion((pos[0], pos[1]-1))
 
-    def getRiskLevel(self):
+    def get_risk_level(self):
         risk = 0
         for y in range(self.target[0]+1):
             for x in range(self.target[1]+1):
-                risk += (self._getErosion((x, y)) % 3)
+                risk += (self._get_erosion((x, y)) % 3)
         return risk
 
-    def getFastestPath(self):
+    def get_fastest_path(self):
         heap = [(0, (0, 0), TORCH)]
         visited = {(0, TORCH): 0}
 
@@ -57,7 +57,7 @@ class Cave:
                 if npos[0] < 0 or npos[0] >= self.size[1] or npos[1] < 0 or npos[1] >= self.size[0]: continue
                 
                 # Equipment not allowed
-                if self._getErosion(npos) % 3 == equip: continue
+                if self._get_erosion(npos) % 3 == equip: continue
 
                 visited[(npos, equip)] = time
                 heappush(heap, (time, npos, equip))
@@ -77,21 +77,21 @@ class Cave:
             time += 7
             for equip in [(equip+1)%3, (equip+2)%3]:
                 # Only equipments that are allowed in next region
-                if self._getErosion(pos) % 3 != equip:
+                if self._get_erosion(pos) % 3 != equip:
                     step()
 
         return time
 
 #############################
 
-rawInput = AOCUtils.loadInput(22)
-depth = int(rawInput[0].split()[1])
-target = ([int(i) for i in rawInput[1].split()[1].split(",")])
+scan = AOCUtils.load_input(22)
+depth = int(scan[0].split()[1])
+target = ([int(i) for i in scan[1].split()[1].split(',')])
 
 cave = Cave(depth, target, (target[0]+BORDER, target[1]+BORDER))
 
-print("Part 1: {}".format(cave.getRiskLevel()))
+AOCUtils.print_answer(1, cave.get_risk_level())
 
-print("Part 2: {}".format(cave.getFastestPath()))
+AOCUtils.print_answer(2, cave.get_fastest_path())
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

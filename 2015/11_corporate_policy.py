@@ -4,14 +4,14 @@
 
 import AOCUtils
 
-def passwordGenerator(pw="aaaaaaaa"):
+def password_generator(pw):
     # Convert string to A0Z25
-    pw = [ord(c) - ord("a") for c in pw]
+    pw = [ord(c) - ord('a') for c in pw]
     
     while True:
         # +1
         i = len(pw) - 1
-        while i >= 0 and pw[i] == ord("z") - ord("a"):
+        while i >= 0 and pw[i] == ord('z') - ord('a'):
             pw[i] = 0
             i -= 1
         if i != -1:
@@ -22,7 +22,7 @@ def passwordGenerator(pw="aaaaaaaa"):
             continue
 
         # May not contain the letters i, o, or l
-        if any(c == ord(n) for n in "iol" for c in pw):
+        if any(c == ord(n) for n in 'iol' for c in pw):
             continue
 
         # Must contain at least two different, non-overlapping pairs of letters
@@ -31,16 +31,16 @@ def passwordGenerator(pw="aaaaaaaa"):
             continue
 
         # Convert back from A0Z25 to string
-        yield "".join(chr(ord("a") + i) for i in pw)
+        yield ''.join(chr(ord('a') + i) for i in pw)
 
 ####################################
 
-password = AOCUtils.loadInput(11)
+password = AOCUtils.load_input(11)
 
-passwords = passwordGenerator(password)
+passwords = password_generator(password)
 
-print("Part 1: {}".format(next(passwords)))
+AOCUtils.print_answer(1, next(passwords))
 
-print("Part 2: {}".format(next(passwords)))
+AOCUtils.print_answer(2, next(passwords))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

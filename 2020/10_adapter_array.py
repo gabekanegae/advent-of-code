@@ -6,7 +6,7 @@ import AOCUtils
 
 #################################
 
-adapters = AOCUtils.loadInput(10)
+adapters = AOCUtils.load_input(10)
 
 adapters.sort()
 
@@ -22,7 +22,7 @@ for n in adapters:
 
 j3 += 1
 
-print("Part 1: {}".format(j1 * j3))
+AOCUtils.print_answer(1, j1 * j3)
 
 memo = [0] * (max(adapters) + 1)
 memo[0] = 1
@@ -34,6 +34,6 @@ for n in adapters:
 
     memo[n] = l1 + l2 + l3
 
-print("Part 2: {}".format(memo[-1]))
+AOCUtils.print_answer(2, memo[-1])
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

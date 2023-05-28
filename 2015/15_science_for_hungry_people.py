@@ -15,17 +15,17 @@ def allTuplesWithSum(n, total):
 
 #############################################
 
-rawIngredients = AOCUtils.loadInput(15)
+raw_ingredients = AOCUtils.load_input(15)
 
 ingredients = []
-for rawIngredient in rawIngredients:
-    rawIngredient = rawIngredient.split()
+for raw_ingredient in raw_ingredients:
+    raw_ingredient = raw_ingredient.split()
 
-    ingredient = {"capacity": int(rawIngredient[2][:-1]),
-                  "durability": int(rawIngredient[4][:-1]),
-                  "flavor": int(rawIngredient[6][:-1]),
-                  "texture": int(rawIngredient[8][:-1]),
-                  "calories": int(rawIngredient[10])
+    ingredient = {'capacity': int(raw_ingredient[2][:-1]),
+                  'durability': int(raw_ingredient[4][:-1]),
+                  'flavor': int(raw_ingredient[6][:-1]),
+                  'texture': int(raw_ingredient[8][:-1]),
+                  'calories': int(raw_ingredient[10])
                   }
 
     ingredients.append(ingredient)
@@ -34,19 +34,19 @@ recipes = dict()
 for amounts in allTuplesWithSum(len(ingredients), 100):
     capacity, durability, flavor, texture, calories = 0, 0, 0, 0, 0
     for amount, ingredient in zip(amounts, ingredients):
-        capacity += amount * ingredient["capacity"]
-        durability += amount * ingredient["durability"]
-        flavor += amount * ingredient["flavor"]
-        texture += amount * ingredient["texture"]
-        calories += amount * ingredient["calories"]
+        capacity += amount * ingredient['capacity']
+        durability += amount * ingredient['durability']
+        flavor += amount * ingredient['flavor']
+        texture += amount * ingredient['texture']
+        calories += amount * ingredient['calories']
 
     score = max(0, capacity) * max(0, durability) * max(0, flavor) * max(0, texture)
-    recipes[amounts] = {"score": score, "calories": calories}
+    recipes[amounts] = {'score': score, 'calories': calories}
 
-maxScore = max(recipe["score"] for amounts, recipe in recipes.items())
-print("Part 1: {}".format(maxScore))
+max_score = max(recipe['score'] for amounts, recipe in recipes.items())
+AOCUtils.print_answer(1, max_score)
 
-maxScore = max(recipe["score"] for amounts, recipe in recipes.items() if recipe["calories"] == 500)
-print("Part 2: {}".format(maxScore))
+max_score = max(recipe['score'] for amounts, recipe in recipes.items() if recipe['calories'] == 500)
+AOCUtils.print_answer(2, max_score)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

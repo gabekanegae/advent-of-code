@@ -6,13 +6,13 @@ import AOCUtils
 
 ######################################
 
-rawPasswords = AOCUtils.loadInput(2)
+raw_passwords = AOCUtils.load_input(2)
 
 p1 = 0
 p2 = 0
-for rawPassword in rawPasswords:
-    counts, c, password = rawPassword.split()
-    a, b = [int(i) for i in counts.split("-")]
+for raw_password in raw_passwords:
+    counts, c, password = raw_password.split()
+    a, b = [int(i) for i in counts.split('-')]
     c = c[0]
 
     if a <= password.count(c) <= b:
@@ -20,8 +20,8 @@ for rawPassword in rawPasswords:
     if (password[a-1] == c) ^ (password[b-1] == c):
         p2 += 1
 
-print("Part 1: {}".format(p1))
+AOCUtils.print_answer(1, p1)
 
-print("Part 2: {}".format(p2))
+AOCUtils.print_answer(2, p2)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

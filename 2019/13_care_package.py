@@ -5,8 +5,8 @@
 import AOCUtils
 from intcodeVM import VM
 
-def drawScreen(blocks):
-    blocksArt = [" ", "#", "X", "-", "*"]
+def draw_screen(blocks):
+    block_arts = [' ', '#', 'X', '-', '*']
 
     for y in range(20):
         for x in range(50):
@@ -14,27 +14,27 @@ def drawScreen(blocks):
                 block = blocks[(x, y)]
             else:
                 block = 0
-            print(blocksArt[block]*2, end="")
+            print(block_arts[block]*2, end='')
         print()
 
-    print("Score: {}".format(score))
+    print('Score: {}'.format(score))
     # input()
 
 ################################
 
-rawProgram = AOCUtils.loadInput(13)
-memory = [int(i) for i in rawProgram.split(",")]
+raw_program = AOCUtils.load_input(13)
+memory = [int(i) for i in raw_program.split(',')]
 
 vm = VM(memory)
 vm.run()
 
-blocksAmt = vm.output[2:len(vm.output):3].count(2)
-print("Part 1: {}".format(blocksAmt))
+block_amount = vm.output[2:len(vm.output):3].count(2)
+AOCUtils.print_answer(1, block_amount)
 
 movement = 0
 score = 0
 blocks = dict()
-ballPos, paddlePos = None, None
+ball_pos, paddle_pos = None, None
 
 vm = VM(memory)
 vm[0] = 2
@@ -50,9 +50,9 @@ while not vm.halted:
         # Get ball and paddle positions
         if pos[0] >= 0 and pos[1] >= 0:
             if block == 3:
-                ballPos = pos
+                ball_pos = pos
             elif block == 4:
-                paddlePos = pos
+                paddle_pos = pos
             blocks[pos] = block
 
         # Get score
@@ -63,15 +63,15 @@ while not vm.halted:
     vm.output = []
 
     # Paddle AI
-    if ballPos[0] < paddlePos[0]:
+    if ball_pos[0] < paddle_pos[0]:
         movement = 1
-    elif ballPos[0] > paddlePos[0]:
+    elif ball_pos[0] > paddle_pos[0]:
         movement = -1
     else:
         movement = 0
 
-    # drawScreen(blocks)
+    # draw_screen(blocks)
 
-print("Part 2: {}".format(score))
+AOCUtils.print_answer(2, score)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

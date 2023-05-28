@@ -6,40 +6,40 @@ import AOCUtils
 
 ################################
 
-wires = [w.split(",") for w in AOCUtils.loadInput(3)]
+wires = [w.split(',') for w in AOCUtils.load_input(3)]
 
-wirePaths = [set() for wire in wires]
-wirePathsLength = [dict() for wire in wires]
+wire_paths_ = [set() for wire in wires]
+wire_paths_length = [dict() for wire in wires]
 
-moves = {"R": (1, 0), "L": (-1, 0), "U": (0, 1), "D": (0, -1)}
+moves = {'R': (1, 0), 'L': (-1, 0), 'U': (0, 1), 'D': (0, -1)}
 
 for w, wire in enumerate(wires):
     pos = (0, 0)
-    stepsCount = 0
+    steps_count = 0
     for step in wire:
         direction, distance = step[0], int(step[1:])
         for i in range(distance):
             m = moves[direction]
             pos = (pos[0]+m[0], pos[1]+m[1])
 
-            wirePaths[w].add(pos)
+            wire_paths_[w].add(pos)
 
             # Add step count for Part 2
-            stepsCount += 1
-            if pos not in wirePathsLength[w]:
-                wirePathsLength[w][pos] = stepsCount
-            wirePathsLength[w][pos] = min(wirePathsLength[w][pos], stepsCount)
+            steps_count += 1
+            if pos not in wire_paths_length[w]:
+                wire_paths_length[w][pos] = steps_count
+            wire_paths_length[w][pos] = min(wire_paths_length[w][pos], steps_count)
 
-intersections = wirePaths[0]
-for w in wirePaths[1:]:
+intersections = wire_paths_[0]
+for w in wire_paths_[1:]:
     intersections = intersections.intersection(w)
 
 # Calculate Manhattan distance for every intersection and take min
 distances = [abs(p[0]) + abs(p[1]) for p in intersections]
-print("Part 1: {}".format(min(distances)))
+AOCUtils.print_answer(1, min(distances))
 
 # Calculate distance sum to every intersection and take min
-intersectionsSteps = [sum(wl[i] for wl in wirePathsLength) for i in intersections]
-print("Part 2: {}".format(min(intersectionsSteps)))
+intersections_steps = [sum(wl[i] for wl in wire_paths_length) for i in intersections]
+AOCUtils.print_answer(2, min(intersections_steps))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

@@ -6,7 +6,7 @@ import AOCUtils
 
 ####################################
 
-program = AOCUtils.loadInput(19)
+program = AOCUtils.load_input(19)
 pc, program = int(program[0].split()[1]), program[1:]
 
 registers = [0 for _ in range(6)]
@@ -15,53 +15,54 @@ while registers[pc] < len(program):
     op = instr[0]
     a, b, c = [int(i) for i in instr[1:]]
     
-    if op == "addr":
+    if op == 'addr':
         registers[c] = registers[a] + registers[b]
-    elif op == "addi":
+    elif op == 'addi':
         registers[c] = registers[a] + b
-    elif op == "mulr":
+    elif op == 'mulr':
         registers[c] = registers[a] * registers[b]
-    elif op == "muli":
+    elif op == 'muli':
         registers[c] = registers[a] * b
-    elif op == "borr":
+    elif op == 'borr':
         registers[c] = registers[a] | registers[b]
-    elif op == "bori":
+    elif op == 'bori':
         registers[c] = registers[a] | b
-    elif op == "banr":
+    elif op == 'banr':
         registers[c] = registers[a] & registers[b]
-    elif op == "bani":
+    elif op == 'bani':
         registers[c] = registers[a] & b
-    elif op == "setr":
+    elif op == 'setr':
         registers[c] = registers[a]
-    elif op == "seti":
+    elif op == 'seti':
         registers[c] = a
-    elif op == "gtir":
+    elif op == 'gtir':
         registers[c] = int(a > registers[b])
-    elif op == "gtri":
+    elif op == 'gtri':
         registers[c] = int(registers[a] > b)
-    elif op == "gtrr":
+    elif op == 'gtrr':
         registers[c] = int(registers[a] > registers[b])
-    elif op == "eqir":
+    elif op == 'eqir':
         registers[c] = int(a == registers[b])
-    elif op == "eqri":
+    elif op == 'eqri':
         registers[c] = int(registers[a] == b)
-    elif op == "eqrr":
+    elif op == 'eqrr':
         registers[c] = int(registers[a] == registers[b])
 
     registers[pc] += 1
 
-print("Part 1: {}".format(registers[0]))
+AOCUtils.print_answer(1, registers[0])
 
 args = [[int(i) for i in instr.split()[1:]] for instr in program]
 
 x = (args[17][1] * args[17][1] * 19 * args[20][1]) + (args[21][1] * 22 + args[23][1])
 y = (27 * 28 + 29) * 30 * args[31][1] * 32
-magicValue = x + y
+magic_value = x + y
 
-sumFactors = sum(i for i in range(1, magicValue+1) if magicValue % i == 0)
-print("Part 2: {}".format(sumFactors))
+sum_factors = sum(i for i in range(1, magic_value+1) if magic_value % i == 0)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_answer(2, sum_factors)
+
+AOCUtils.print_time_taken()
 
 '''
 #ip 5

@@ -56,7 +56,7 @@ target = tuple(tuple(map(int, ax[2:].split('..'))) for ax in target)
 max_abs_vy = max(abs(target[1][0])-1, abs(target[1][1]))
 
 max_y = (max_abs_vy * (max_abs_vy + 1)) // 2
-print(f'Part 1: {max_y}')
+AOCUtils.print_answer(1, max_y)
 
 # Probe only reaches the target if:
 #  [vx has the same sign as target closest edge] and
@@ -101,6 +101,6 @@ for vx in range(min_vx, max_vx+1):
         if probe_reaches_target(velocity, target):
             hits += 1
 
-print(f'Part 2: {hits}')
+AOCUtils.print_answer(2, hits)
 
 AOCUtils.print_time_taken()

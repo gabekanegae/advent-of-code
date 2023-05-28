@@ -15,34 +15,34 @@ class Generator:
 
 ######################################
 
-rawInput = AOCUtils.loadInput(15)
+seeds = AOCUtils.load_input(15)
 
-seedA, seedB = int(rawInput[0].split()[-1]), int(rawInput[1].split()[-1])
-genA = Generator(16807, seedA)
-genB = Generator(48271, seedB)
+seed_a, seed_b = int(seeds[0].split()[-1]), int(seeds[1].split()[-1])
+gen_a = Generator(16807, seed_a)
+gen_b = Generator(48271, seed_b)
 
 mask = 0xFFFF
 
-judgeCount = 0
+judge_count = 0
 for i in range(40000000):
-    genA.next()
-    genB.next()
+    gen_a.next()
+    gen_b.next()
     
-    if genA.seed & mask == genB.seed & mask:
-        judgeCount += 1
+    if gen_a.seed & mask == gen_b.seed & mask:
+        judge_count += 1
 
-print("Part 1: {}".format(judgeCount))
+AOCUtils.print_answer(1, judge_count)
 
-judgeCount = 0
+judge_count = 0
 for i in range(5000000):
-    while genA.next() % 4 != 0:
+    while gen_a.next() % 4 != 0:
         pass
-    while genB.next() % 8 != 0:
+    while gen_b.next() % 8 != 0:
         pass
 
-    if genA.seed & mask == genB.seed & mask:
-        judgeCount += 1
+    if gen_a.seed & mask == gen_b.seed & mask:
+        judge_count += 1
 
-print("Part 2: {}".format(judgeCount))
+AOCUtils.print_answer(2, judge_count)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

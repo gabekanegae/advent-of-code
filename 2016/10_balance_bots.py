@@ -7,61 +7,61 @@ import AOCUtils
 class Bot:
     def __init__(self):
         self.chips = []
-        self.lowType, self.lowID = None, None
-        self.highType, self.highID = None, None
+        self.low_type, self.low_id = None, None
+        self.high_type, self.high_id = None, None
 
 ################################
 
-instructions = AOCUtils.loadInput(10)
+instructions = AOCUtils.load_input(10)
 
 bots = dict()
 for inst in instructions:
     inst = inst.split()
 
-    if inst[0] == "bot":
-        botID = int(inst[1])
-        if botID not in bots:
-            bots[botID] = Bot()
+    if inst[0] == 'bot':
+        bot_id = int(inst[1])
+        if bot_id not in bots:
+            bots[bot_id] = Bot()
         
-        bots[botID].lowType = inst[5]
-        bots[botID].lowID = int(inst[6])
-        bots[botID].highType = inst[10]
-        bots[botID].highID = int(inst[11])
-    elif inst[0] == "value":
-        botID = int(inst[5])
-        if botID not in bots:
-            bots[botID] = Bot()
+        bots[bot_id].low_type = inst[5]
+        bots[bot_id].low_id = int(inst[6])
+        bots[bot_id].high_type = inst[10]
+        bots[bot_id].high_id = int(inst[11])
+    elif inst[0] == 'value':
+        bot_id = int(inst[5])
+        if bot_id not in bots:
+            bots[bot_id] = Bot()
 
         chip = int(inst[1])
-        bots[botID].chips.append(chip)
+        bots[bot_id].chips.append(chip)
 
 output = dict()
 
-activeBots = [botID for botID, bot in bots.items() if len(bot.chips) == 2]
-while activeBots:
-    botID = activeBots.pop()
-    bot = bots[botID]
+active_bots = [bot_id for bot_id, bot in bots.items() if len(bot.chips) == 2]
+while active_bots:
+    bot_id = active_bots.pop()
+    bot = bots[bot_id]
 
-    lowChip, highChip = sorted(bot.chips)
-    if [lowChip, highChip] == [17, 61]:
-        p1 = botID
+    low_chip, high_chip = sorted(bot.chips)
+    if [low_chip, high_chip] == [17, 61]:
+        p1 = bot_id
 
-    low = (bot.lowType, bot.lowID, lowChip)
-    high = (bot.highType, bot.highID, highChip)
-    for tgtType, tgtID, chip in [low, high]:
-        if tgtType == "bot":
-            bots[tgtID].chips.append(chip)
-        elif tgtType == "output":
-            output[tgtID] = chip
+    low = (bot.low_type, bot.low_id, low_chip)
+    high = (bot.high_type, bot.high_id, high_chip)
+    for target_type, tgt_id, chip in [low, high]:
+        if target_type == 'bot':
+            bots[tgt_id].chips.append(chip)
+        elif target_type == 'output':
+            output[tgt_id] = chip
 
-        if tgtType == "bot" and len(bots[tgtID].chips) == 2:
-            activeBots.append(tgtID)
+        if target_type == 'bot' and len(bots[tgt_id].chips) == 2:
+            active_bots.append(tgt_id)
 
     bot.chips = []
 
-print("Part 1: {}".format(p1))
+AOCUtils.print_answer(1, p1)
 
 p2 = output[0] * output[1] * output[2]
-print("Part 2: {}".format(p2))
+AOCUtils.print_answer(2, p2)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

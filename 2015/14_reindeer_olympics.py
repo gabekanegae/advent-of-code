@@ -6,36 +6,36 @@ import AOCUtils
 
 #####################################
 
-rawReindeers = AOCUtils.loadInput(14)
-timeLimit = 2503
+raw_reindeers = AOCUtils.load_input(14)
+time_limit = 2503
 
 reindeers = dict()
-for rawReindeer in rawReindeers:
-    rawReindeer = rawReindeer.split()
+for raw_reindeer in raw_reindeers:
+    raw_reindeer = raw_reindeer.split()
 
-    name = rawReindeer[0]
-    speed = int(rawReindeer[3])
-    flyTime = int(rawReindeer[6])
-    restTime = int(rawReindeer[13])
+    name = raw_reindeer[0]
+    speed = int(raw_reindeer[3])
+    fly_time = int(raw_reindeer[6])
+    rest_time = int(raw_reindeer[13])
 
-    reindeer = {"speed": speed, "flyTime": flyTime, "restTime": restTime}
+    reindeer = {'speed': speed, 'fly_time': fly_time, 'rest_time': rest_time}
     reindeers[name] = reindeer
 
 positions = {reindeer: 0 for reindeer in reindeers}
 points = {reindeer: 0 for reindeer in reindeers}
-for t in range(timeLimit):
+for t in range(time_limit):
     for name, reindeer in reindeers.items():
-        isFlying = (t % (reindeer["flyTime"] + reindeer["restTime"]) < reindeer["flyTime"])
+        isFlying = (t % (reindeer['fly_time'] + reindeer['rest_time']) < reindeer['fly_time'])
         if isFlying:
-            positions[name] += reindeer["speed"]
+            positions[name] += reindeer['speed']
 
     maxPosition = max(positions.values())
     for name, reindeer in reindeers.items():
         if positions[name] == maxPosition:
             points[name] += 1
 
-print("Part 1: {}".format(max(positions.values())))
+AOCUtils.print_answer(1, max(positions.values()))
 
-print("Part 2: {}".format(max(points.values())))
+AOCUtils.print_answer(2, max(points.values()))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

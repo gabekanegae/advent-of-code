@@ -7,44 +7,44 @@ import AOCUtils
 def dance(programs, moves):
     programs = list(programs)
     for move in moves:
-        if move[0] == "s":
+        if move[0] == 's':
             n = int(move[1:])
             programs = programs[-n:] + programs[:-n]
-        elif move[0] == "x":
-            a, b = [int(i) for i in move[1:].split("/")]
+        elif move[0] == 'x':
+            a, b = [int(i) for i in move[1:].split('/')]
             programs[a], programs[b] = programs[b], programs[a]
-        elif move[0] == "p":
+        elif move[0] == 'p':
             a, b = move[1], move[3]
             pa, pb = programs.index(a), programs.index(b)
             programs[pa], programs[pb] = programs[pb], programs[pa]
 
-    return "".join(programs)
+    return ''.join(programs)
 
 #########################################
 
-origPrograms = "abcdefghijklmnop"
-moves = AOCUtils.loadInput(16).split(",")
+original_programs = 'abcdefghijklmnop'
+moves = AOCUtils.load_input(16).split(',')
 
-programs = origPrograms
-print("Part 1: {}".format(dance(programs, moves)))
+programs = original_programs
+AOCUtils.print_answer(1, dance(programs, moves))
 
-programs = origPrograms
-seenStr = {programs: 0}
-seenID = {0: programs}
+programs = original_programs
+seen_str = {programs: 0}
+seen_id = {0: programs}
 
 i = 1
 while True:
     programs = dance(programs, moves)
-    if programs in seenStr:
-        loop = (seenStr[programs], i)
+    if programs in seen_str:
+        loop = (seen_str[programs], i)
         break
 
-    seenStr[programs] = i
-    seenID[i] = programs
+    seen_str[programs] = i
+    seen_id[i] = programs
 
     i += 1
 
 loop = (1000000000 - loop[0]) % (loop[1] - loop[0])
-print("Part 2: {}".format(seenID[loop]))
+AOCUtils.print_answer(2, seen_id[loop])
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

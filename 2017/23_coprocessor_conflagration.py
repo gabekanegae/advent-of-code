@@ -9,14 +9,14 @@ class Program:
         self.pc = 0
         self.code = code
         
-        self.registers = {r: 0 for r in "abcdefgh"}
-        self.registers["a"] = mode
+        self.registers = {r: 0 for r in 'abcdefgh'}
+        self.registers['a'] = mode
         
-        self.mulCount = 0
+        self.mul_count = 0
 
     def run(self):
         while self.pc < len(self.code):
-            # print(self.pc, "=>", self.code[self.pc])
+            # print(self.pc, '=>', self.code[self.pc])
             
             cmd = self.code[self.pc].split()
 
@@ -25,29 +25,29 @@ class Program:
             x = cmd[1]
             if x.isalpha() and x not in self.registers:
                 self.registers[x] = 0
-            xVal = int(x) if not x.isalpha() else self.registers[x]
+            x_val = int(x) if not x.isalpha() else self.registers[x]
 
             y = cmd[2]
             if y.isalpha() and y not in self.registers:
                 self.registers[y] = 0
-            yVal = int(y) if not y.isalpha() else self.registers[y]
+            y_val = int(y) if not y.isalpha() else self.registers[y]
 
-            if inst == "set":
-                self.registers[x] = yVal
-            elif inst == "sub":
-                self.registers[x] -= yVal
-            elif inst == "mul":
-                self.registers[x] *= yVal
-                self.mulCount += 1
-            elif inst == "jnz":
-                if xVal != 0:
-                    self.pc += yVal - 1
+            if inst == 'set':
+                self.registers[x] = y_val
+            elif inst == 'sub':
+                self.registers[x] -= y_val
+            elif inst == 'mul':
+                self.registers[x] *= y_val
+                self.mul_count += 1
+            elif inst == 'jnz':
+                if x_val != 0:
+                    self.pc += y_val - 1
 
-            # print(" | ".join(k+": "+"{:<7}".format(str(v)) for k, v in self.registers.items()))
+            # print(' | '.join(k+': '+'{:<7}'.format(str(v)) for k, v in self.registers.items()))
 
             self.pc += 1
 
-def isPrime(n):
+def is_prime(n):
     for i in range(2, int(n**0.5)+1):
         if n % i == 0:
             return False
@@ -55,26 +55,26 @@ def isPrime(n):
 
 #############################################
 
-code = AOCUtils.loadInput(23)
+code = AOCUtils.load_input(23)
 
 program = Program(code)
 program.run()
-print("Part 1: {}".format(program.mulCount))
+AOCUtils.print_answer(1, program.mul_count)
 
 # program = Program(code, 1)
 # program.run()
-# print("Part 2: {}".format(program.registers["h"]))
+# AOCUtils.print_answer(2, program.registers['h']))
 
 b0 = int(code[0].split()[-1]) * 100 + 100000
 
-nonPrimesAmt = 0
+non_primes_amount = 0
 for b in range(b0, b0+17000+1, 17):
-    if not isPrime(b):
-        nonPrimesAmt += 1
+    if not is_prime(b):
+        non_primes_amount += 1
 
-print("Part 2: {}".format(nonPrimesAmt))
+AOCUtils.print_answer(2, non_primes_amount)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()
 
 '''
   0 | set b 81      |                       |

@@ -6,14 +6,14 @@ import AOCUtils
 
 ##################################
 
-digits = str(AOCUtils.loadInput(1))
+digits = str(AOCUtils.load_input(1))
 
-totalSum = sum(int(digits[i]) for i in range(len(digits)) if digits[i] == digits[i-1])
-print("Part 1: {}".format(totalSum))
+total_sum = sum(int(digits[i]) for i in range(len(digits)) if digits[i] == digits[i-1])
+AOCUtils.print_answer(1, total_sum)
 
 skip = len(digits) // 2
 
-totalSum = sum(int(digits[i]) for i in range(len(digits)) if digits[i] == digits[(i+skip) % len(digits)])
-print("Part 2: {}".format(totalSum))
+total_sum = sum(int(digits[i]) for i in range(len(digits)) if digits[i] == digits[(i+skip) % len(digits)])
+AOCUtils.print_answer(2, total_sum)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

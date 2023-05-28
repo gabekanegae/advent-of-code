@@ -7,9 +7,9 @@ from collections import deque
 
 class Tree:
     def __init__(self, children):
-        self.root = Node("COM")
+        self.root = Node('COM')
         self.checksum = 0
-        self.depths = {"COM": 0}
+        self.depths = {'COM': 0}
 
         queue = deque([self.root])
         while queue:
@@ -23,10 +23,10 @@ class Tree:
 
             queue += cur.children
 
-    def getChecksum(self):
+    def get_checksum(self):
         return sum(self.depths.values())
 
-    def getPath(self, name):
+    def get_path(self, name):
         # BFS from root to name
         queue = deque([(self.root, [])])
         while queue:
@@ -39,15 +39,15 @@ class Tree:
                 newPath = path + [cur.name]
                 queue.append((child, newPath))
 
-    def getLCA(self, nameA, nameB):
-        pathA = self.getPath(nameA)
-        pathB = self.getPath(nameB)
+    def get_lca(self, name_a, name_b):
+        path_a = self.get_path(name_a)
+        path_b = self.get_path(name_b)
 
         # Find lowest common ancestor by comparing both paths
-        minLen = min(len(pathA), len(pathB))
-        for i in range(minLen):
-            if pathA[i] != pathB[i]:
-                return pathA[i-1]
+        min_len = min(len(path_a), len(path_b))
+        for i in range(min_len):
+            if path_a[i] != path_b[i]:
+                return path_a[i-1]
 
 class Node:
     def __init__(self, name):
@@ -56,7 +56,7 @@ class Node:
 
 ######################################
 
-orbits = [s.split(")") for s in AOCUtils.loadInput(6)]
+orbits = [s.split(')') for s in AOCUtils.load_input(6)]
 
 children = dict()
 for orb in orbits:
@@ -65,10 +65,10 @@ for orb in orbits:
     children[orb[0]].append(orb[1])
 
 tree = Tree(children)
-print("Part 1: {}".format(tree.getChecksum()))
+AOCUtils.print_answer(1, tree.get_checksum())
 
-lca = tree.getLCA("YOU", "SAN")
-dist = tree.depths["YOU"] + tree.depths["SAN"] - 2*tree.depths[lca] - 2
-print("Part 2: {}".format(dist))
+lca = tree.get_lca('YOU', 'SAN')
+dist = tree.depths['YOU'] + tree.depths['SAN'] - 2*tree.depths[lca] - 2
+AOCUtils.print_answer(2, dist)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

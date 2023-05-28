@@ -46,8 +46,8 @@ for raw_vent in raw_vents:
 
     vents.append(vent)
 
-print(f'Part 1: {get_overlap_count(vents)}')
+AOCUtils.print_answer(1, get_overlap_count(vents))
 
-print(f'Part 2: {get_overlap_count(vents, part_two=True)}')
+AOCUtils.print_answer(2, get_overlap_count(vents, part_two=True))
 
 AOCUtils.print_time_taken()

@@ -8,9 +8,9 @@ class Program:
     def __init__(self, program):
         self.name = program[0]
         self.w = int(program[1][1:-1])
-        self.holding = "".join(program[3:]).split(",") if len(program) > 2 else []
+        self.holding = ''.join(program[3:]).split(',') if len(program) > 2 else []
 
-def topoSort(programs):
+def topo_sort(programs):
     reverseOrder = []
     done = set()
 
@@ -24,52 +24,52 @@ def topoSort(programs):
     for p in programs: dfs(p)
     return reverseOrder[::-1]
 
-def fixBalance(programs, root):
-    totalWeight = dict() # Memoization dict
+def fix_balance(programs, root):
+    total_weight = dict() # Memoization dict
 
-    def getWeights(p):
-        if p in totalWeight: return (None, totalWeight[p])
+    def get_weights(p):
+        if p in total_weight: return (None, total_weight[p])
 
         # Get weights of subprograms
-        holdingWeights = []
+        holding_weights = []
         for name in programs[p].holding:
-            r = getWeights(name)
+            r = get_weights(name)
 
             # Final answer found in the child call
             if r[0]: return r
 
-            holdingWeights.append(r[1])
+            holding_weights.append(r[1])
 
         # Found imbalance (unique weight between subprograms)
-        if len(set(holdingWeights)) > 1:
-            for name, w in zip(programs[p].holding, holdingWeights):
-                if holdingWeights.count(w) == 1: # Unique weight
-                    originalWeight = w
+        if len(set(holding_weights)) > 1:
+            for name, w in zip(programs[p].holding, holding_weights):
+                if holding_weights.count(w) == 1: # Unique weight
+                    original_weight = w
                     originalName = name
                 else: # Other weights
-                    goalWeight = w
+                    goal_weight = w
 
             # Final answer, escalate to parent calls
-            deltaWeight = goalWeight - originalWeight
-            newWeight = programs[originalName].w + deltaWeight
-            return (newWeight, None)
+            delta_weight = goal_weight - original_weight
+            new_weight = programs[originalName].w + delta_weight
+            return (new_weight, None)
 
         # Memoize result and return
-        totalWeight[p] = programs[p].w + sum(holdingWeights)
-        return (None, totalWeight[p])
+        total_weight[p] = programs[p].w + sum(holding_weights)
+        return (None, total_weight[p])
 
-    return getWeights(root)[0]
+    return get_weights(root)[0]
 
 ###################################
 
 programs = {}
-for p in AOCUtils.loadInput(7):
+for p in AOCUtils.load_input(7):
     p = p.split()
     programs[p[0]] = Program(p)
 
-root = topoSort(programs)[0]
-print("Part 1: {}".format(root))
+root = topo_sort(programs)[0]
+AOCUtils.print_answer(1, root)
 
-print("Part 2: {}".format(fixBalance(programs, root)))
+AOCUtils.print_answer(2, fix_balance(programs, root))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

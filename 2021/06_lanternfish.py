@@ -20,8 +20,8 @@ raw_timers = AOCUtils.load_input(6)
 
 timers = list(map(int, raw_timers.split(',')))
 
-print(f'Part 1: {get_lanternfish(timers, 80)}')
+AOCUtils.print_answer(1, get_lanternfish(timers, 80))
 
-print(f'Part 2: {get_lanternfish(timers, 256)}')
+AOCUtils.print_answer(2, get_lanternfish(timers, 256))
 
 AOCUtils.print_time_taken()

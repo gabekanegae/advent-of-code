@@ -9,22 +9,22 @@ class VM:
     def __init__(self, program):
         self.program = program[:]
         self.pc = 0
-        self.registers = {"a": 0, "b": 0, "c": 0, "d": 0}
+        self.registers = {'a': 0, 'b': 0, 'c': 0, 'd': 0}
 
         self.toggled = set()
         self.toggledProgram = [cmd.split() for cmd in program]
         for i in range(len(self.toggledProgram)):
             if len(self.toggledProgram[i]) == 2: # one-argument instruction
-                if self.toggledProgram[i][0] == "inc":
-                    self.toggledProgram[i][0] = "dec"
+                if self.toggledProgram[i][0] == 'inc':
+                    self.toggledProgram[i][0] = 'dec'
                 else:
-                    self.toggledProgram[i][0] = "inc"
+                    self.toggledProgram[i][0] = 'inc'
             else: # two-argument instruction
-                if self.toggledProgram[i][0] == "jnz":
-                    self.toggledProgram[i][0] = "cpy"
+                if self.toggledProgram[i][0] == 'jnz':
+                    self.toggledProgram[i][0] = 'cpy'
                 else:
-                    self.toggledProgram[i][0] = "jnz"
-        self.toggledProgram = [" ".join(cmd) for cmd in self.toggledProgram]
+                    self.toggledProgram[i][0] = 'jnz'
+        self.toggledProgram = [' '.join(cmd) for cmd in self.toggledProgram]
 
     def run(self):
         while self.pc < len(self.program):
@@ -41,19 +41,19 @@ class VM:
                 y = cmd[2]
                 yVal = int(y) if not y.isalpha() else self.registers[y]
 
-            if inst == "cpy":
+            if inst == 'cpy':
                 if y.isalpha():
                     self.registers[y] = xVal
-            elif inst == "inc":
+            elif inst == 'inc':
                 if x.isalpha():
                     self.registers[x] += 1
-            elif inst == "dec":
+            elif inst == 'dec':
                 if x.isalpha():
                     self.registers[x] -= 1
-            elif inst == "jnz":
+            elif inst == 'jnz':
                 if xVal != 0:
                     self.pc += yVal - 1
-            elif inst == "tgl":
+            elif inst == 'tgl':
                 n = self.pc + xVal
                 if 0 <= n < len(self.program):
                     if n in self.toggled:
@@ -65,28 +65,28 @@ class VM:
 
 #################################
 
-program = AOCUtils.loadInput(23)
+program = AOCUtils.load_input(23)
 
 # vm = VM(program)
-# vm.registers["a"] = 7
+# vm.registers['a'] = 7
 # vm.run()
-# print("Part 1: {}".format(vm.registers["a"]))
+# AOCUtils.print_answer(1, vm.registers['a']))
 
 # vm = VM(program)
-# vm.registers["a"] = 12
+# vm.registers['a'] = 12
 # vm.run()
-# print("Part 2: {}".format(vm.registers["a"]))
+# AOCUtils.print_answer(2, vm.registers['a']))
 
 X = int(program[19].split()[1])
 Y = int(program[20].split()[1])
 
 a = factorial(7) + X * Y
-print("Part 1: {}".format(a))
+AOCUtils.print_answer(1, a)
 
 a = factorial(12) + X * Y
-print("Part 2: {}".format(a))
+AOCUtils.print_answer(2, a)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()
 
 '''
   0 | cpy a b   | jnz a b   | b = 12                    |               |

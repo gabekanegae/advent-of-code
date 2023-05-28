@@ -13,7 +13,7 @@ for i in range(1, len(depths)):
     if depths[i-1] < depths[i]:
         increases += 1
 
-print(f'Part 1: {increases}')
+AOCUtils.print_answer(1, increases)
 
 increases = 0
 for i in range(1, len(depths)-2):
@@ -22,6 +22,6 @@ for i in range(1, len(depths)-2):
     if cur < nxt:
         increases += 1
 
-print(f'Part 2: {increases}')
+AOCUtils.print_answer(2, increases)
 
 AOCUtils.print_time_taken()

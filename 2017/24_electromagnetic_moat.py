@@ -30,8 +30,8 @@ def build(components):
 
 ########################################
 
-components = AOCUtils.loadInput(24)
-components = [map(int, r.split("/")) for r in components]
+components = AOCUtils.load_input(24)
+components = [map(int, r.split('/')) for r in components]
 components = sorted(tuple(sorted(r)) for r in components)
 
 bridges = build(components)
@@ -43,9 +43,9 @@ for bridge in bridges:
     stats.append((length, strength))
 
 stats.sort(key=lambda x: x[1], reverse=True) # Sort by decreasing strength
-print("Part 1: {}".format(stats[0][1]))
+AOCUtils.print_answer(1, stats[0][1])
 
 stats.sort(reverse=True) # Sort by decreasing (length, strength)
-print("Part 2: {}".format(stats[0][1]))
+AOCUtils.print_answer(2, stats[0][1])
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

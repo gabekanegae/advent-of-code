@@ -25,11 +25,11 @@ class VM:
             inst, n = self.program[self.pc].split()
             n = int(n)
 
-            if inst == "acc":
+            if inst == 'acc':
                 self.acc += n
-            elif inst == "jmp":
+            elif inst == 'jmp':
                 self.pc += n-1
-            elif inst == "nop":
+            elif inst == 'nop':
                 pass
 
             self.pc += 1
@@ -39,20 +39,20 @@ class VM:
 
 ###################################
 
-program = AOCUtils.loadInput(8)
+program = AOCUtils.load_input(8)
 
 vm = VM(program)
 vm.run()
 
-print("Part 1: {}".format(vm.acc))
+AOCUtils.print_answer(1, vm.acc)
 
 for i in range(len(program)):
-    if "jmp" in program[i]:
+    if 'jmp' in program[i]:
         variation = program[:]
-        variation[i] = program[i].replace("jmp", "nop")
-    elif "nop" in program[i]:
+        variation[i] = program[i].replace('jmp', 'nop')
+    elif 'nop' in program[i]:
         variation = program[:]
-        variation[i] = program[i].replace("nop", "jmp")
+        variation[i] = program[i].replace('nop', 'jmp')
     else:
         continue
     
@@ -60,7 +60,7 @@ for i in range(len(program)):
     vm.run()
 
     if not vm.looped:
-        print("Part 2: {}".format(vm.acc))
+        AOCUtils.print_answer(2, vm.acc)
         break
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

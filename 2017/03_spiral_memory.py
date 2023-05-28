@@ -6,29 +6,29 @@ import AOCUtils
 
 ################################
 
-square = AOCUtils.loadInput(3)
+square = AOCUtils.load_input(3)
 
 p1, p2 = None, None
 
 x, y = 0, 0
-edgeCount = 0
+edge_count = 0
 seen = {(0, 0): 1}
 
 while not (p1 and p2):
     loopStart = True
 
-    for _ in range((edgeCount//4 + 1) * 2):
-        if edgeCount % 4 == 0:
+    for _ in range((edge_count//4 + 1) * 2):
+        if edge_count % 4 == 0:
             if loopStart: # >
                 x += 1
                 loopStart = False
             else:
                 y -= 1 # ^
-        elif edgeCount % 4 == 1: # <
+        elif edge_count % 4 == 1: # <
             x -= 1
-        elif edgeCount % 4 == 2: # v
+        elif edge_count % 4 == 2: # v
             y += 1
-        elif edgeCount % 4 == 3: # >
+        elif edge_count % 4 == 3: # >
             x += 1
         
         if p2:
@@ -43,9 +43,9 @@ while not (p1 and p2):
         if p1 and p2:
             break
 
-    edgeCount += 1
+    edge_count += 1
 
-print("Part 1: {}".format(p1))
-print("Part 2: {}".format(p2))
+AOCUtils.print_answer(1, p1)
+AOCUtils.print_answer(2, p2)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

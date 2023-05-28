@@ -4,23 +4,23 @@
 
 import AOCUtils
 
-def getMaxSum(m, sqSize):
-    maxSum, maxCoords = None, None
-    for x in range(sqSize-1, 300):
-        for y in range(sqSize-1, 300):
+def get_max_sum(m, square_size):
+    max_sum, max_coords = None, None
+    for x in range(square_size-1, 300):
+        for y in range(square_size-1, 300):
             # 2D Partial Sum
-            curSum = partials[x][y]
-            if x-sqSize >= 0: curSum -= partials[x-sqSize][y]
-            if y-sqSize >= 0: curSum -= partials[x][y-sqSize]
-            if x-sqSize >= 0 and y-sqSize >= 0: curSum += partials[x-sqSize][y-sqSize]
+            cur_sum = partials[x][y]
+            if x-square_size >= 0: cur_sum -= partials[x-square_size][y]
+            if y-square_size >= 0: cur_sum -= partials[x][y-square_size]
+            if x-square_size >= 0 and y-square_size >= 0: cur_sum += partials[x-square_size][y-square_size]
 
-            if not maxSum or curSum > maxSum:
-                maxSum, maxCoords = curSum, (x-(sqSize-1), y-(sqSize-1))
-    return maxSum, maxCoords
+            if not max_sum or cur_sum > max_sum:
+                max_sum, max_coords = cur_sum, (x-(square_size-1), y-(square_size-1))
+    return max_sum, max_coords
 
 ##################################
 
-serial = AOCUtils.loadInput(11)
+serial = AOCUtils.load_input(11)
 
 cells = [[None for _ in range(300)] for _ in range(300)]
 for x in range(300):
@@ -34,15 +34,16 @@ for x in range(300):
         if y-1 >= 0: partials[x][y] += partials[x][y-1]
         if x-1 >= 0 and y-1 >= 0: partials[x][y] -= partials[x-1][y-1]
 
-curSum, curCoords = getMaxSum(partials, 3)
-print("Part 1: {},{}".format(curCoords[0], curCoords[1]))
+cur_sum, cur_coords = get_max_sum(partials, 3)
 
-maxSum, maxCoords, maxSize = None, None, None
+AOCUtils.print_answer(1, f'{cur_coords[0]},{cur_coords[1]}')
+
+max_sum, max_coords, max_size = None, None, None
 for i in range(1, 300+1):
-    curSum, curCoords = getMaxSum(partials, i)
-    if not maxSum or curSum > maxSum:
-        maxSum, maxCoords, maxSize = curSum, curCoords, i
+    cur_sum, cur_coords = get_max_sum(partials, i)
+    if not max_sum or cur_sum > max_sum:
+        max_sum, max_coords, max_size = cur_sum, cur_coords, i
 
-print("Part 2: {},{},{}".format(maxCoords[0], maxCoords[1], maxSize))
+AOCUtils.print_answer(2, f'{max_coords[0]},{max_coords[1]},{max_size}')
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

@@ -4,14 +4,14 @@
 
 import AOCUtils
 
-def brutePrivate(public, e, n):
+def brute_private(public, e, n):
     # (e ^ private) % n = public
     
     private = 1
-    genPublic = 1
+    gen_public = 1
     while True:
-        genPublic = (genPublic * e) % n
-        if genPublic == public:
+        gen_public = (gen_public * e) % n
+        if gen_public == public:
             return private
         private += 1
     
@@ -19,18 +19,18 @@ def brutePrivate(public, e, n):
 
 #################################
 
-cardPublic, doorPublic = AOCUtils.loadInput(25)
+card_public, door_public = AOCUtils.load_input(25)
 
 n = 20201227
 e = 7
 
-doorPrivate = brutePrivate(doorPublic, e, n)
-doorKey = pow(cardPublic, doorPrivate, n)
+door_private = brute_private(door_public, e, n)
+door_key = pow(card_public, door_private, n)
 
-cardPrivate = brutePrivate(cardPublic, e, n)
-cardKey = pow(doorPublic, cardPrivate, n)
+card_private = brute_private(card_public, e, n)
+card_key = pow(door_public, card_private, n)
 
-if doorKey == cardKey:
-    print("Part 1: {}".format(doorKey))
+if door_key == card_key:
+    AOCUtils.print_answer(1, door_key)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

@@ -6,27 +6,27 @@ import AOCUtils
 
 ###################################
 
-pwRange = [int(i) for i in AOCUtils.loadInput(4).split("-")]
+password_range = [int(i) for i in AOCUtils.load_input(4).split('-')]
 
-passwords1 = set()
-for pw in range(pwRange[0], pwRange[1]+1):
-    hasRepeat, neverDecreases = False, True
+passwords_1 = set()
+for pw in range(password_range[0], password_range[1]+1):
+    has_repeat, never_decreases = False, True
     pw = str(pw)
 
     for i in range(len(pw)-1):
         if pw[i+1] < pw[i]:
-            neverDecreases = False
+            never_decreases = False
             break
         if pw[i+1] == pw[i]:
-            hasRepeat = True
+            has_repeat = True
 
-    if hasRepeat and neverDecreases:
-        passwords1.add(pw)
+    if has_repeat and never_decreases:
+        passwords_1.add(pw)
 
-print("Part 1: {}".format(len(passwords1)))
+AOCUtils.print_answer(1, len(passwords_1))
 
-passwords2 = set()
-for pw in passwords1:
+passwords_2 = set()
+for pw in passwords_1:
     sequences = [1]
 
     for i in range(len(pw)-1):
@@ -36,8 +36,8 @@ for pw in passwords1:
             sequences.append(1)
 
     if 2 in sequences:
-        passwords2.add(pw)
+        passwords_2.add(pw)
 
-print("Part 2: {}".format(len(passwords2)))
+AOCUtils.print_answer(2, len(passwords_2))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

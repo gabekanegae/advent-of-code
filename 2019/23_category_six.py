@@ -7,14 +7,14 @@ from intcodeVM import VM
 
 ################################
 
-rawProgram = AOCUtils.loadInput(23)
-memory = [int(i) for i in rawProgram.split(",")]
+raw_program = AOCUtils.load_input(23)
+memory = [int(i) for i in raw_program.split(',')]
 
 vms = [VM(memory) for _ in range(50)]
 for i, vm in enumerate(vms):
     vm.run(i)
 
-p1done = False
+p1_done = False
 
 nat = None
 seen = set()
@@ -38,9 +38,9 @@ while True:
             dest, x, y = vm.output[:3]
             vm.output = vm.output[3:]
             if dest == 255:
-                if not p1done:
-                    print("Part 1: {}".format(y))
-                    p1done = True
+                if not p1_done:
+                    AOCUtils.print_answer(1, y)
+                    p1_done = True
                 
                 # Update NAT
                 nat = (x, y)
@@ -53,8 +53,8 @@ while True:
     if idle:
         queues[0] += nat
         if nat in seen:
-            print("Part 2: {}".format(nat[1]))
+            AOCUtils.print_answer(2, nat[1])
             break
         seen.add(nat)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

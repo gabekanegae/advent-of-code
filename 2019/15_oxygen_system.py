@@ -24,7 +24,7 @@ def explore(start, startVM, moves):
 
     return maze
 
-def findOxygen(maze, start, moves):
+def find_oxygen(maze, start, moves):
     queue = deque([(start, 0)])
     visited = set()
     while queue:
@@ -41,8 +41,8 @@ def findOxygen(maze, start, moves):
             if maze[step] != 0:
                 queue.append((step, dist+1))
 
-def timeToFill(maze, oxygen, moves):
-    maxDist = 0
+def time_to_fill(maze, oxygen, moves):
+    max_dist = 0
 
     queue = deque([(oxygen, 0)])
     visited = set()
@@ -52,28 +52,28 @@ def timeToFill(maze, oxygen, moves):
         if cur in visited: continue
         visited.add(cur)
 
-        maxDist = max(maxDist, dist)
+        max_dist = max(max_dist, dist)
 
         for move in moves:
             step = (cur[0]+move[0], cur[1]+move[1])
             if maze[step] != 0:
                 queue.append((step, dist+1))
 
-    return maxDist
+    return max_dist
 
 #################################
 
-rawProgram = AOCUtils.loadInput(15)
-memory = [int(i) for i in rawProgram.split(",")]
+raw_program = AOCUtils.load_input(15)
+memory = [int(i) for i in raw_program.split(',')]
 
 start = (0, 0)
 moves = [(0, -1), (0, 1), (-1, 0), (1, 0)]
 maze = explore(start, VM(memory), moves)
 
-oxygen, distance = findOxygen(maze, start, moves)
-print("Part 1: {}".format(distance))
+oxygen, distance = find_oxygen(maze, start, moves)
+AOCUtils.print_answer(1, distance)
 
-time = timeToFill(maze, oxygen, moves)
-print("Part 2: {}".format(time))
+time = time_to_fill(maze, oxygen, moves)
+AOCUtils.print_answer(2, time)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

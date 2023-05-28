@@ -6,10 +6,10 @@ import AOCUtils
 
 ######################################
 
-spreadsheet = [[int(i) for i in s.split()] for s in AOCUtils.loadInput(2)]
+spreadsheet = [[int(i) for i in s.split()] for s in AOCUtils.load_input(2)]
 
 checksum = sum(max(s) - min(s) for s in spreadsheet)
-print("Part 1: {}".format(checksum))
+AOCUtils.print_answer(1, checksum)
 
 checksum = 0
 for s in spreadsheet:
@@ -18,6 +18,6 @@ for s in spreadsheet:
             if i != j and s[i] % s[j] == 0:
                 checksum += s[i] // s[j]
 
-print("Part 2: {}".format(checksum))
+AOCUtils.print_answer(2, checksum)
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

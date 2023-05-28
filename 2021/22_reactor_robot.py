@@ -65,8 +65,8 @@ for raw_step in raw_steps:
 
 init_steps = [step for step in steps if all(abs(c) <= 50 for c in step[1:])]
 
-print(f'Part 1: {count_cubes_on(init_steps)}')
+AOCUtils.print_answer(1, count_cubes_on(init_steps))
 
-print(f'Part 2: {count_cubes_on(steps)}')
+AOCUtils.print_answer(2, count_cubes_on(steps))
 
 AOCUtils.print_time_taken()

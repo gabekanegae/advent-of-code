@@ -4,31 +4,31 @@
 
 import AOCUtils
 
-def twoSum(counts, target):
+def two_sum(counts, target):
     for i, ct in counts.items():
         if target-i in counts:
             return i * (target-i)
 
-def threeSum(counts, target):
+def three_sum(counts, target):
     for i in counts:
-        twoSumResult = twoSum(counts, target-i)
-        if twoSumResult is not None:
-            return i * twoSumResult
+        two_sum_result = two_sum(counts, target-i)
+        if two_sum_result is not None:
+            return i * two_sum_result
 
 ################################
 
-report = AOCUtils.loadInput(1)
+report = AOCUtils.load_input(1)
 
 target = 2020
 
-reportCounts = dict()
+report_counts = dict()
 for i in report:
-    if i not in reportCounts:
-        reportCounts[i] = 0
-    reportCounts[i] += 1
+    if i not in report_counts:
+        report_counts[i] = 0
+    report_counts[i] += 1
 
-print("Part 1: {}".format(twoSum(reportCounts, target)))
+AOCUtils.print_answer(1, two_sum(report_counts, target))
 
-print("Part 2: {}".format(threeSum(reportCounts, target)))
+AOCUtils.print_answer(2, three_sum(report_counts, target))
 
-AOCUtils.printTimeTaken()
+AOCUtils.print_time_taken()

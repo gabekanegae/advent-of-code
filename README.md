@@ -1,12 +1,12 @@
-<p align="center"><img src="aoc.png"></p>
+<p align="center"><img src="images/aoc.png"></p>
 
 Here lies my solutions to [Advent of Code](https://adventofcode.com/), an Advent calendar full of programming puzzles from December 1st all the way to Christmas.
 
 For the 2019, 2020 and 2021 events, I actively competed for spots in the daily leaderboards, and I did manage to snag some! Here are my personal stats for those years:
 
-| 2019 | 2020 | 2021 |
-|---|
-| ![](images/2019.png) | ![](images/2020.png) | ![](images/2021.png) |
+2019 | 2020 | 2021
+:---:|:---:|:---:
+![](images/2019.png) | ![](images/2020.png) | ![](images/2021.png)
 
 For the 2019 and 2020 events, I also wrote some blog posts right after it ended, highlighting a few of my favorite days. The source code for the graph shown in the 2020's post is in [2020/time-plots](2020/time-plots).
 

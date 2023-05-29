@@ -50,7 +50,6 @@ for node in nodes:
     else:# 'full enough no other node would fit, small enough to be moved around'
         nodes[node] = '.'
 
-
 # for y in range(max_y+1):
 #     for x in range(max_x+1):
 #         print(nodes[(x,y)], end='')

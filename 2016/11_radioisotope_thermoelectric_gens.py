@@ -27,14 +27,14 @@ def assemble(floors, floor_amount):
         if cur_state in visited: continue
         visited.add(cur_state)
 
-        cur_floor, curItems = cur_state
+        cur_floor, cur_items = cur_state
 
         # All items are at the last floor
-        if all(item == (floor_amount-1, floor_amount-1) for item in curItems):
+        if all(item == (floor_amount-1, floor_amount-1) for item in cur_items):
             return dist
 
-        ms = [mat[0] for mat in curItems]
-        gs = [mat[1] for mat in curItems]
+        ms = [mat[0] for mat in cur_items]
+        gs = [mat[1] for mat in cur_items]
 
         # Check if any chips are fried
         fried = False
@@ -64,11 +64,11 @@ def assemble(floors, floor_amount):
             if not 0 <= nxt_floor < floor_amount: continue
 
             for pick in picks:
-                nxtItems = [list(mat) for mat in curItems]
-                for i in pick: nxtItems[i%n][i//n] += move
+                nxt_items = [list(mat) for mat in cur_items]
+                for i in pick: nxt_items[i%n][i//n] += move
                 
-                nxtState = (nxt_floor, tuple(sorted(tuple(i) for i in nxtItems)))
-                queue.append((nxtState, dist+1))
+                nxt_state = (nxt_floor, tuple(sorted(tuple(i) for i in nxt_items)))
+                queue.append((nxt_state, dist+1))
 
     return None
 

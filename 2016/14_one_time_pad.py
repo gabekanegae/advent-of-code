@@ -5,7 +5,7 @@
 import AOCUtils
 import hashlib
 
-def get_OTP(salt, part=1):
+def get_otp(salt, part=1):
     possible_keys = {k: [] for k in '0123456789abcdef'}
     otp_keys = set()
 
@@ -41,8 +41,8 @@ def get_OTP(salt, part=1):
 
 salt = AOCUtils.load_input(14)
 
-AOCUtils.print_answer(1, get_OTP(salt, part=1))
+AOCUtils.print_answer(1, get_otp(salt, part=1))
 
-AOCUtils.print_answer(2, get_OTP(salt, part=2))
+AOCUtils.print_answer(2, get_otp(salt, part=2))
 
 AOCUtils.print_time_taken()

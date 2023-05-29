@@ -4,7 +4,7 @@
 
 import AOCUtils
 
-def replaceNth(s, old, new, n):
+def replace_nth(s, old, new, n):
     find = s.find(old)
     for _ in range(n-1):
         find = s.find(old, find+1)
@@ -14,18 +14,18 @@ def replaceNth(s, old, new, n):
 
 ########################################
 
-rawInput = AOCUtils.load_input(19)
+raw_replacements = AOCUtils.load_input(19)
 
-replacements = [r.split(' => ') for r in rawInput[:-2]]
-molecule = rawInput[-1]
+replacements = [r.split(' => ') for r in raw_replacements[:-2]]
+molecule = raw_replacements[-1]
 
-newMolecules = set()
+new_molecules = set()
 for old, new in replacements:
     for i in range(molecule.count(old)):
-        newMolecule = replaceNth(molecule, old, new, i+1)
-        newMolecules.add(newMolecule)
+        new_molecule = replace_nth(molecule, old, new, i+1)
+        new_molecules.add(new_molecule)
 
-AOCUtils.print_answer(1, len(newMolecules))
+AOCUtils.print_answer(1, len(new_molecules))
 
 '''
 X != Rn, Ar, Y

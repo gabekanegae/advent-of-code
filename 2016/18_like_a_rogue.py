@@ -4,7 +4,7 @@
 
 import AOCUtils
 
-def getSafeTiles(cur, n):
+def get_safe_tiles(cur, n):
     cur = list(cur)
 
     safe_tiles = 0
@@ -26,8 +26,8 @@ def getSafeTiles(cur, n):
 
 cur = AOCUtils.load_input(18)
 
-AOCUtils.print_answer(1, getSafeTiles(cur, 40))
+AOCUtils.print_answer(1, get_safe_tiles(cur, 40))
 
-AOCUtils.print_answer(2, getSafeTiles(cur, 400000))
+AOCUtils.print_answer(2, get_safe_tiles(cur, 400000))
 
 AOCUtils.print_time_taken()

@@ -44,9 +44,9 @@ class Room:
 
 rooms = [Room(s) for s in AOCUtils.load_input(4)]
 
-rooms = [room for room in rooms if room.is_real()]
+rooms = [r for r in rooms if r.is_real()]
 
-real_sum = sum(room.sid for room in rooms)
+real_sum = sum(r.sid for r in rooms)
 AOCUtils.print_answer(1, real_sum)
 
 for room in rooms:

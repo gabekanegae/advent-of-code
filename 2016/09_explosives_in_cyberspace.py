@@ -6,34 +6,34 @@ import AOCUtils
 
 def parse_marker(file):
     marker = file[1:].split(')')[0]
-    marker_len = len(marker) + 2
+    marker_length = len(marker) + 2
     chr_amount, repeat_amount = map(int, marker.split('x'))
 
-    return marker_len, chr_amount, repeat_amount
+    return marker_length, chr_amount, repeat_amount
 
 def decompress_file(file, first_level_only=False):
-    totalLen = 0
+    total_length = 0
 
     i = 0
     while i < len(file):
         if file[i] == '(':
-            marker_len, chr_amount, repeat_amount = parse_marker(file[i:])
+            marker_length, chr_amount, repeat_amount = parse_marker(file[i:])
 
-            i += marker_len
+            i += marker_length
 
             if first_level_only:
-                totalLen += chr_amount * repeat_amount
+                total_length += chr_amount * repeat_amount
             else:
-                totalLen += decompress_file(file[i:i+chr_amount]) * repeat_amount
+                total_length += decompress_file(file[i:i+chr_amount]) * repeat_amount
 
             i += chr_amount
         else:
-            dataLen = len(file[i:].split('(')[0])
+            data_length = len(file[i:].split('(')[0])
 
-            i += dataLen
-            totalLen += dataLen
+            i += data_length
+            total_length += data_length
 
-    return totalLen
+    return total_length
 
 ###########################################
 

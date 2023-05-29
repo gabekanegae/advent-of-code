@@ -6,9 +6,7 @@ import AOCUtils
 
 ##################################
 
-raw_rules = AOCUtils.load_input(20)
-
-rules = [tuple(map(int, r.split('-'))) for r in raw_rules]
+rules = [tuple(map(int, r.split('-'))) for r in AOCUtils.load_input(20)]
 
 p1_done = False
 total = 0

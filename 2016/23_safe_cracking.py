@@ -12,38 +12,38 @@ class VM:
         self.registers = {'a': 0, 'b': 0, 'c': 0, 'd': 0}
 
         self.toggled = set()
-        self.toggledProgram = [cmd.split() for cmd in program]
-        for i in range(len(self.toggledProgram)):
-            if len(self.toggledProgram[i]) == 2: # one-argument instruction
-                if self.toggledProgram[i][0] == 'inc':
-                    self.toggledProgram[i][0] = 'dec'
+        self.toggled_program = [cmd.split() for cmd in program]
+        for i in range(len(self.toggled_program)):
+            if len(self.toggled_program[i]) == 2: # one-argument instruction
+                if self.toggled_program[i][0] == 'inc':
+                    self.toggled_program[i][0] = 'dec'
                 else:
-                    self.toggledProgram[i][0] = 'inc'
+                    self.toggled_program[i][0] = 'inc'
             else: # two-argument instruction
-                if self.toggledProgram[i][0] == 'jnz':
-                    self.toggledProgram[i][0] = 'cpy'
+                if self.toggled_program[i][0] == 'jnz':
+                    self.toggled_program[i][0] = 'cpy'
                 else:
-                    self.toggledProgram[i][0] = 'jnz'
-        self.toggledProgram = [' '.join(cmd) for cmd in self.toggledProgram]
+                    self.toggled_program[i][0] = 'jnz'
+        self.toggled_program = [' '.join(cmd) for cmd in self.toggled_program]
 
     def run(self):
         while self.pc < len(self.program):
             if self.pc in self.toggled:
-                cmd = self.toggledProgram[self.pc].split()
+                cmd = self.toggled_program[self.pc].split()
             else:
                 cmd = self.program[self.pc].split()
 
             inst = cmd[0]
 
             x = cmd[1]
-            xVal = int(x) if not x.isalpha() else self.registers[x]
+            x_val = int(x) if not x.isalpha() else self.registers[x]
             if len(cmd) > 2:
                 y = cmd[2]
-                yVal = int(y) if not y.isalpha() else self.registers[y]
+                y_val = int(y) if not y.isalpha() else self.registers[y]
 
             if inst == 'cpy':
                 if y.isalpha():
-                    self.registers[y] = xVal
+                    self.registers[y] = x_val
             elif inst == 'inc':
                 if x.isalpha():
                     self.registers[x] += 1
@@ -51,10 +51,10 @@ class VM:
                 if x.isalpha():
                     self.registers[x] -= 1
             elif inst == 'jnz':
-                if xVal != 0:
-                    self.pc += yVal - 1
+                if x_val != 0:
+                    self.pc += y_val - 1
             elif inst == 'tgl':
-                n = self.pc + xVal
+                n = self.pc + x_val
                 if 0 <= n < len(self.program):
                     if n in self.toggled:
                         self.toggled.remove(n)
@@ -77,13 +77,13 @@ program = AOCUtils.load_input(23)
 # vm.run()
 # AOCUtils.print_answer(2, vm.registers['a']))
 
-X = int(program[19].split()[1])
-Y = int(program[20].split()[1])
+x = int(program[19].split()[1])
+y = int(program[20].split()[1])
 
-a = factorial(7) + X * Y
+a = factorial(7) + x * y
 AOCUtils.print_answer(1, a)
 
-a = factorial(12) + X * Y
+a = factorial(12) + x * y
 AOCUtils.print_answer(2, a)
 
 AOCUtils.print_time_taken()

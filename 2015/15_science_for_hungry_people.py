@@ -4,13 +4,13 @@
 
 import AOCUtils
 
-def allTuplesWithSum(n, total):
+def all_tuples_with_sum(n, total):
     if n == 1:
         yield (total,)
         return
 
     for i in range(total+1):
-        for t in allTuplesWithSum(n-1, total-i):
+        for t in all_tuples_with_sum(n-1, total-i):
             yield (i,) + t
 
 #############################################
@@ -31,7 +31,7 @@ for raw_ingredient in raw_ingredients:
     ingredients.append(ingredient)
 
 recipes = dict()
-for amounts in allTuplesWithSum(len(ingredients), 100):
+for amounts in all_tuples_with_sum(len(ingredients), 100):
     capacity, durability, flavor, texture, calories = 0, 0, 0, 0, 0
     for amount, ingredient in zip(amounts, ingredients):
         capacity += amount * ingredient['capacity']

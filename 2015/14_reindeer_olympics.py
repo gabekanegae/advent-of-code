@@ -25,13 +25,13 @@ positions = {reindeer: 0 for reindeer in reindeers}
 points = {reindeer: 0 for reindeer in reindeers}
 for t in range(time_limit):
     for name, reindeer in reindeers.items():
-        isFlying = (t % (reindeer['fly_time'] + reindeer['rest_time']) < reindeer['fly_time'])
-        if isFlying:
+        is_flying = (t % (reindeer['fly_time'] + reindeer['rest_time']) < reindeer['fly_time'])
+        if is_flying:
             positions[name] += reindeer['speed']
 
-    maxPosition = max(positions.values())
+    max_position = max(positions.values())
     for name, reindeer in reindeers.items():
-        if positions[name] == maxPosition:
+        if positions[name] == max_position:
             points[name] += 1
 
 AOCUtils.print_answer(1, max(positions.values()))

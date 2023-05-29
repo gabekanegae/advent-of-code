@@ -20,10 +20,10 @@ def get_max_happiness(relationships, attendees):
 
 ###############################################
 
-rawRelationships = AOCUtils.load_input(13)
+raw_relationships = AOCUtils.load_input(13)
 
 relationships = dict()
-for relationship in rawRelationships:
+for relationship in raw_relationships:
     relationship = relationship.split()
 
     a = relationship[0]

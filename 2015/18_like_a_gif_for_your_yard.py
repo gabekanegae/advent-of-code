@@ -5,19 +5,19 @@
 import AOCUtils
 
 def step(grid, part=1):
-    sizeX, sizeY = len(grid), len(grid[0])
+    size_x, size_y = len(grid), len(grid[0])
 
     if part == 2:
         grid[0][0] = '#'
-        grid[sizeX-1][0] = '#'
-        grid[0][sizeY-1] = '#'
-        grid[sizeX-1][sizeY-1] = '#'
+        grid[size_x-1][0] = '#'
+        grid[0][size_y-1] = '#'
+        grid[size_x-1][size_y-1] = '#'
 
-    newGrid = [row[:] for row in grid]
+    new_grid = [row[:] for row in grid]
 
-    for i in range(sizeX):
-        for j in range(sizeY):
-            if part == 2 and i in [0, sizeX-1] and j in [0, sizeY-1]: continue
+    for i in range(size_x):
+        for j in range(size_y):
+            if part == 2 and i in [0, size_x-1] and j in [0, size_y-1]: continue
 
             neighbors = 0
 
@@ -25,39 +25,39 @@ def step(grid, part=1):
                 neighbors += int(grid[i-1][j-1] == '#')
             if i-1 >= 0:
                 neighbors += int(grid[i-1][j] == '#')
-            if i-1 >= 0 and j+1 < sizeY:
+            if i-1 >= 0 and j+1 < size_y:
                 neighbors += int(grid[i-1][j+1] == '#')
 
             if j-1 >= 0:
                 neighbors += int(grid[i][j-1] == '#')
-            if j+1 < sizeY:
+            if j+1 < size_y:
                 neighbors += int(grid[i][j+1] == '#')
 
-            if i+1 < sizeX and j-1 >= 0:
+            if i+1 < size_x and j-1 >= 0:
                 neighbors += int(grid[i+1][j-1] == '#')
-            if i+1 < sizeX:
+            if i+1 < size_x:
                 neighbors += int(grid[i+1][j] == '#')
-            if i+1 < sizeX and j+1 < sizeY:
+            if i+1 < size_x and j+1 < size_y:
                 neighbors += int(grid[i+1][j+1] == '#')
 
             if grid[i][j] == '#':
-                newGrid[i][j] = '#' if neighbors in [2, 3] else '.'
+                new_grid[i][j] = '#' if neighbors in [2, 3] else '.'
             elif grid[i][j] == '.':
-                newGrid[i][j] = '#' if neighbors == 3 else '.'
+                new_grid[i][j] = '#' if neighbors == 3 else '.'
 
-    return newGrid
+    return new_grid
 
 ############################################
 
-startGrid = [list(s) for s in AOCUtils.load_input(18)]
+start_grid = [list(s) for s in AOCUtils.load_input(18)]
 
-grid = [row[:] for row in startGrid]
+grid = [row[:] for row in start_grid]
 for _ in range(100):
     grid = step(grid, part=1)
 
 AOCUtils.print_answer(1, sum(row.count('#') for row in grid))
 
-grid = [row[:] for row in startGrid]
+grid = [row[:] for row in start_grid]
 for _ in range(100):
     grid = step(grid, part=2)
 

@@ -49,45 +49,43 @@ def battle(player_hp, player_mana, boss_hp, boss_damage, spells, part=1):
                 if spells[spell][0] > player_mana: continue
 
                 # Spend mana
-                nxtplayer_mana = player_mana - spells[spell][0]
+                nxt_player_mana = player_mana - spells[spell][0]
                 nxt_mana_spent = mana_spent + spells[spell][0]
 
                 if spells[spell][5] == -1: # Instant spells
                     # print(f'    Player used spell '{spell}', instant')
-                    nxtEffects = list(effects.items())
+                    nxt_effects = list(effects.items())
                     
                     nxt_player_hp = player_hp + spells[spell][1]
                     nxt_boss_hp = boss_hp - spells[spell][4]
                 else: # Spells with duration (activate starting the next turn)
                     # print(f'    Player used spell '{spell}', only active next turn')
                     effects[spell] = spells[spell][5]
-                    nxtEffects = list(effects.items())
+                    nxt_effects = list(effects.items())
                     effects.pop(spell)
 
                     nxt_player_hp = player_hp
                     nxt_boss_hp = boss_hp
 
-                # print(f'        Next: ManaSpent={mana_spent} | HP={nxt_player_hp} | Mana={nxtplayer_mana} | Boss={nxt_boss_hp} | Spells={effects}')
-                nxt = (nxt_mana_spent, nxt_player_hp, nxtplayer_mana, nxtEffects, nxt_boss_hp, not player_turn)
+                # print(f'        Next: ManaSpent={mana_spent} | HP={nxt_player_hp} | Mana={nxt_player_mana} | Boss={nxt_boss_hp} | Spells={effects}')
+                nxt = (nxt_mana_spent, nxt_player_hp, nxt_player_mana, nxt_effects, nxt_boss_hp, not player_turn)
                 heappush(heap, nxt)
         else:
             # print('    Boss attacks!')
-            nxtEffects = list(effects.items())
+            nxt_effects = list(effects.items())
 
             nxt_mana_spent = mana_spent
             nxt_player_hp = player_hp - max(1, boss_damage - player_armor)
             nxt_boss_hp = boss_hp
-            nxtplayer_mana = player_mana
+            nxt_player_mana = player_mana
 
-            # print(f'        Next: ManaSpent={mana_spent} | HP={nxt_player_hp} | Mana={nxtplayer_mana} | Boss={nxt_boss_hp} | Spells={effects}')
-            nxt = (nxt_mana_spent, nxt_player_hp, nxtplayer_mana, nxtEffects, nxt_boss_hp, not player_turn)
+            # print(f'        Next: ManaSpent={mana_spent} | HP={nxt_player_hp} | Mana={nxt_player_mana} | Boss={nxt_boss_hp} | Spells={effects}')
+            nxt = (nxt_mana_spent, nxt_player_hp, nxt_player_mana, nxt_effects, nxt_boss_hp, not player_turn)
             heappush(heap, nxt)
 
 ######################################
 
-rawInput = AOCUtils.load_input(22)
-
-boss_hp, boss_damage = [int(s.split()[-1]) for s in rawInput]
+boss_hp, boss_damage = [int(s.split()[-1]) for s in AOCUtils.load_input(22)]
 player_hp = 50
 player_mana = 500
 

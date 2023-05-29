@@ -5,7 +5,7 @@
 import AOCUtils
 import math
 
-def countInLOS(station, asteroids, size):
+def count_in_los(station, asteroids, size):
     detected = set()
     for asteroid in asteroids:
         if asteroid != station:
@@ -33,7 +33,7 @@ for x in range(size[0]):
 # Count asteroids in line of sight for all possible station positions
 station_counts = []
 for station in asteroids:
-    in_los = countInLOS(station, asteroids, size)
+    in_los = count_in_los(station, asteroids, size)
     station_counts.append((len(in_los), station, in_los))
 
 # Sort by most asteroids in line of sight and get first

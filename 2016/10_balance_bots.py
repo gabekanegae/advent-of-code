@@ -48,14 +48,14 @@ while active_bots:
 
     low = (bot.low_type, bot.low_id, low_chip)
     high = (bot.high_type, bot.high_id, high_chip)
-    for target_type, tgt_id, chip in [low, high]:
+    for target_type, target_id, chip in [low, high]:
         if target_type == 'bot':
-            bots[tgt_id].chips.append(chip)
+            bots[target_id].chips.append(chip)
         elif target_type == 'output':
-            output[tgt_id] = chip
+            output[target_id] = chip
 
-        if target_type == 'bot' and len(bots[tgt_id].chips) == 2:
-            active_bots.append(tgt_id)
+        if target_type == 'bot' and len(bots[target_id].chips) == 2:
+            active_bots.append(target_id)
 
     bot.chips = []
 

@@ -42,24 +42,24 @@ def find_oxygen(maze, start, moves):
                 queue.append((step, dist+1))
 
 def time_to_fill(maze, oxygen, moves):
-    max_dist = 0
+    max_distance = 0
 
     queue = deque([(oxygen, 0)])
     visited = set()
     while queue:
-        cur, dist = queue.popleft()
+        cur, distance = queue.popleft()
 
         if cur in visited: continue
         visited.add(cur)
 
-        max_dist = max(max_dist, dist)
+        max_distance = max(max_distance, distance)
 
         for move in moves:
             step = (cur[0]+move[0], cur[1]+move[1])
             if maze[step] != 0:
-                queue.append((step, dist+1))
+                queue.append((step, distance+1))
 
-    return max_dist
+    return max_distance
 
 #################################
 

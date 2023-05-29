@@ -16,7 +16,7 @@ moves = {'U': (0, -1), 'D': (0, 1), 'L': (-1, 0), 'R': (1, 0)}
 end = (3, 3)
 
 min_path = None
-max_path_len = 0
+max_path_length = 0
 
 queue = deque([((0, 0), [])])
 while queue:
@@ -24,7 +24,7 @@ while queue:
 
     if cur == end:
         min_path = min_path or ''.join(path)
-        max_path_len = max(max_path_len, len(path))
+        max_path_length = max(max_path_length, len(path))
         continue
 
     digest = base_digest.copy()
@@ -39,6 +39,6 @@ while queue:
 
 AOCUtils.print_answer(1, min_path)
 
-AOCUtils.print_answer(2, max_path_len)
+AOCUtils.print_answer(2, max_path_length)
 
 AOCUtils.print_time_taken()

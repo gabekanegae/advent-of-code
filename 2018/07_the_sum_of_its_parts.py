@@ -7,17 +7,17 @@ import AOCUtils
 
 #######################################
 
-raw_reqs = AOCUtils.load_input(7)
+raw_requirements = AOCUtils.load_input(7)
 
-reqs = dict()
+requirements = dict()
 for c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
-    reqs[c] = set()
-for r in raw_reqs:
-    reqs[r[36]].add(r[5])
+    requirements[c] = set()
+for r in raw_requirements:
+    requirements[r[36]].add(r[5])
 
 done = ''
 while len(done) < 26:
-    for k, v in reqs.items():
+    for k, v in requirements.items():
         if k in done: continue
 
         if v.issubset(set(done)):
@@ -32,7 +32,7 @@ queue = deque()
 doing, done = set(), set()
 
 while len(done) < 26:
-    for k, v in reqs.items():
+    for k, v in requirements.items():
         if k in done: continue
         if k in doing: continue
         if k in queue: continue

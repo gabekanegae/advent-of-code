@@ -2,7 +2,7 @@ OP_READ, OP_WRITE = False, True
 
 class VM:
     def __init__(self, memory, pc=0, base=0):
-        self.memory = memory[:]
+        self.memory = {k: memory[k] for k in range(len(memory))}
         self.pc = pc
         self.base = base
         self.input_ptr = 0
@@ -12,7 +12,7 @@ class VM:
 
     # Returns a copy of itself (ignoring input and output buffer)
     def copy(self):
-        return VM(self.memory, self.pc, self.base)
+        return VM(self.memory.copy(), self.pc, self.base)
 
     def _parse_mode(self, data, mode, op):
         if op == OP_READ:
@@ -31,17 +31,17 @@ class VM:
             return self.input_buffer[self.input_ptr-1]
 
     def __getitem__(self, pos):
-        if pos < 0: raise Exception("Can't acess negative memory address ({}).".format(pos))
+        if type(pos) is not int: raise Exception(f'Can\'t access non-int memory address ({pos})')
+        if pos < 0: raise Exception(f'Can\'t acess negative memory address ({pos}).')
 
-        if pos >= len(self.memory): # Extend memory to fit data request
-            self.memory += [0 for _ in range(pos+1-len(self.memory))]
+        if pos not in self.memory:
+            self.memory[pos] = 0
         return self.memory[pos]
 
     def __setitem__(self, pos, data):
-        if pos < 0: raise Exception("Can't acess negative memory address ({}).".format(pos))
+        if type(pos) is not int: raise Exception(f'Can\'t access non-int memory address ({pos})')
+        if pos < 0: raise Exception(f'Can\'t acess negative memory address ({pos}).')
 
-        if pos >= len(self.memory): # Extend memory to fit data request
-            self.memory += [0 for _ in range(pos+1-len(self.memory))]
         self.memory[pos] = data
 
     def run(self, input_value=None):
@@ -54,11 +54,11 @@ class VM:
             elif input_value is not None:
                 self.input_buffer.append(int(input_value))
         except:
-            raise TypeError("Couldn't parse input given.")
+            raise TypeError('Couldn\'t parse input given.')
 
         # Run VM
-        while self.pc < len(self.memory):
-            param_and_opcode = "{:05}".format(self[self.pc])
+        while self.pc in self.memory:
+            param_and_opcode = '{:05}'.format(self[self.pc])
             opcode = int(param_and_opcode[-2:])
             mode_c, mode_b, mode_a = [int(i) for i in param_and_opcode[:3]]
 

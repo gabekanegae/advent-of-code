@@ -8,7 +8,7 @@ For the 2019, 2020 and 2021 events, I actively competed for spots in the daily l
 :---:|:---:|:---:
 ![](images/2019.png) | ![](images/2020.png) | ![](images/2021.png)
 
-For the 2019 and 2020 events, I also wrote some blog posts right after it ended, highlighting a few of my favorite days. The source code for the graph shown in the 2020's post is in [2020/time-plots](2020/time-plots).
+I also wrote some blog posts about the [2019](https://www.gabekanegae.com/advent-of-code-2019-in-review/) and [2020](https://www.gabekanegae.com/advent-of-code-2020-in-review/) events right after they ended, highlighting a few of my favorite days. The source code for the graph shown in the 2020's post is in [2020/time-plots](2020/time-plots).
 
 ## Inputs and Outputs
 

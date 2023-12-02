@@ -3,6 +3,7 @@
 #################################
 
 from collections import defaultdict
+import math
 import AOCUtils
 
 #################################
@@ -18,7 +19,7 @@ def get_game_power(game):
     for cube in bag.keys():
         bag[cube] = max(cube_set[cube] for cube_set in game)
 
-    return bag['red'] * bag['green'] * bag['blue']
+    return math.prod(amount for amount in bag.values())
 
 #################################
 
@@ -39,7 +40,7 @@ for raw_game in raw_games:
         cube_sets.append(cube_set)
     games[index] = cube_sets
 
-AOCUtils.print_answer(1, sum(k for k, v in games.items() if is_game_possible(games[k])))
+AOCUtils.print_answer(1, sum(index for index, game in games.items() if is_game_possible(game)))
 
 AOCUtils.print_answer(2, sum(map(get_game_power, games.values())))
 

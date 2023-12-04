@@ -5,9 +5,6 @@
 import AOCUtils
 
 def get_card_count(card, memo):
-    if card >= len(card_scores):
-        return 0
-
     if card not in memo:
         children = range(card + 1, card + 1 + scores[card])
         count = sum(get_card_count(child, memo) for child in children)

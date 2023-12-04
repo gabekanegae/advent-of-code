@@ -15,8 +15,8 @@ while len(recipes) < recipe_amount+10:
     elf_1 = (elf_1 + 1 + int(recipes[elf_1])) % len(recipes)
     elf_2 = (elf_2 + 1 + int(recipes[elf_2])) % len(recipes)
 
-last10 = [str(i) for i in recipes[recipe_amount:recipe_amount+10]]
-AOCUtils.print_answer(1, ''.join(last10))
+last_10 = ''.join(map(str, recipes[recipe_amount:recipe_amount+10]))
+AOCUtils.print_answer(1, last_10)
 
 sequence = str(recipe_amount)
 

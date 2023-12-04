@@ -8,7 +8,7 @@ from intcodeVM import VM
 #####################################
 
 raw_program = AOCUtils.load_input(2)
-memory = [int(i) for i in raw_program.split(',')]
+memory = list(map(int, raw_program.split(',')))
 
 vm = VM(memory)
 vm[1], vm[2] = 12, 2

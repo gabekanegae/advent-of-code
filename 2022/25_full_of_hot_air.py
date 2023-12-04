@@ -38,7 +38,6 @@ def number_to_snafu(number):
 snafus = AOCUtils.load_input(25)
 
 total_sum = sum(snafu_to_number(snafu, positive_digits) for snafu in snafus)
-
 AOCUtils.print_answer(1, number_to_snafu(total_sum))
 
 AOCUtils.print_time_taken()

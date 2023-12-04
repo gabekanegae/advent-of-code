@@ -20,8 +20,7 @@ def get_tile(fav, p):
 
 ####################################################
 
-fav = AOCUtils.load_input(13)
-
+favorite_number = AOCUtils.load_input(13)
 goal = (31, 39)
 
 visited = set()
@@ -38,7 +37,7 @@ while queue:
     for delta in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
         nxt = (cur[0] + delta[0], cur[1] + delta[1])
 
-        if nxt[0] >= 0 and nxt[1] >= 0 and get_tile(fav, nxt) == '.':
+        if nxt[0] >= 0 and nxt[1] >= 0 and get_tile(favorite_number, nxt) == '.':
             queue.append((nxt, cur_dist+1))
 
 AOCUtils.print_answer(1, cur_dist)
@@ -57,7 +56,7 @@ while queue:
     for delta in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
         nxt = (cur[0] + delta[0], cur[1] + delta[1])
 
-        if nxt[0] >= 0 and nxt[1] >= 0 and get_tile(fav, nxt) == '.':
+        if nxt[0] >= 0 and nxt[1] >= 0 and get_tile(favorite_number, nxt) == '.':
             queue.append((nxt, cur_dist+1))
 
 AOCUtils.print_answer(2, len(visited))

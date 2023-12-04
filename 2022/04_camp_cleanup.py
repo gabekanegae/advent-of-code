@@ -6,7 +6,8 @@ import AOCUtils
 
 ###############################
 
-assignments = [[list(map(int, p.split('-'))) for p in l.split(',')] for l in AOCUtils.load_input(4)]
+raw_assignments = AOCUtils.load_input(4)
+assignments = [[list(map(int, p.split('-'))) for p in l.split(',')] for l in raw_assignments]
 
 fully_contained = 0
 for (a_s, a_e), (b_s, b_e) in assignments:

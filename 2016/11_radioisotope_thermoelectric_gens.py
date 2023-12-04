@@ -67,7 +67,7 @@ def assemble(floors, floor_amount):
                 nxt_items = [list(mat) for mat in cur_items]
                 for i in pick: nxt_items[i%n][i//n] += move
                 
-                nxt_state = (nxt_floor, tuple(sorted(tuple(i) for i in nxt_items)))
+                nxt_state = (nxt_floor, tuple(sorted(map(tuple, nxt_items))))
                 queue.append((nxt_state, dist+1))
 
     return None

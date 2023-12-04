@@ -24,7 +24,8 @@ def opposite_door(direction):
 ##############################
 
 raw_program = AOCUtils.load_input(25)
-memory = [int(i) for i in raw_program.split(',')]
+
+memory = list(map(int, raw_program.split(',')))
 
 # The game can be played manually by uncommenting the line below:
 # play_game(memory)
@@ -92,10 +93,10 @@ while queue:
 
     # Queue all next steps, copying the current VM for each one
     for door in doors:
-        newVM = vm.copy()
-        newVM.run(door + '\n')
+        new_vm = vm.copy()
+        new_vm.run(door + '\n')
 
-        queue.append((set(inventory), path+[door], newVM))
+        queue.append((set(inventory), path+[door], new_vm))
 
 # Get VM at the checkpoint, list of all safe items and direction of pressure-sensitive floor
 vm, all_items, floor_direction = final_state

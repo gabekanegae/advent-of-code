@@ -29,7 +29,7 @@ class UnionFind:
 ##############################################
 
 raw_points = AOCUtils.load_input(25)
-points = [([int(i) for i in p.split(',')]) for p in raw_points]
+points = [tuple(map(int, p.split(','))) for p in raw_points]
 
 union_find = UnionFind(len(points))
 

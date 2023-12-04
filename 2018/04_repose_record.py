@@ -6,7 +6,9 @@ import AOCUtils
 
 ################################
 
-log = sorted(AOCUtils.load_input(4))
+log = AOCUtils.load_input(4)
+
+log.sort()
 
 guards = dict()
 for entry in log:
@@ -23,14 +25,15 @@ for entry in log:
         for t in range(sleepStart, sleepEnd):
             guards[guard_id][t] += 1
 
-max_id, maxTotal = None, None
+max_id, max_total = None, None
 for k, v in guards.items():
     total = sum(v)
-    if not maxTotal or total > maxTotal:
-        maxTotal, max_id = total, k
+    if not max_total or total > max_total:
+        max_total, max_id = total, k
 
 max_time = guards[max_id].index(max(guards[max_id]))
-AOCUtils.print_answer(1, max_id*max_time)
+
+AOCUtils.print_answer(1, max_id * max_time)
 
 max_id, max_time, max_count = None, None, None
 for k, v in guards.items():
@@ -40,6 +43,6 @@ for k, v in guards.items():
             max_time = i
             max_count = count
 
-AOCUtils.print_answer(2, max_id*max_time)
+AOCUtils.print_answer(2, max_id * max_time)
 
 AOCUtils.print_time_taken()

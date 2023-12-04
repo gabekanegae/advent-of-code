@@ -56,9 +56,9 @@ def simulate(monkeys, sling_rounds, div_by_3):
 
 ########################################
 
-raw_monkeys = '\n'.join(AOCUtils.load_input(11)).split('\n\n')
-
-monkeys = [Monkey(raw_monkey) for raw_monkey in raw_monkeys]
+raw_monkeys = AOCUtils.load_input(11)
+raw_monkeys = '\n'.join(raw_monkeys).split('\n\n')
+monkeys = list(map(Monkey, raw_monkeys))
 
 AOCUtils.print_answer(1, simulate(monkeys, 20, div_by_3=True))
 

@@ -39,10 +39,11 @@ def get_rating(report, bit_criteria, tiebreak):
 
 ####################################
 
+raw_report = AOCUtils.load_input(3)
 length = 12
 
 # My utils func read all lines as ints, so had to revert that
-report = [str(r).zfill(length) for r in AOCUtils.load_input(3)]
+report = [str(r).zfill(length) for r in raw_report]
 
 gamma_rate = ''.join(get_most_common_bit(report, i) for i in range(length))
 epsilon_rate = ''.join(get_least_common_bit(report, i) for i in range(length))

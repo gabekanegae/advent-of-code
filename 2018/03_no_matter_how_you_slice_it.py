@@ -11,8 +11,8 @@ raw_claims = AOCUtils.load_input(3)
 claims = []
 for claim in raw_claims:
     claim_id = int(claim[1:].split()[0])
-    start_x, start_y = [int(a) for a in claim.split()[2][:-1].split(',')]
-    size_x, size_y = [int(a) for a in claim.split()[3].split('x')]
+    start_x, start_y = map(int, claim.split()[2][:-1].split(','))
+    size_x, size_y = map(int, claim.split()[3].split('x'))
 
     claims.append((claim_id, start_x, start_y, size_x, size_y))
 
@@ -26,8 +26,7 @@ for claim in claims:
             pos = (start_x+dx, start_y+dy)
             fabric[pos] = fabric.get(pos, 0) + 1
 
-overlaps = sum(amount > 1 for amount in fabric.values())
-AOCUtils.print_answer(1, overlaps)
+AOCUtils.print_answer(1, sum(amount > 1 for amount in fabric.values()))
 
 for claim in claims:
     claim_id, start_x, start_y, size_x, size_y = claim

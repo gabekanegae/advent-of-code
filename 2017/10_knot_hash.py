@@ -44,12 +44,13 @@ class KnotHash:
 
 #############################
 
-raw = AOCUtils.load_input(10)
+raw_s = AOCUtils.load_input(10)
+s = list(map(int, raw_s.split(',')))
 
-s = [int(i) for i in raw.split(',')]
 AOCUtils.print_answer(1, KnotHash(s).knot())
 
-s = [ord(c) for c in raw]
+s = list(map(ord, raw_s))
+
 AOCUtils.print_answer(2, KnotHash(s).hash())
 
 AOCUtils.print_time_taken()

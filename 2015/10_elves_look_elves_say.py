@@ -30,14 +30,12 @@ sequence = str(AOCUtils.load_input(10))
 
 for _ in range(40):
     sequence = look_and_say(sequence)
-
 AOCUtils.print_answer(1, len(sequence))
 
 sequence = str(AOCUtils.load_input(10))
 
 for _ in range(50):
     sequence = look_and_say(sequence)
-
 AOCUtils.print_answer(2, len(sequence))
 
 AOCUtils.print_time_taken()

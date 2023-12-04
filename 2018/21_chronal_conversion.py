@@ -33,10 +33,12 @@ def emulate_code(args):
 ######################################
 
 program = AOCUtils.load_input(21)[1:]
-args = [[int(i) for i in inst.split()[1:]] for inst in program]
+args = [list(map(int, inst.split()[1:])) for inst in program]
 
 halt_values = emulate_code(args)
+
 AOCUtils.print_answer(1, halt_values[0])
+
 AOCUtils.print_answer(2, halt_values[-1])
 
 AOCUtils.print_time_taken()

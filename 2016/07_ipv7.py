@@ -24,7 +24,7 @@ def supports_tls(ipv7):
         return False
 
     supernets, hypernets = split_nets(ipv7)
-    return any(has_abba(s) for s in supernets) and not any(has_abba(h) for h in hypernets)
+    return any(map(has_abba, supernets)) and not any(map(has_abba, hypernets))
 
 def supports_ssl(ipv7):
     def get_aba(s):
@@ -37,16 +37,16 @@ def supports_ssl(ipv7):
 
     supernets, hypernets = split_nets(ipv7)
 
-    subSupernets = []
+    sub_supernets = []
     for supernet in supernets:
-        subSupernets += get_aba(supernet)
+        sub_supernets += get_aba(supernet)
 
-    subHypernets = []
+    sub_hypernets = []
     for hypernet in hypernets:
-        subHypernets += get_aba(hypernet)
+        sub_hypernets += get_aba(hypernet)
 
-    for s in subSupernets:
-        for h in subHypernets:
+    for s in sub_supernets:
+        for h in sub_hypernets:
             if s[0] == h[1] == s[2] and h[0] == s[1] == h[2]:
                 return True
 
@@ -56,10 +56,8 @@ def supports_ssl(ipv7):
 
 ipv7s = AOCUtils.load_input(7)
 
-tls_count = sum(supports_tls(ipv7) for ipv7 in ipv7s)
-AOCUtils.print_answer(1, tls_count)
+AOCUtils.print_answer(1, sum(map(supports_tls, ipv7s)))
 
-tls_count = sum(supports_ssl(ipv7) for ipv7 in ipv7s)
-AOCUtils.print_answer(2, tls_count)
+AOCUtils.print_answer(2, sum(map(supports_ssl, ipv7s)))
 
 AOCUtils.print_time_taken()

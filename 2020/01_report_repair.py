@@ -3,6 +3,7 @@
 ################################
 
 import AOCUtils
+from collections import defaultdict
 
 def two_sum(counts, target):
     for i, ct in counts.items():
@@ -21,10 +22,8 @@ report = AOCUtils.load_input(1)
 
 target = 2020
 
-report_counts = dict()
+report_counts = defaultdict(int)
 for i in report:
-    if i not in report_counts:
-        report_counts[i] = 0
     report_counts[i] += 1
 
 AOCUtils.print_answer(1, two_sum(report_counts, target))

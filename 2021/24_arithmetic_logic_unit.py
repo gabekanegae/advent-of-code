@@ -40,7 +40,7 @@ instructions = AOCUtils.load_input(24)
 # keep only these, as assumptions can be made about the rest of the input
 relevant_values = []
 for block in ' '.join(instructions).split('inp w')[1:]:
-    block = block.strip().split()
+    block = block.split()
 
     values = [block[11], block[14], block[44]]
     relevant_values.append(list(map(int, values)))

@@ -7,8 +7,8 @@ import AOCUtils
 #####################################
 
 raw_layout = AOCUtils.load_input(24)
+layout = list(map(list, raw_layout))
 
-layout = [list(s) for s in raw_layout]
 size = (len(layout), len(layout[0]))
 
 seen = set()
@@ -101,7 +101,6 @@ for i in range(iterations):
 
     layout = new_layout
 
-# Count bugs
 bugs_count = sum(v == '#' for v in layout.values())
 AOCUtils.print_answer(2, bugs_count)
 

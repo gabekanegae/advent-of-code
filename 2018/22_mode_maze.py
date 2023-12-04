@@ -17,13 +17,13 @@ class Cave:
         self.target = target
         self.size = size
 
-        self.geoIndex = [[None for _ in range(self.size[1])] for _ in range(self.size[0])]
+        self.geo_index = [[None for _ in range(self.size[1])] for _ in range(self.size[0])]
         for y in range(self.size[0]):
             for x in range(self.size[1]):
-                self.geoIndex[y][x] = self._get_geo_index((x, y))
+                self.geo_index[y][x] = self._get_geo_index((x, y))
 
     def _get_erosion(self, pos):
-        return (self.geoIndex[pos[1]][pos[0]] + self.depth) % 20183
+        return (self.geo_index[pos[1]][pos[0]] + self.depth) % 20183
 
     def _get_geo_index(self, pos):
         if pos == (0, 0) or pos == (self.target[1], self.target[0]):
@@ -85,8 +85,9 @@ class Cave:
 #############################
 
 scan = AOCUtils.load_input(22)
+
 depth = int(scan[0].split()[1])
-target = ([int(i) for i in scan[1].split()[1].split(',')])
+target = tuple(map(int, scan[1].split()[1].split(',')))
 
 cave = Cave(depth, target, (target[0]+BORDER, target[1]+BORDER))
 

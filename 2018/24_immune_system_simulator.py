@@ -118,7 +118,8 @@ class Group:
 
 ################################################
 
-reindeer_condition = [s for s in AOCUtils.load_input(24) if s]
+raw_reindeer_condition = AOCUtils.load_input(24)
+reindeer_condition = list(filter(lambda s: s, raw_reindeer_condition))
 
 immune_start, infection_start = 0, reindeer_condition.index('Infection:')
 raw_immune = reindeer_condition[immune_start+1:infection_start]
@@ -137,7 +138,7 @@ while boost_lo != boost_hi:
     else:
         boost_hi = boost
 
-immune_army_units, infection_army_units = battle(raw_immune, raw_infection, boost)
+immune_army_units, _ = battle(raw_immune, raw_infection, boost)
 AOCUtils.print_answer(2, immune_army_units)
 
 AOCUtils.print_time_taken()

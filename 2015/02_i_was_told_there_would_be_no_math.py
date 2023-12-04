@@ -7,7 +7,6 @@ import AOCUtils
 ####################################################
 
 presents = AOCUtils.load_input(2)
-
 presents = [tuple(map(int, present.split('x'))) for present in presents]
 
 total_paper = 0

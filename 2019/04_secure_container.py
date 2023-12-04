@@ -6,7 +6,8 @@ import AOCUtils
 
 ###################################
 
-password_range = [int(i) for i in AOCUtils.load_input(4).split('-')]
+raw_password_ranges = AOCUtils.load_input(4)
+password_range = list(map(int, raw_password_ranges.split('-')))
 
 passwords_1 = set()
 for pw in range(password_range[0], password_range[1]+1):

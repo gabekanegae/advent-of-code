@@ -69,7 +69,8 @@ class Image:
 
 ###############################
 
-raw_rules = [s.split(' => ') for s in AOCUtils.load_input(21)]
+raw_rules = AOCUtils.load_input(21)
+raw_rules = [s.split(' => ') for s in raw_rules]
 rules = {a: b for a, b in raw_rules}
 
 start = '.#./..#/###'

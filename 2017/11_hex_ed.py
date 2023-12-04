@@ -26,6 +26,7 @@ for p in path:
     steps.append((x+dx, y+dy))
 
 AOCUtils.print_answer(1, distance_to_origin(steps[-1]))
-AOCUtils.print_answer(2, max(distance_to_origin(step) for step in steps))
+
+AOCUtils.print_answer(2, max(map(distance_to_origin, steps)))
 
 AOCUtils.print_time_taken()

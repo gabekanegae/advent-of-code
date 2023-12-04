@@ -6,7 +6,9 @@ import AOCUtils
 
 #################################
 
-regexp = AOCUtils.load_input(20)[1:-1]
+raw_regexp = AOCUtils.load_input(20)
+regexp = raw_regexp[1:-1]
+
 max_bound = len(regexp)
 
 stack = []
@@ -33,7 +35,6 @@ for c in regexp:
 
 AOCUtils.print_answer(1, max(room_distances.values()))
 
-far_rooms = sum(dist >= 1000 for dist in room_distances.values())
-AOCUtils.print_answer(2, far_rooms)
+AOCUtils.print_answer(2, sum(dist >= 1000 for dist in room_distances.values()))
 
 AOCUtils.print_time_taken()

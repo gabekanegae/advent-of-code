@@ -65,7 +65,6 @@ def get_group(stream, p=0, level=1):
 ####################################
 
 stream = AOCUtils.load_input(9)
-
 _, score, removed = get_group(stream)
 
 AOCUtils.print_answer(1, score)

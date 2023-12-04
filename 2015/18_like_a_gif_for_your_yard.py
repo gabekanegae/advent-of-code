@@ -49,7 +49,8 @@ def step(grid, part=1):
 
 ############################################
 
-start_grid = [list(s) for s in AOCUtils.load_input(18)]
+raw_start_grid = AOCUtils.load_input(18)
+start_grid = list(map(list, raw_start_grid))
 
 grid = [row[:] for row in start_grid]
 for _ in range(100):

@@ -11,20 +11,20 @@ def get_min_max(a):
         if e > max_value: max_value = e
     return  min_value, max_value
 
-def bounding_box(px, py):
+def get_bounding_box(px, py):
     min_px, max_px = get_min_max(px)
     min_py, max_py = get_min_max(py)
     return (max_px - min_px) + (max_py - min_py)
 
 ###################################
 
-rawStars = AOCUtils.load_input(10)
+raw_stars = AOCUtils.load_input(10)
 
-starsAmt = len(rawStars)
+stars_amount = len(raw_stars)
 px, py, vx, vy = [], [], [], []
-for star in rawStars:
-    px_i, py_i = [int(x) for x in star.split('<')[1].split('>')[0].split(',')]
-    vx_i, vy_i = [int(x) for x in star.split('<')[2].split('>')[0].split(',')]
+for star in raw_stars:
+    px_i, py_i = map(int, star.split('<')[1].split('>')[0].split(','))
+    vx_i, vy_i = map(int, star.split('<')[2].split('>')[0].split(','))
     px.append(px_i)
     py.append(py_i)
     vx.append(vx_i)
@@ -32,14 +32,14 @@ for star in rawStars:
 
 time = 0
 while True:
-    bBox = bounding_box(px, py)
+    bounding_box = get_bounding_box(px, py)
 
-    for i in range(starsAmt):
+    for i in range(stars_amount):
         px[i] += vx[i]
         py[i] += vy[i]
 
-    if bounding_box(px, py) > bBox:
-        for i in range(starsAmt):
+    if get_bounding_box(px, py) > bounding_box:
+        for i in range(stars_amount):
             px[i] -= vx[i]
             py[i] -= vy[i]
         break

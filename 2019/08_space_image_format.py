@@ -6,8 +6,9 @@ import AOCUtils
 
 #####################################
 
+raw_image = AOCUtils.load_input(8)
+image = list(map(int, str(raw_image)))
 w, h = 25, 6
-image = [int(i) for i in str(AOCUtils.load_input(8))]
 
 layer_amount = len(image) // (w*h)
 

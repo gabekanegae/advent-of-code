@@ -3,7 +3,6 @@
 ###################################
 
 import AOCUtils
-
 from functools import cmp_to_key
 
 def cmp(a, b):
@@ -27,7 +26,8 @@ def cmp(a, b):
 
 ###################################
 
-packets = list(eval(l) for l in AOCUtils.load_input(13) if l.startswith('['))
+raw_packets = AOCUtils.load_input(13)
+packets = list(map(eval, filter(lambda l: l.startswith('['), raw_packets)))
 
 packet_pairs = [(packets[i], packets[i+1]) for i in range(0, len(packets), 2)]
 

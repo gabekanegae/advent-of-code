@@ -1,3 +1,4 @@
+
 ################################
 # --- Day 13: Care Package --- #
 ################################
@@ -23,7 +24,7 @@ def draw_screen(blocks):
 ################################
 
 raw_program = AOCUtils.load_input(13)
-memory = [int(i) for i in raw_program.split(',')]
+memory = list(map(int, raw_program.split(',')))
 
 vm = VM(memory)
 vm.run()

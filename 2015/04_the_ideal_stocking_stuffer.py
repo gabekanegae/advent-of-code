@@ -8,6 +8,7 @@ import hashlib
 #############################################
 
 key = AOCUtils.load_input(4)
+
 base_digest = hashlib.md5(key.encode())
 
 i = 1

@@ -56,7 +56,8 @@ class Node:
 
 ######################################
 
-orbits = [s.split(')') for s in AOCUtils.load_input(6)]
+raw_orbits = AOCUtils.load_input(6)
+orbits = [s.split(')') for s in raw_orbits]
 
 children = dict()
 for orb in orbits:

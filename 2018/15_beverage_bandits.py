@@ -156,9 +156,9 @@ class Board:
 
 ####################################
 
-raw_board = [list(s) for s in AOCUtils.load_input(15)]
+raw_board = AOCUtils.load_input(15)
+board = Board(list(map(list, raw_board)))
 
-board = Board(raw_board)
 outcome, elves_dead_total, _ = board.battle()
 
 AOCUtils.print_answer(1, outcome)

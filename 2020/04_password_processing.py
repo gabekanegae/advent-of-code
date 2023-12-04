@@ -32,7 +32,6 @@ def is_valid_2(passport):
 ######################################
 
 raw = AOCUtils.load_input(4)
-
 for i in range(len(raw)):
     if raw[i] == '': raw[i] = '\n'
 raw_passports = ' '.join(raw).split(' \n ')
@@ -46,10 +45,10 @@ for raw_passport in raw_passports:
 
     passports.append(passport)
 
-p1 = sum(is_valid_1(passport) for passport in passports)
+p1 = sum(map(is_valid_1, passports))
 AOCUtils.print_answer(1, p1)
 
-p2 = sum(is_valid_2(passport) for passport in passports)
+p2 = sum(map(is_valid_2, passports))
 AOCUtils.print_answer(2, p2)
 
 AOCUtils.print_time_taken()

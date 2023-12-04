@@ -22,8 +22,7 @@ def in_group(n):
 ###################################
 
 raw_graph = [s.split() for s in AOCUtils.load_input(12)]
-
-graph = {int(s[0]): [int(i) for i in ''.join(s[2:]).split(',')] for s in raw_graph}
+graph = {int(s[0]): list(map(int, ''.join(s[2:]).split(','))) for s in raw_graph}
 
 AOCUtils.print_answer(1, len(in_group(0)))
 

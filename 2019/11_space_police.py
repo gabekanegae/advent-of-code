@@ -32,7 +32,7 @@ def painting_robot(memory, start):
 ################################
 
 raw_program = AOCUtils.load_input(11)
-memory = [int(i) for i in raw_program.split(',')]
+memory = list(map(int, raw_program.split(',')))
 
 painted = painting_robot(memory, 0)
 AOCUtils.print_answer(1, len(painted))

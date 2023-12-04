@@ -2,9 +2,9 @@
 # --- Day 2: Cube Conundrum --- #
 #################################
 
-from collections import defaultdict
-import math
 import AOCUtils
+import math
+from collections import defaultdict
 
 #################################
 
@@ -35,7 +35,7 @@ for raw_game in raw_games:
         raw_cubes = raw_cube_set.split(',')
         cube_set = defaultdict(int)
         for raw_cube in raw_cubes:
-            amount, cube = raw_cube.strip().split()
+            amount, cube = raw_cube.split()
             cube_set[cube] = int(amount)
         cube_sets.append(cube_set)
     games[index] = cube_sets

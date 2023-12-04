@@ -31,7 +31,6 @@ for inst in instructions:
         for i in range(h):
             screen[i][y] = col[(i-d)%h]
 
-
 AOCUtils.print_answer(1, sum(screen[x].count('#') for x in range(h)))
 
 screen_lines = []

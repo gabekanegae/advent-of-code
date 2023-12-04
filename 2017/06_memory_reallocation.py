@@ -29,6 +29,7 @@ while True:
     seen[new] = len(seen)
 
 AOCUtils.print_answer(1, len(seen))
+
 AOCUtils.print_answer(2, len(seen) - seen[new])
 
 AOCUtils.print_time_taken()

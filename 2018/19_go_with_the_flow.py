@@ -6,14 +6,14 @@ import AOCUtils
 
 ####################################
 
-program = AOCUtils.load_input(19)
-pc, program = int(program[0].split()[1]), program[1:]
+raw_program = AOCUtils.load_input(19)
+pc, program = int(raw_program[0].split()[1]), raw_program[1:]
 
 registers = [0 for _ in range(6)]
 while registers[pc] < len(program):
     instr = program[registers[pc]].split()
     op = instr[0]
-    a, b, c = [int(i) for i in instr[1:]]
+    a, b, c = map(int, instr[1:])
     
     if op == 'addr':
         registers[c] = registers[a] + registers[b]
@@ -52,7 +52,7 @@ while registers[pc] < len(program):
 
 AOCUtils.print_answer(1, registers[0])
 
-args = [[int(i) for i in instr.split()[1:]] for instr in program]
+args = [list(map(int, instr.split()[1:])) for instr in program]
 
 x = (args[17][1] * args[17][1] * 19 * args[20][1]) + (args[21][1] * 22 + args[23][1])
 y = (27 * 28 + 29) * 30 * args[31][1] * 32

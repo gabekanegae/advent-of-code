@@ -13,7 +13,7 @@ def light_grid(instructions, funcs):
             for b in range(s[1], e[1]+1):
                 grid[a][b] = f(grid[a][b])
     
-    return sum(sum(row) for row in grid)
+    return sum(map(sum, grid))
 
 #########################################
 
@@ -30,15 +30,13 @@ for inst in raw_instructions:
 
 funcs_1 = {'on': lambda x: 1,
           'off': lambda x: 0,
-          'toggle': lambda x: int(not x)
-          }
+          'toggle': lambda x: int(not x)}
 
 AOCUtils.print_answer(1, light_grid(instructions, funcs_1))
 
 funcs_2 = {'on': lambda x: x + 1,
           'off': lambda x: max(0, x - 1),
-          'toggle': lambda x: x + 2
-          }
+          'toggle': lambda x: x + 2}
 
 AOCUtils.print_answer(2, light_grid(instructions, funcs_2))
 

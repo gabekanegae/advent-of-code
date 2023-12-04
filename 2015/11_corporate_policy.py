@@ -36,7 +36,6 @@ def password_generator(pw):
 ####################################
 
 password = AOCUtils.load_input(11)
-
 passwords = password_generator(password)
 
 AOCUtils.print_answer(1, next(passwords))

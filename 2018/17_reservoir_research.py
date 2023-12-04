@@ -79,11 +79,11 @@ for s in scan:
     y = s[1].split('=')[1]
     if s[0][0] == 'y': x, y = y, x # If first coordinates are y, swap
 
-    x0, x1 = ([int(i) for i in x.split('..')]) if '..' in x else (int(x), int(x))
+    x0, x1 = tuple(map(int, x.split('..'))) if '..' in x else (int(x), int(x))
     if not min_x or x0 < min_x: min_x = x0
     if not max_x or x1 > max_x: max_x = x1
 
-    y0, y1 = ([int(i) for i in y.split('..')]) if '..' in y else (int(y), int(y))
+    y0, y1 = tuple(map(int, y.split('..'))) if '..' in y else (int(y), int(y))
     if not min_y or y0 < min_y: min_y = y0
     if not max_y or y1 > max_y: max_y = y1
 

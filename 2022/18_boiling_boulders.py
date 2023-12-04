@@ -5,7 +5,9 @@
 import AOCUtils
 from collections import deque
 
-deltas = [(0,0,-1), (0,0,1), (0,-1,0), (0,1,0), (-1,0,0), (1,0,0)]
+deltas = [( 0, 0,-1), ( 0, 0, 1),
+          ( 0,-1, 0), ( 0, 1, 0),
+          (-1, 0, 0), ( 1, 0, 0)]
 
 def get_exposed_faces_count(cubes):
     exposed_faces_count = 0
@@ -20,7 +22,6 @@ def get_exposed_faces_count(cubes):
 ####################################
 
 lava_cubes = AOCUtils.load_input(18)
-
 lava_cubes = set(tuple(map(int, cube.split(','))) for cube in lava_cubes)
 
 AOCUtils.print_answer(1, get_exposed_faces_count(lava_cubes))

@@ -6,19 +6,20 @@ import AOCUtils
 
 ##########################################
 
-samples_and_program = [s for s in AOCUtils.load_input(16) if s]
+raw_data = AOCUtils.load_input(16)
+data = [s for s in raw_data if s]
 
 split = 0
-while samples_and_program[split+2].startswith('After:'): split += 3
+while data[split+2].startswith('After:'):
+    split += 3
 
-program = [[int(i) for i in s.split()] for s in samples_and_program[split:]]
+program = [list(map(int, s.split())) for s in data[split:]]
 
 samples = []
 for x in range(0, split, 3):
-    b, i, a = samples_and_program[x].split(': ')[1], samples_and_program[x+1], samples_and_program[x+2].split(':  ')[1]
-    b = [int(s) for s in str(b[1:-1]).split(', ')]
-    i = [int(s) for s in i.split()]
-    a = [int(s) for s in str(a[1:-1]).split(', ')]
+    b = list(map(int, str(data[x].split(': ')[1][1:-1]).split(', ')))
+    i = list(map(int, data[x+1].split()))
+    a = list(map(int, str(data[x+2].split(':  ')[1][1:-1]).split(', ')))
     
     samples.append((b, i, a))
 

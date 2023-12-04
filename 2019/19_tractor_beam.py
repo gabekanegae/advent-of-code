@@ -15,7 +15,7 @@ def check(memory, x, y):
 ################################
 
 raw_program = AOCUtils.load_input(19)
-memory = [int(i) for i in raw_program.split(',')]
+memory = list(map(int, raw_program.split(',')))
 
 total = 0
 x_0 = 0

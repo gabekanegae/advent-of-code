@@ -6,7 +6,8 @@ import AOCUtils
 
 #######################################
 
-code = [s.strip()[:-1] if s else '' for s in AOCUtils.load_input(25)]
+raw_code = AOCUtils.load_input(25)
+code = [s.strip()[:-1] if s else '' for s in raw_code]
 
 start_state = code[0][-1]
 steps = int(code[1].split()[-2])
@@ -42,7 +43,6 @@ for step in range(steps):
     cur_pos += action['move']
     cur_state = action['nxt']
 
-checksum = sum(tape.values())
-AOCUtils.print_answer(1, checksum)
+AOCUtils.print_answer(1, sum(tape.values()))
 
 AOCUtils.print_time_taken()

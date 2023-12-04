@@ -15,13 +15,13 @@ edge_count = 0
 seen = {(0, 0): 1}
 
 while not (p1 and p2):
-    loopStart = True
+    loop_start = True
 
     for _ in range((edge_count//4 + 1) * 2):
         if edge_count % 4 == 0:
-            if loopStart: # >
+            if loop_start: # >
                 x += 1
-                loopStart = False
+                loop_start = False
             else:
                 y -= 1 # ^
         elif edge_count % 4 == 1: # <
@@ -46,6 +46,7 @@ while not (p1 and p2):
     edge_count += 1
 
 AOCUtils.print_answer(1, p1)
+
 AOCUtils.print_answer(2, p2)
 
 AOCUtils.print_time_taken()

@@ -26,7 +26,8 @@ import AOCUtils
 
 ###################################
 
-raw_scanners = [s.split(':') for s in AOCUtils.load_input(13)]
+raw_scanners = AOCUtils.load_input(13)
+raw_scanners = [s.split(':') for s in raw_scanners]
 
 # AOCUtils.print_answer(1, sum(cross_firewall(raw_scanners)))
 

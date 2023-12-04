@@ -11,18 +11,20 @@ class Program:
         self.holding = ''.join(program[3:]).split(',') if len(program) > 2 else []
 
 def topo_sort(programs):
-    reverseOrder = []
+    reverse_order = []
     done = set()
 
     def dfs(node):
         if node in done: return
         done.add(node)
 
-        for a in programs[node].holding: dfs(a)
-        reverseOrder.append(node)
+        for a in programs[node].holding:
+            dfs(a)
+        reverse_order.append(node)
 
-    for p in programs: dfs(p)
-    return reverseOrder[::-1]
+    for p in programs:
+        dfs(p)
+    return reverse_order[::-1]
 
 def fix_balance(programs, root):
     total_weight = dict() # Memoization dict
@@ -45,13 +47,13 @@ def fix_balance(programs, root):
             for name, w in zip(programs[p].holding, holding_weights):
                 if holding_weights.count(w) == 1: # Unique weight
                     original_weight = w
-                    originalName = name
+                    original_name = name
                 else: # Other weights
                     goal_weight = w
 
             # Final answer, escalate to parent calls
             delta_weight = goal_weight - original_weight
-            new_weight = programs[originalName].w + delta_weight
+            new_weight = programs[original_name].w + delta_weight
             return (new_weight, None)
 
         # Memoize result and return
@@ -62,12 +64,15 @@ def fix_balance(programs, root):
 
 ###################################
 
+raw_programs = AOCUtils.load_input(7)
+
 programs = {}
-for p in AOCUtils.load_input(7):
+for p in raw_programs:
     p = p.split()
     programs[p[0]] = Program(p)
 
 root = topo_sort(programs)[0]
+
 AOCUtils.print_answer(1, root)
 
 AOCUtils.print_answer(2, fix_balance(programs, root))

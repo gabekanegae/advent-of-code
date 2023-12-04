@@ -4,12 +4,14 @@
 
 import AOCUtils
 
-moves_8 = [(0, 1), (1, 0), (0, -1), (-1, 0),
-          (1, 1), (1, -1), (-1, 1), (-1, -1)]
+moves_8 = {(-1, -1), (-1, 0), (-1, 1),
+           ( 0, -1),          ( 0, 1),
+           ( 1, -1), ( 1, 0), ( 1, 1)}
 
 ##################################
 
-original_seats = [list(l) for l in AOCUtils.load_input(11)]
+raw_seats = AOCUtils.load_input(11)
+original_seats = list(map(list, raw_seats))
 
 seats = [l[:] for l in original_seats]
 h, w = len(seats), len(seats[0])

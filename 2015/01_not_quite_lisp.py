@@ -7,7 +7,6 @@ import AOCUtils
 #################################
 
 directions = AOCUtils.load_input(1)
-
 directions = [1 if c == '(' else -1 for c in directions]
 
 AOCUtils.print_answer(1, sum(directions))

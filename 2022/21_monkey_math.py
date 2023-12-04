@@ -84,7 +84,8 @@ def predict_human_val(root, op, result):
 
 ###############################
 
-raw_monkeys = dict(m.split(': ') for m in AOCUtils.load_input(21))
+raw_monkeys = AOCUtils.load_input(21)
+raw_monkeys = dict(m.split(': ') for m in raw_monkeys)
 
 root = Monkey(raw_monkeys, 'root')
 

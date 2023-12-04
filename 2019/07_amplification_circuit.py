@@ -9,7 +9,7 @@ from itertools import permutations
 ########################################
 
 raw_program = AOCUtils.load_input(7)
-memory = [int(i) for i in raw_program.split(',')]
+memory = list(map(int, raw_program.split(',')))
 
 thruster_signals = dict()
 for phase in permutations([0, 1, 2, 3, 4]):

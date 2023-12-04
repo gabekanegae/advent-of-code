@@ -5,8 +5,6 @@
 import AOCUtils
 
 def get_safe_tiles(cur, n):
-    cur = list(cur)
-
     safe_tiles = 0
     for _ in range(n):
         safe_tiles += cur.count('.')
@@ -24,7 +22,8 @@ def get_safe_tiles(cur, n):
 
 ################################
 
-cur = AOCUtils.load_input(18)
+raw_map = AOCUtils.load_input(18)
+cur = list(raw_map)
 
 AOCUtils.print_answer(1, get_safe_tiles(cur, 40))
 

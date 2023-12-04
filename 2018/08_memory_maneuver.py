@@ -37,8 +37,8 @@ def generate_tree(data):
 
 ##################################
 
-rawData = AOCUtils.load_input(8)
-tree, _ = generate_tree(rawData)
+raw_data = AOCUtils.load_input(8)
+tree, _ = generate_tree(raw_data)
 
 total = 0
 

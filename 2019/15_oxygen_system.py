@@ -64,7 +64,7 @@ def time_to_fill(maze, oxygen, moves):
 #################################
 
 raw_program = AOCUtils.load_input(15)
-memory = [int(i) for i in raw_program.split(',')]
+memory = list(map(int, raw_program.split(',')))
 
 start = (0, 0)
 moves = [(0, -1), (0, 1), (-1, 0), (1, 0)]

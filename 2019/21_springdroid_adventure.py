@@ -14,7 +14,7 @@ def run_spring_script(memory, script):
 #########################################
 
 raw_program = AOCUtils.load_input(21)
-memory = [int(i) for i in raw_program.split(',')]
+memory = list(map(int, raw_program.split(',')))
 
 # Jump if     (has to jump)    and  (can jump)
 # Jump if ((hole in A, B or C) and (floor in D))

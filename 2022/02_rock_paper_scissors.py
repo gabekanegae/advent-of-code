@@ -44,7 +44,8 @@ def evaluate(them, me):
 
 ######################################
 
-strategy_guide = [[get_shape[i] for i in l.split()] for l in AOCUtils.load_input(2)]
+raw_strategy_guide = AOCUtils.load_input(2)
+strategy_guide = [[get_shape[i] for i in l.split()] for l in raw_strategy_guide]
 
 total_score = sum(evaluate(them, me) for them, me in strategy_guide)
 AOCUtils.print_answer(1, total_score)

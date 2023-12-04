@@ -115,8 +115,8 @@ class Maze:
 
 ###########################
 
-raw_maze = [list(s) for s in AOCUtils.load_input(20)]
-maze = Maze(raw_maze)
+raw_maze = AOCUtils.load_input(20)
+maze = Maze(list(map(list, raw_maze)))
 
 AOCUtils.print_answer(1, maze.get_min_distance())
 

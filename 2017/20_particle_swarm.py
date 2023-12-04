@@ -22,7 +22,6 @@ class Particle:
 ##################################
 
 raw_particles = AOCUtils.load_input(20)
-
 particles = [Particle(i, p) for i, p in enumerate(raw_particles)]
 
 for _ in range(1000):

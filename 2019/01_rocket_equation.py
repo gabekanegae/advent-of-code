@@ -11,7 +11,7 @@ def required_fuel(m):
 
 masses = AOCUtils.load_input(1)
 
-fuel_sum = sum(required_fuel(m) for m in masses)
+fuel_sum = sum(map(required_fuel, masses))
 AOCUtils.print_answer(1, fuel_sum)
 
 fuel_sum = 0

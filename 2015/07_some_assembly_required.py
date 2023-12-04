@@ -47,12 +47,10 @@ for cmd in raw_commands:
 
 wires = dict()
 p1 = get_wire(commands, wires, 'a')
-
 AOCUtils.print_answer(1, p1)
 
 wires = {'b': p1}
 p2 = get_wire(commands, wires, 'a')
-
 AOCUtils.print_answer(2, p2)
 
 AOCUtils.print_time_taken()

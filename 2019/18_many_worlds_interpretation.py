@@ -106,7 +106,8 @@ class Tunnels:
 
 ##############################################
 
-raw_tunnels = [list(s) for s in AOCUtils.load_input(18)]
+raw_tunnels = AOCUtils.load_input(18)
+raw_tunnels = list(map(list, raw_tunnels))
 
 tunnels = Tunnels(raw_tunnels)
 AOCUtils.print_answer(1, tunnels.distance_to_all_keys())

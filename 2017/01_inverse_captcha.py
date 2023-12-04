@@ -6,7 +6,8 @@ import AOCUtils
 
 ##################################
 
-digits = str(AOCUtils.load_input(1))
+raw_digits = AOCUtils.load_input(1)
+digits = str(raw_digits)
 
 total_sum = sum(int(digits[i]) for i in range(len(digits)) if digits[i] == digits[i-1])
 AOCUtils.print_answer(1, total_sum)

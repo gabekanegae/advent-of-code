@@ -4,7 +4,7 @@
 
 import AOCUtils
 
-def getMultiplier(pos, i):
+def get_multiplier(pos, i):
     pattern = [0, 1, 0, -1]
     if i < pos:
         return pattern[0]
@@ -14,18 +14,21 @@ def getMultiplier(pos, i):
 
 #################################################
 
-signal = [int(i) for i in str(AOCUtils.load_input(16))]
+raw_signal = AOCUtils.load_input(16)
+raw_signal = str(raw_signal)
+signal = list(map(int, raw_signal))
+
 size = len(signal)
 
 for _ in range(100):
     for i in range(size):
-        new_signal = sum(signal[j] * getMultiplier(i, j) for j in range(size))
+        new_signal = sum(signal[j] * get_multiplier(i, j) for j in range(size))
         signal[i] = abs(new_signal) % 10
 
-first_eight = ''.join(str(i) for i in signal[:8])
+first_eight = ''.join(map(str, signal[:8]))
 AOCUtils.print_answer(1, first_eight)
 
-signal = [int(i) for i in str(AOCUtils.load_input(16))] * 10000
+signal = list(map(int, raw_signal)) * 10000
 offset = int(''.join(str(i) for i in signal[:7]))
 signal = signal[offset:]
 size = len(signal)
@@ -37,7 +40,7 @@ for _ in range(100):
         total = (total + signal[i-1]) % 10
         signal[i-1] = total
 
-message = ''.join(str(i) for i in signal[:8])
+message = ''.join(map(str, signal[:8]))
 AOCUtils.print_answer(2, message)
 
 AOCUtils.print_time_taken()

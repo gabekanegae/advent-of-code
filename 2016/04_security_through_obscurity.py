@@ -42,9 +42,8 @@ class Room:
 
 #############################################
 
-rooms = [Room(s) for s in AOCUtils.load_input(4)]
-
-rooms = [r for r in rooms if r.is_real()]
+raw_rooms = AOCUtils.load_input(4)
+rooms = list(filter(lambda r: r.is_real(), map(Room, raw_rooms)))
 
 real_sum = sum(r.sid for r in rooms)
 AOCUtils.print_answer(1, real_sum)

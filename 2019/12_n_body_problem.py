@@ -19,20 +19,20 @@ class MoonSystem:
 
     def step(self):
         for c in range(3):
-            for mooni in self.moons:
-                for moonj in self.moons:
-                    if mooni is moonj: continue
-                    if mooni.pos[c] > moonj.pos[c]:
-                        mooni.vel[c] -= 1
-                    elif mooni.pos[c] < moonj.pos[c]:
-                        mooni.vel[c] += 1
+            for moon_i in self.moons:
+                for moon_j in self.moons:
+                    if moon_i is moon_j: continue
+                    if moon_i.pos[c] > moon_j.pos[c]:
+                        moon_i.vel[c] -= 1
+                    elif moon_i.pos[c] < moon_j.pos[c]:
+                        moon_i.vel[c] += 1
 
-            for mooni in self.moons:
-                mooni.pos[c] += mooni.vel[c]
+            for moon_i in self.moons:
+                moon_i.pos[c] += moon_i.vel[c]
 
     def get_total_energy(self):
-        pot = [sum(abs(x) for x in moon.pos) for moon in self.moons]
-        kin = [sum(abs(x) for x in moon.vel) for moon in self.moons]
+        pot = [sum(map(abs, moon.pos)) for moon in self.moons]
+        kin = [sum(map(abs, moon.vel)) for moon in self.moons]
         return sum(p*k for p, k in zip(pot, kin))
 
     def get_state(self, c):

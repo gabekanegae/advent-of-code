@@ -17,7 +17,7 @@ class Box:
     def __init__(self, low, high):
         self.low, self.high = low, high
 
-    def isInRangeOf(self, bot):
+    def is_in_range_of(self, bot):
         dist = 0
         for box_low, b, box_high in zip(self.low, bot.pos, self.high):
             box_high -= 1
@@ -26,20 +26,21 @@ class Box:
         return dist // 2 <= bot.r
 
     def bots_in_range(self, bots):
-        return sum(self.isInRangeOf(b) for b in bots)
+        return sum(map(self.is_in_range_of, bots))
     
     def origin_distance(self):
-        return sum(abs(c) for c in self.low)
+        return sum(map(abs, self.low))
 
     def __lt__(self, other):
         return (self.low, self.high) < (other.low, other.high)
 
 ########################################################
 
-rawInput = [s[5:].split('>, r=') for s in AOCUtils.load_input(23)]
+raw_data = AOCUtils.load_input(23)
+raw_data = [s[5:].split('>, r=') for s in raw_data]
 
-positions = [([int(i) for i in s[0].split(',')]) for s in rawInput]
-radii = [int(i[1]) for i in rawInput]
+positions = [tuple(map(int, s[0].split(','))) for s in raw_data]
+radii = [int(i[1]) for i in raw_data]
 
 bots = [Bot(p, r) for p, r in zip(positions, radii)]
 

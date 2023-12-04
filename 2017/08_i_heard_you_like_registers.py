@@ -27,7 +27,8 @@ class Instruction:
 
 #############################################
 
-instructions = [Instruction(inst) for inst in AOCUtils.load_input(8)]
+raw_instructions = AOCUtils.load_input(8)
+instructions = list(map(Instruction, raw_instructions))
 
 registers = dict()
 

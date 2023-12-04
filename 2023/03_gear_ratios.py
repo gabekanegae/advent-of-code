@@ -2,12 +2,12 @@
 # --- Day 3: Gear Ratios --- #
 ##############################
 
-from collections import defaultdict
 import AOCUtils
+from collections import defaultdict
 
-mov_8 = {(-1, -1), (-1, 0), (-1, 1),
-         ( 0, -1),          ( 0, 1),
-         ( 1, -1), ( 1, 0), ( 1, 1)}
+moves_8 = {(-1, -1), (-1, 0), (-1, 1),
+           ( 0, -1),          ( 0, 1),
+           ( 1, -1), ( 1, 0), ( 1, 1)}
 
 ##############################
 
@@ -32,7 +32,7 @@ part_numbers = set()
 for (row, i, j), number in numbers:
     is_part_number = False
     for col in range(i, j):
-        for (dr, dc) in mov_8:
+        for (dr, dc) in moves_8:
             pos = (row+dr, col+dc)
             if 0 <= pos[0] < height and 0 <= pos[1] < width and schematic[pos[0]][pos[1]] in symbols:
                 is_part_number = True

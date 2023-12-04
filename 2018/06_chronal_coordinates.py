@@ -17,7 +17,7 @@ raw_coords = AOCUtils.load_input(6)
 grid_size_x, grid_size_y = 0, 0
 coords = []
 for i in raw_coords:
-    x, y = [int(c) for c in i.split(', ')]
+    x, y = map(int, i.split(', '))
     coords.append((x, y))
 
     if x > grid_size_x: grid_size_x = x

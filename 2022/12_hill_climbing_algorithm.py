@@ -32,7 +32,8 @@ def get_min_dist(grid, start, end):
 
 ###########################################
 
-grid = list(map(list, AOCUtils.load_input(12)))
+raw_grid = AOCUtils.load_input(12)
+grid = list(map(list, raw_grid))
 
 start, end = None, None
 starts = []

@@ -22,11 +22,11 @@ def dance(programs, moves):
 
 #########################################
 
-original_programs = 'abcdefghijklmnop'
 moves = AOCUtils.load_input(16).split(',')
 
-programs = original_programs
-AOCUtils.print_answer(1, dance(programs, moves))
+original_programs = 'abcdefghijklmnop'
+
+AOCUtils.print_answer(1, dance(original_programs, moves))
 
 programs = original_programs
 seen_str = {programs: 0}
@@ -45,6 +45,7 @@ while True:
     i += 1
 
 loop = (1000000000 - loop[0]) % (loop[1] - loop[0])
+
 AOCUtils.print_answer(2, seen_id[loop])
 
 AOCUtils.print_time_taken()

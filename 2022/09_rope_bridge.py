@@ -50,7 +50,8 @@ def simulate(motions, knot_amount):
 
 ##############################
 
-motions = [(l.split()[0], int(l.split()[1])) for l in AOCUtils.load_input(9)]
+raw_motions = AOCUtils.load_input(9)
+motions = [(l.split()[0], int(l.split()[1])) for l in raw_motions]
 
 AOCUtils.print_answer(1, simulate(motions, 2))
 

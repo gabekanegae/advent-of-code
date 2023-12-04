@@ -7,7 +7,7 @@ from intcodeVM import VM
 
 class BotCam:
     def __init__(self, cam):
-        self.cam = [list(line) for line in cam]
+        self.cam = list(map(list, cam))
         self.size = (len(cam), len(cam[0]))
         self.bot_pos, self.bot_facing = None, None
 
@@ -78,7 +78,7 @@ class BotCam:
     #     return s
 
 def format_input(s):
-    return ','.join(str(c) for c in s)
+    return ','.join(map(str, s))
 
 def find_and_replace(l, f, r):
     nl = []
@@ -141,13 +141,14 @@ def compress_path(path):
 ##################################
 
 raw_program = AOCUtils.load_input(17)
-memory = [int(i) for i in raw_program.split(',')]
+memory = list(map(int, raw_program.split(',')))
 
 vm = VM(memory)
 vm.run()
-cam = ''.join(chr(c) for c in vm.output).split()
 
+cam = ''.join(chr(c) for c in vm.output).split()
 botcam = BotCam(cam)
+
 AOCUtils.print_answer(1, botcam.sum_intersections())
 
 path = botcam.get_path()
@@ -157,6 +158,7 @@ video_feed = 'n'
 vm = VM(memory)
 vm[0] = 2
 vm.run('\n'.join([main, a, b, c, video_feed]) + '\n')
+
 AOCUtils.print_answer(2, vm.output[-1])
 
 AOCUtils.print_time_taken()

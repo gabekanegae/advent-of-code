@@ -6,8 +6,8 @@ import AOCUtils
 
 ###############################
 
-console = AOCUtils.load_input(25).split()
-row, col = int(console[-3][:-1]), int(console[-1][:-1])
+console = AOCUtils.load_input(25)
+row, col = int(console.split()[-3][:-1]), int(console.split()[-1][:-1])
 
 start = 20151125
 base = 252533

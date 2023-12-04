@@ -42,6 +42,7 @@ while diagram[cx][cy] != ' ':
     steps += 1
 
 AOCUtils.print_answer(1, ''.join(seen_letters))
+
 AOCUtils.print_answer(2, steps)
 
 AOCUtils.print_time_taken()

@@ -63,7 +63,7 @@ while queue:
     for child in cur.children:
         queue.append(child)
 
-total_size_small_dirs = sum(size for size in dir_sizes if size <= 100000)
+total_size_small_dirs = sum(filter(lambda size: size <= 100000, dir_sizes))
 AOCUtils.print_answer(1, total_size_small_dirs)
 
 total_disk_space = 70000000

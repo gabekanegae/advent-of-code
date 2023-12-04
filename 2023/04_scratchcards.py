@@ -2,8 +2,8 @@
 # --- Day 4: Scratchcards --- #
 ###############################
 
-from collections import defaultdict
 import AOCUtils
+from collections import defaultdict
 
 ###############################
 

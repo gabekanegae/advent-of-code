@@ -30,10 +30,10 @@ def is_nice_2(s):
 
 strings = AOCUtils.load_input(5)
 
-count = sum(is_nice_1(s) for s in strings)
+count = sum(map(is_nice_1, strings))
 AOCUtils.print_answer(1, count)
 
-count = sum(is_nice_2(s) for s in strings)
+count = sum(map(is_nice_2, strings))
 AOCUtils.print_answer(2, count)
 
 AOCUtils.print_time_taken()

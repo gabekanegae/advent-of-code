@@ -2,16 +2,8 @@
 # --- Day 4: Scratchcards --- #
 ###############################
 
+from collections import defaultdict
 import AOCUtils
-
-def get_card_count(card, memo):
-    if card not in memo:
-        children = range(card + 1, card + 1 + scores[card])
-        count = sum(get_card_count(child, memo) for child in children)
-
-        memo[card] = count + 1 # Add self
-
-    return memo[card]
 
 ###############################
 
@@ -29,8 +21,12 @@ total_score = sum(2 ** (score - 1) for score in card_scores if score > 0)
 
 AOCUtils.print_answer(1, total_score)
 
-memo = dict()
+card_amount = defaultdict(int)
+for card, score in enumerate(card_scores):
+    card_amount[card] += 1
+    for child in range(score):
+        card_amount[card+1+child] += card_amount[card]
 
-AOCUtils.print_answer(2, sum(get_card_count(i, memo) for i in range(len(card_scores))))
+AOCUtils.print_answer(2, sum(card_amount.values()))
 
 AOCUtils.print_time_taken()

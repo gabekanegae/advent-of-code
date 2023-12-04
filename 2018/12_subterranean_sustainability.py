@@ -4,43 +4,48 @@
 
 import AOCUtils
 
-MARGIN = 100
-GENAMT = 200
-
-def get_sum_pots(gen):
-    return sum(i-MARGIN for i in range(len(gen)) if gen[i] == '#')
+GENERATIONS = 1000
 
 ###############################################
 
 pots_and_rules = AOCUtils.load_input(12)
 
-initial = pots_and_rules[0].split()[2]
+initial_plants = set(i for i, c in enumerate(pots_and_rules[0].split()[2]) if c == '#')
+
 rules = dict()
-for rule in pots_and_rules[2:]:
-    r = rule.split()
-    rules[r[0]] = r[2]
+for raw_rule in pots_and_rules[2:]:
+    rule = raw_rule.split()
+    rules[rule[0]] = rule[2]
 
 generations = []
-cur = '.'*MARGIN + initial + '.'*MARGIN
-generations.append(cur)
+cur = initial_plants
 
-genLen = len(cur)
-for i in range(GENAMT):
-    nxt = ['.' for _ in range(genLen)]
-    for i in range(2, genLen-2):
-        nxt[i] = rules[cur[i-2:i+3]]
-    generations.append(nxt)
-    cur = ''.join(nxt)
+for i in range(GENERATIONS):
+    generations.append(cur)
+    min_plant, max_plant = min(cur), max(cur)
 
-sum_pots = [get_sum_pots(generations[i]) for i in range(GENAMT)]
+    # print(''.join('#' if i in cur else '.' for i in range(min_plant, max_plant+1)))
 
-AOCUtils.print_answer(1, sum_pots[20])
+    nxt = set()
+    for i in range(min_plant-2, max_plant+2+1):
+        rule = ''.join('#' if i+delta in cur else '.' for delta in range(-2, 2+1))
+        if rules[rule] == '#':
+            nxt.add(i)
 
-delta = sum_pots[1] - sum_pots[0]
-for i in range(2, GENAMT-1):
-    new_delta = sum_pots[i] - sum_pots[i-1]
+    cur = nxt
+
+target = 20
+
+AOCUtils.print_answer(1, sum(generations[target]))
+
+target = 50000000000
+
+# Iterate until it converges, extrapolate from there
+delta = sum(generations[1]) - sum(generations[0])
+for i in range(2, GENERATIONS-1):
+    new_delta = sum(generations[i]) - sum(generations[i-1])
     if delta == new_delta:
-        AOCUtils.print_answer(2, sum_pots[i] + delta*(50000000000-i))
+        AOCUtils.print_answer(2, sum(generations[i]) + delta*(target-i))
         break
     else:
         delta = new_delta

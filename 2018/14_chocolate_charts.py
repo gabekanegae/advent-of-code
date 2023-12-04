@@ -4,29 +4,38 @@
 
 import AOCUtils
 
+class Scores(list):
+    def __init__(self):
+        super().__init__([3, 7])
+        self.elf_1 = 0
+        self.elf_2 = 1
+
+    def __next__(self):
+        total = self[self.elf_1] + self[self.elf_2]
+        self += divmod(total, 10) if total >= 10 else (total,) # Faster than map(int, str(total))
+        self.elf_1 = (self.elf_1 + 1 + self[self.elf_1]) % len(self)
+        self.elf_2 = (self.elf_2 + 1 + self[self.elf_2]) % len(self)
+
 ####################################
 
 recipe_amount = AOCUtils.load_input(14)
 
-recipes = '37'
-elf_1, elf_2 = 0, 1
-while len(recipes) < recipe_amount+10:
-    recipes += str(int(recipes[elf_1]) + int(recipes[elf_2]))
-    elf_1 = (elf_1 + 1 + int(recipes[elf_1])) % len(recipes)
-    elf_2 = (elf_2 + 1 + int(recipes[elf_2])) % len(recipes)
+scores = Scores()
+while len(scores) < recipe_amount + 10:
+    next(scores)
 
-last_10 = ''.join(map(str, recipes[recipe_amount:recipe_amount+10]))
-AOCUtils.print_answer(1, last_10)
+p1 = ''.join(map(str, scores[recipe_amount:recipe_amount+10]))
+AOCUtils.print_answer(1, p1)
 
-sequence = str(recipe_amount)
+digits = list(map(int, str(recipe_amount)))
 
-recipes = '37'
-elf_1, elf_2 = 0, 1
-while sequence not in recipes[-(len(sequence)+1):]:
-    recipes += str(int(recipes[elf_1]) + int(recipes[elf_2]))
-    elf_1 = (elf_1 + 1 + int(recipes[elf_1])) % len(recipes)
-    elf_2 = (elf_2 + 1 + int(recipes[elf_2])) % len(recipes)
+scores = Scores()
+while scores[-len(digits):] != digits and scores[-len(digits)-1:-1] != digits:
+    next(scores)
 
-AOCUtils.print_answer(2, recipes.index(sequence))
+p2 = len(scores) - len(digits)
+if scores[-len(digits):] != digits:
+    p2 -= 1
+AOCUtils.print_answer(2, p2)
 
 AOCUtils.print_time_taken()

@@ -36,6 +36,16 @@ p2 = 1
 for node in nodes:
     if not node.endswith('A'): continue
 
+    # LCM here only works due to the assumption that for each ith **A starting
+    # node it takes N_i steps to reach the first **Z node, and the next
+    # **Z nodes are reached with a constant period of N_i steps.
+    #
+    # When analyzing the input, it can be noted that q = len(instructions)
+    # is prime, and N_i = p * q, p also being prime. As such, the answer can
+    # also be interpreted as (\prod (N_i / q)) * q.
+    #
+    # If this assumption were to be disregarded, a proper CRT implementation
+    # would be required alongside cycle detection logic.
     factor = get_distance(nodes, instructions, node, lambda x: x.endswith('Z'))
     p2 = lcm(p2, factor)
 

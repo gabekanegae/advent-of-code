@@ -39,9 +39,9 @@ for i, bus_id in enumerate(schedule):
     next_arrivals.append((until_next_arrival, bus_interval))
 
 next_arrivals.sort()
-nextArrival = next_arrivals[0]
+next_arrival = next_arrivals[0]
 
-AOCUtils.print_answer(1, nextArrival[0] * nextArrival[1])
+AOCUtils.print_answer(1, next_arrival[0] * next_arrival[1])
 
 # Builds a list of linear congruences as x%mod = remainder
 #   Example with schedule=[67,7,x,59,61]:

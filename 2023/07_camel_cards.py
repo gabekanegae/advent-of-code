@@ -5,40 +5,37 @@
 import AOCUtils
 from collections import Counter
 
-def cards_sort_key_p1(hand, card_ranks, type_ranks):
+def cards_sort_key_p1(hand, card_ranks):
     cards, _ = hand
 
-    type_rank_key = sorted(Counter(cards).values())
+    card_counts = sorted(Counter(cards).values())
 
-    type_rank = type_ranks[tuple(type_rank_key)]
+    type_rank = tuple(sorted(card_counts, reverse=True))
     card_rank = tuple(card_ranks[c] for c in cards)
 
     return (type_rank, card_rank)
 
-def cards_sort_key_p2(hand, card_ranks, type_ranks):
+def cards_sort_key_p2(hand, card_ranks):
     cards, _ = hand
 
     if cards == 'JJJJJ':
-        type_rank_key = [5]
+        card_counts = [5]
     else:
         # Replace J with most common card
-        type_rank_key = sorted(Counter(cards.replace('J', '')).values())
-        type_rank_key[-1] += cards.count('J')
+        card_counts = sorted(Counter(cards.replace('J', '')).values())
+        card_counts[-1] += cards.count('J')
 
-    type_rank = type_ranks[tuple(type_rank_key)]
+    type_rank = tuple(sorted(card_counts, reverse=True))
     card_rank = tuple(card_ranks[c] for c in cards)
 
     return (type_rank, card_rank)
 
-def get_total_winnings(hand, alphabet, cards_sort):
+def get_total_winnings(cards, alphabet, cards_sort):
     card_ranks = dict(zip(reversed(alphabet), range(len(alphabet))))
 
-    types = [(1, 1, 1, 1, 1), (1, 1, 1, 2), (1, 2, 2), (1, 1, 3), (2, 3), (1, 4), (5,)]
-    type_ranks = dict(zip(types, range(len(types))))
-
-    hand.sort(key=lambda x: cards_sort(x, card_ranks, type_ranks))
+    cards.sort(key=lambda x: cards_sort(x, card_ranks))
     
-    return sum((rank + 1) * int(bid) for rank, (_, bid) in enumerate(hand))
+    return sum(rank * int(bid) for rank, (_, bid) in enumerate(cards, start=1))
 
 ##############################
 

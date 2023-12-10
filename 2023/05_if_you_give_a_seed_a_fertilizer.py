@@ -4,13 +4,6 @@
 
 import AOCUtils
 
-def apply_transform_1(seed, transform):
-    for dst, src, length in transform:
-        if src <= seed < src + length:
-            return dst + seed - src
-
-    return seed
-
 # AB is input interval, XY is transformation interval
 # (*) means transformation was applied, (-) means it wasn't
 #       A         B        
@@ -20,7 +13,7 @@ def apply_transform_1(seed, transform):
 #     X |         | Y    (X < A < B < Y) => AB(*)
 #       |         | X Y  (A < B < X < Y) => AB(-)
 # X Y   |         |      (X < Y < A < B) => AB(-)
-def apply_transform_2(intervals, transform):
+def apply_transform(intervals, transform):
     def get_relative_to_interval(x, interval):
         if x <= interval[0]: return -1
         if interval[0] < x < interval[1]: return 0
@@ -65,6 +58,19 @@ def apply_transform_2(intervals, transform):
 
     return new_intervals
 
+def apply_all_transforms(seeds, transforms, part):
+    if part == 1:
+        single_seed_intervals = []
+        for s in seeds:
+            single_seed_intervals += [s, 1]
+        seeds = single_seed_intervals
+
+    intervals = [(seeds[i], seeds[i]+seeds[i+1]) for i in range(0, len(seeds), 2)]
+    for transform in transforms:
+        intervals = apply_transform(intervals, transform)
+
+    return min(a for a, _ in intervals)
+
 ##################################################
 
 raw_data = AOCUtils.load_input(5)
@@ -74,18 +80,18 @@ seeds = list(map(int, raw_data[0].split(':')[1].split()))
 raw_transforms = '\n'.join(raw_data[2:]).split('\n\n')
 transforms = [[tuple(map(int, l.split())) for l in raw_transform.splitlines()[1:]] for raw_transform in raw_transforms]
 
-min_seed = float('INF')
-for seed in seeds:
-    for transform in transforms:
-        seed = apply_transform_1(seed, transform)
-    min_seed = min(min_seed, seed)
+# min_seed = float('INF')
+# for seed in seeds:
+#     for transform in transforms:
+#         for dst, src, length in transform:
+#             if src <= seed < src + length:
+#                 seed = dst + seed - src
+#                 break
+#     min_seed = min(min_seed, seed)
+# AOCUtils.print_answer(1, min_seed)
 
-AOCUtils.print_answer(1, min_seed)
+AOCUtils.print_answer(1, apply_all_transforms(seeds, transforms, part=1))
 
-intervals = [(seeds[i], seeds[i]+seeds[i+1]) for i in range(0, len(seeds), 2)]
-for transform in transforms:
-    intervals = apply_transform_2(intervals, transform)
-
-AOCUtils.print_answer(2, min(a for a, _ in intervals))
+AOCUtils.print_answer(2, apply_all_transforms(seeds, transforms, part=2))
 
 AOCUtils.print_time_taken()

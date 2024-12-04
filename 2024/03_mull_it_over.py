@@ -26,7 +26,7 @@ def parse_corrupted_memory(memory):
 
 ###############################
 
-memory = ''.join(AOCUtils.load_input(3))
+memory = '\n'.join(AOCUtils.load_input(3))
 
 AOCUtils.print_answer(1, parse_corrupted_memory(memory))
 

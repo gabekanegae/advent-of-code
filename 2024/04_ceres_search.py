@@ -31,19 +31,24 @@ def word_search(grid, word, directions):
 
 grid = AOCUtils.load_input(4)
 
+word = 'XMAS'
 dir_8 = [(-1, -1), (-1, 0), (-1, 1),
          ( 0, -1),          ( 0, 1),
          ( 1, -1), ( 1, 0), ( 1, 1)]
 
-AOCUtils.print_answer(1, len(word_search(grid, 'XMAS', dir_8)))
+AOCUtils.print_answer(1, len(word_search(grid, word, dir_8)))
 
+word = 'MAS'
 dir_x = [(-1, -1), (-1, 1),
          ( 1, -1), ( 1, 1)]
 
 total_cross_mas = 0
 seen_centers = set()
-for pos, delta in word_search(grid, 'MAS', dir_x):
-    center = (pos[0]+delta[0], pos[1]+delta[1])
+for pos, delta in word_search(grid, word, dir_x):
+    # Will always be 1 for 'MAS', but let's generalize for any word length :)
+    center_idx = len(word) // 2
+    
+    center = (pos[0]+(delta[0]*center_idx), pos[1]+(delta[1]*center_idx))
 
     if center in seen_centers:
         total_cross_mas += 1

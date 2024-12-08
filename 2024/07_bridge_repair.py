@@ -26,19 +26,24 @@ def get_valid_result(equation, operators):
                 break
 
         if test_result == result:
-            return result
+            return True, result
 
-    return 0
+    return False, 0
 
 ################################
 
 raw_equations = [list(map(int, l.replace(':', '').split())) for l in AOCUtils.load_input(7)]
 equations = {(l[0], tuple(l[1:])) for l in raw_equations}
 
-valid_count_1 = sum(get_valid_result(equation, '+*') for equation in equations)
-AOCUtils.print_answer(1, valid_count_1)
+results_1 = [get_valid_result(equation, '+*') for equation in equations]
+results_sum_1 = sum(result for valid, result in results_1 if valid)
 
-valid_count_2 = sum(get_valid_result(equation, '+*|') for equation in equations)
-AOCUtils.print_answer(2, valid_count_2)
+AOCUtils.print_answer(1, results_sum_1)
+
+leftover_equations = [equation for equation, (valid, _) in zip(equations, results_1) if not valid]
+results_2 = results_1 + [get_valid_result(equation, '+*|') for equation in leftover_equations]
+results_sum_2 = sum(result for valid, result in results_2 if valid)
+
+AOCUtils.print_answer(2, results_sum_2)
 
 AOCUtils.print_time_taken()

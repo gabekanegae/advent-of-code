@@ -4,6 +4,7 @@
 
 import AOCUtils
 from itertools import product
+from math import floor, log
 
 ################################
 
@@ -18,7 +19,7 @@ def get_valid_result(equation, operators):
             elif ops[i] == '*':
                 test_result *= value
             elif ops[i] == '|':
-                test_result = int(str(test_result) + str(value))
+                test_result = test_result * (10 ** (floor(log(value, 10)) + 1)) + value
 
             # Since all operators are strictly increasing (for positive operands),
             # if partial result is larger than expected result, we can break early 

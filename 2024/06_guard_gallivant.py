@@ -6,8 +6,8 @@ import AOCUtils
 
 ##################################
 
-get_rotate_cw_direction = {'^': '>', '>': 'v', 'v': '<', '<': '^'}
 get_delta_direction = {'^': (-1, 0), '>': (0, 1), 'v': (1, 0), '<': (0, -1)}
+directions = list(get_delta_direction.keys())
 
 def simulate(cur, walls):
     seen = set()
@@ -26,7 +26,7 @@ def simulate(cur, walls):
             return seen
 
         if (nxt_x, nxt_y) in walls:
-            nxt_direction = get_rotate_cw_direction[direction]
+            nxt_direction = directions[(directions.index(direction) + 1) % 4]
             cur = (x, y, nxt_direction)
         else:
             cur = (nxt_x, nxt_y, direction)

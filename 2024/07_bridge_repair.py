@@ -3,7 +3,6 @@
 ################################
 
 import AOCUtils
-from collections import deque
 from math import floor, log
 
 ################################
@@ -11,29 +10,27 @@ from math import floor, log
 def get_valid_result(equation, part=1):
     result, values = equation
 
-    queue = deque([(1, values[0])])
-    while queue:
-        idx, partial_result = queue.popleft()
+    partial_results = [values[0]]
+    for value in values[1:]:
+        nxt_partial_results = []
+        for partial_result in partial_results:
+            sum_result = value + partial_result
+            if sum_result <= result:
+                nxt_partial_results.append(sum_result)
 
-        if idx >= len(values):
-            if partial_result == result:
-                return True, result
-            continue
+            mult_result = value * partial_result
+            if mult_result <= result:
+                nxt_partial_results.append(mult_result)
 
-        value = values[idx]
-
-        sum_result = value + partial_result
-        if sum_result <= result:
-            queue.append((idx+1, sum_result))
-
-        mult_result = value * partial_result
-        if mult_result <= result:
-            queue.append((idx+1, mult_result))
-
-        concat_result = partial_result * (10 ** (floor(log(value, 10)) + 1)) + value
-        if part == 2 and concat_result <= result:
-            queue.append((idx+1, concat_result))
+            concat_result = partial_result * (10 ** (floor(log(value, 10)) + 1)) + value
+            if part == 2 and concat_result <= result:
+                nxt_partial_results.append(concat_result)
  
+        partial_results = nxt_partial_results
+ 
+    for test_result in partial_results:
+        if test_result == result:
+            return True, test_result
     return False, 0
 
 ################################

@@ -20,6 +20,11 @@ def get_valid_result(equation, operators):
             elif ops[i] == '|':
                 test_result = int(str(test_result) + str(value))
 
+            # Since all operators are strictly increasing (for positive operands),
+            # if partial result is larger than expected result, we can break early 
+            if test_result > result:
+                break
+
         if test_result == result:
             return result
 
